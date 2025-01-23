@@ -1,0 +1,288 @@
+@model Mail
+@{
+    ViewData["Title"] = "Edit Email";
+}
+<div class="container-fluid py-4">
+    <div class="card">
+        <!-- Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Edit Email</h5>
+            <a href="@Url.Action("Index", "Mails")" class="btn btn-light btn-sm">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+
+  
+        <div class="card-body p-4">
+            <form id="editForm" onsubmit="handleSubmit(event)">
+                <input type="hidden" id="mailId" />
+                
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label fw-bold">Subject</label>
+                            <input id="subject" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <input id="email" class="form-control" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emailCc" class="form-label fw-bold">CC</label>
+                                    <input id="emailCc" class="form-control" data-role="tagsinput" placeholder="Add email and press enter" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emailBcc" class="form-label fw-bold">BCC</label>
+                                    <input id="emailBcc" class="form-control" data-role="tagsinput" placeholder="Add email and press enter" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="location" class="form-label fw-bold">Location</label>
+                                    <input id="location" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="mailType" class="form-label fw-bold">Mail Type</label>
+                                    <select id="mailType" class="form-select">
+                                        <option value="1">Type 1</option>
+                                        <option value="2">Type 2</option>
+                                        <option value="3">Type 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="organizer" class="form-label fw-bold">Organizer</label>
+                            <input id="organizer" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="organizerMail" class="form-label fw-bold">Organizer Mail</label>
+                            <input id="organizerMail" class="form-control" />
+                        </div>
+                        
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold">Email Content</label>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary btn-sm active" data-view="rendered">
+                                        Preview
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-view="raw">
+                                        HTML
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <textarea id="editor" class="form-control mb-3"></textarea>
+
+                            <div class="border rounded">
+                                <div id="previewContent" class="p-3 bg-light">
+                                </div>
+                                <div id="rawContent" class="p-3 bg-light d-none">
+                                    <pre class="mb-0"><code></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                    <a href="@Url.Action("Index", "Mails")" class="btn btn-secondary">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize Summernote
+            $('#editor').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview']]
+                ],
+                callbacks: {
+                    onChange: function(contents) {
+                        updatePreview(contents);
+                    }
+                }
+            });
+
+            // Initialize tags input
+            $('input[data-role="tagsinput"]').tagsinput({
+                trimValue: true,
+                confirmKeys: [13, 44], // Enter and comma keys
+                delimiter: ';',
+            });
+
+            // Toggle preview/raw view
+            $('.btn-group button').click(function() {
+                $('.btn-group button').removeClass('active');
+                $(this).addClass('active');
+                
+                const view = $(this).data('view');
+                if (view === 'rendered') {
+                    $('#previewContent').removeClass('d-none');
+                    $('#rawContent').addClass('d-none');
+                } else {
+                    $('#previewContent').addClass('d-none');
+                    $('#rawContent').removeClass('d-none');
+                }
+            });
+
+            // Load mail data
+            loadMailData();
+        });
+
+        async function loadMailData() {
+            try {
+                const mailId = window.location.pathname.split('/').pop();
+                const token = localStorage.getItem('token');
+
+                if (!token) {
+                    window.location.href = '/Account/Login';
+                    return;
+                }
+
+                const response = await axios.get(`http://localhost:5001/api/Mails/${mailId}`, {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.success) {
+                    const mail = response.data.data;
+                    populateForm(mail);
+                }
+            } catch (error) {
+                console.error('Error loading mail:', error);
+                if (error.response?.status === 403) {
+                    window.location.href = '/Account/AccessDenied';
+                } else if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                }
+            }
+        }
+
+        function populateForm(mail) {
+            $('#mailId').val(mail.id);
+            $('#subject').val(mail.subject);
+            $('#email').val(mail.email);
+            $('#location').val(mail.location);
+            $('#mailType').val(mail.mailType);
+            $('#organizer').val(mail.organizer);
+            $('#organizerMail').val(mail.organizerMail);
+            $('#editor').summernote('code', mail.emailContent);
+
+            // Handle CC and BCC
+            $('#emailCc').tagsinput('removeAll');
+            $('#emailBcc').tagsinput('removeAll');
+
+            if (mail.emailCc) {
+                mail.emailCc.split(';').forEach(email => {
+                    if (email.trim()) $('#emailCc').tagsinput('add', email.trim());
+                });
+            }
+
+            if (mail.emailBcc) {
+                mail.emailBcc.split(';').forEach(email => {
+                    if (email.trim()) $('#emailBcc').tagsinput('add', email.trim());
+                });
+            }
+
+            updatePreview(mail.emailContent);
+        }
+
+        $('form').on('submit', async function(e) {
+            e.preventDefault();
+            
+            const mailId = window.location.pathname.split('/').pop();
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                window.location.href = '/Account/Login';
+                return;
+            }
+
+            const formData = {
+                id: parseInt(mailId),
+                subject: $('#subject').val(),
+                email: $('#email').val(),
+                emailCc: $('#emailCc').val() || '',
+                emailBcc: $('#emailBcc').val() || '',
+                location: $('#location').val(),
+                mailType: parseInt($('#mailType').val()) || 0,
+                organizer: $('#organizer').val(),
+                organizerMail: $('#organizerMail').val(),
+                emailContent: $('#editor').summernote('code'),
+                createTime: new Date().toISOString(),
+                sendStatus: 0,
+                subject: $('#subject').val() || '',
+                email: $('#email').val() || '',
+                location: $('#location').val() || '',
+                organizer: $('#organizer').val() || '',
+                organizerMail: $('#organizerMail').val() || ''
+            };
+
+            try {
+                const response = await axios.put(`http://localhost:5001/api/Mails/${mailId}`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.success) {
+                    alert('Mail updated successfully!');
+                    window.location.href = '/Mails';
+                }
+            } catch (error) {
+                console.error('Error updating mail:', error);
+                if (error.response?.status === 403) {
+                    window.location.href = '/Account/AccessDenied';
+                } else if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                } else {
+                    alert('Error updating mail. Please try again.');
+                }
+            }
+        });
+
+        function updatePreview(content) {
+            $('#previewContent').html(content);
+            $('#rawContent pre code').text(content);
+        }
+    </script>
+}
+

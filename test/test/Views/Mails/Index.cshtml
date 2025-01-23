@@ -1,0 +1,742 @@
+﻿@{
+    ViewData["Title"] = "Mails";
+}
+
+<div class="container-fluid px-4">
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+                <i class="fas fa-filter me-2"></i>Search Filters
+            </h6>
+            <button class="btn btn-sm btn-secondary" onclick="filterHandler.resetFilters()">
+                <i class="fas fa-undo me-1"></i>Reset
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">ID</label>
+                    <select class="form-control select2-dropdown" id="idSearch">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Email</label>
+                    <select class="form-control select2-dropdown" id="emailSearch">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">CC</label>
+                    <select class="form-control select2-dropdown" id="emailCc" multiple>
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">BCC</label>
+                    <select class="form-control select2-dropdown" id="emailBcc" multiple>
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Is Send</label>
+                    <select class="form-control" id="isSend">
+                        <option value="">All</option>
+                        <option value="true">Sent</option>
+                        <option value="false">Not Sent</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Send Status</label>
+                    <input type="text" class="form-control" id="sendStatus" placeholder="Search status...">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Time Type</label>
+                    <select class="form-control" id="timeType">
+                        <option value="">All</option>
+                        <option value="createTime">Create Time</option>
+                        <option value="sendTime">Send Time</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Time Range</label>
+                    <div class="date-range-group">
+                        <input type="datetime-local" id="fromDate" class="form-control">
+                        <span>to</span>
+                        <input type="datetime-local" id="toDate" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card shadow">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="fas fa-table me-2"></i>Mail List
+            </h5>
+            <div class="d-flex gap-2">
+                <button class="btn btn-danger btn-sm" onclick="deleteSelected()">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="exportFile()">
+                    <i class="fas fa-download me-1"></i>Export
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="importFile()">
+                    <i class="fas fa-upload me-1"></i>Import
+                </button>
+                <a href="/Mails/Create" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-1"></i>New Mail
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" class="form-check-input" /></th>
+                            <th>Id</th>
+                            <th>Email</th>
+                            <th>Email Content</th>
+                            <th>File Attach</th>
+                            <th>Create By</th>
+                            <th>Create Time</th>
+                            <th>Is Send</th>
+                            <th>Send Time</th>
+                            <th>Subject</th>
+                            <th>Sent Status</th>
+                            <th>Email CC</th>
+                            <th>Email BCC</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mailsTableBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <!-- Pagination will be populated here -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+
+        $(document).ready(function() {
+            initializeSelect2();
+            loadFiltersFromUrl();
+            // Clear cache when page loads/reloads
+            localStorage.removeItem('filterOptions');
+            filterHandler.loadFilterOptions().then(() => {
+                filterHandler.loadSavedFilters(); // Load saved filters after filter options are loaded
+                loadData();
+            });
+            setupEventListeners();
+        });
+        
+        async function exportFile() {
+            try {
+                const defaultFileName = `Mails_Export_${new Date().toISOString().slice(0, 10)}.xlsx`;
+                
+                // Get current filters from filterHandler
+                const filters = filterHandler.getFilterValues();
+                
+                // Build query parameters
+                const params = new URLSearchParams({
+                    fileName: defaultFileName,
+                    ...filters
+                });
+
+                const response = await axios.get(`${mailApiService.baseUrl}/mail-excel/export?${params}`, {
+                    headers: {
+                        'Authorization': `Bearer ${mailApiService.getToken()}`
+                    },
+                    responseType: 'blob'
+                });
+
+                // Check if the response has the success header
+                const isSuccess = response.headers['x-success'] === 'true';
+                if (!isSuccess) {
+                    throw new Error(response.headers['x-message'] || 'Export failed');
+                }
+
+                const blob = new Blob([response.data], { 
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+                });
+
+                if (window.showSaveFilePicker) {
+                    try {
+                        const handle = await window.showSaveFilePicker({
+                            suggestedName: defaultFileName,
+                            types: [{
+                                description: 'Excel Files',
+                                accept: {
+                                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx']
+                                }
+                            }]
+                        });
+                        const writable = await handle.createWritable();
+                        await writable.write(blob);
+                        await writable.close();
+                    } catch (err) {
+                        if (err.name === 'AbortError') return;
+                        throw err;
+                    }
+                } else {
+                    const url = window.URL.createObjectURL(blob);
+                    const $a = $('<a>', {
+                        href: url,
+                        download: defaultFileName
+                    });
+                    $('body').append($a);
+                    $a[0].click(); // Sử dụng jQuery để click
+                    $a.remove(); // Xóa phần tử sau khi click
+                    window.URL.revokeObjectURL(url);
+                }
+            } catch (error) {
+                console.error('Export error:', error);
+                if (error.name !== 'AbortError') {
+                    alert('Error exporting file: ' + (error.response?.data?.message || error.message));
+                }
+            }
+        }
+
+        async function importFile() {
+            // Tạo input file ẩn bằng jQuery
+            const $fileInput = $('<input>', {
+                type: 'file',
+                accept: '.xlsx'
+            });
+
+            // Gán sự kiện onchange
+            $fileInput.on('change', async function(e) {
+                try {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    // Kiểm tra định dạng file
+                    if (!file.name.toLowerCase().endsWith('.xlsx')) {
+                        alert('Please select an Excel (.xlsx) file');
+                        return;
+                    }
+
+                    // Tạo FormData
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    // Gửi file đến server
+                    const response = await axios.post(
+                        `${mailApiService.baseUrl}/mail-excel/import`,
+                        formData,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${mailApiService.getToken()}`,
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }
+                    );
+
+                    if (response.data.success) {
+                        alert(`Import completed:\n${response.data.message}`);
+                        // Xóa cache và làm mới dữ liệu
+                        localStorage.removeItem('filterOptions');
+                        await filterHandler.loadFilterOptions();
+                        await loadData();
+                    } else {
+                        alert('Import failed: ' + response.data.message);
+                    }
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert('Error importing file: ' + (error.response?.data?.message || error.message));
+                }
+            });
+
+            // Mở hộp thoại chọn file
+            $fileInput.click(); // Đặt ở cuối để đảm bảo mọi thứ đã sẵn sàng
+        }
+
+        function initializeSelect2() {
+            $('#idSearch, #emailSearch').select2({
+                width: '100%',
+                placeholder: 'Select an option',
+                allowClear: true
+            });
+
+            $('#emailCc, #emailBcc').select2({
+                width: '100%',
+                placeholder: 'Select options',
+                allowClear: true,
+                multiple: true
+            });
+        }
+
+        function setupEventListeners() {
+            // Gộp các sự kiện thay đổi bộ lọc
+            $('.select2-dropdown, input:not(.select2-dropdown)').on('change', function() {
+                handleFilterChange(); // Gọi hàm xử lý thay đổi bộ lọc
+            });
+
+            // Handle select all checkbox
+            $('#selectAll').off('change').on('change', function() {
+                const isChecked = $(this).prop('checked');
+                $('.mail-checkbox').prop('checked', isChecked);
+            });
+
+            // Handle individual checkboxes
+            $(document).off('change', '.mail-checkbox').on('change', '.mail-checkbox', function() {
+                updateSelectAllState();
+            });
+        }
+
+        function handleFilterChange() {
+            currentPage = 1;  // Đặt lại về trang đầu tiên
+            loadData();      // Gọi API ngay lập tức
+            updateUrlWithFilters();  // Cập nhật URL với bộ lọc mới
+            filterHandler.saveFilters(); // Lưu bộ lọc vào localStorage
+        }
+
+        function updateSelectAllState() {
+            const totalCheckboxes = $('.mail-checkbox').length;
+            const checkedCheckboxes = $('.mail-checkbox:checked').length;
+            $('#selectAll').prop('checked', totalCheckboxes > 0 && totalCheckboxes === checkedCheckboxes);
+        }
+        
+        const filterHandler = {
+            getFilterValues() {
+                return {
+                    idSearch: $('#idSearch').val(),
+                    emailSearch: $('#emailSearch').val(),
+                    isSend: $('#isSend').val(),
+                    timeType: $('#timeType').val(),
+                    sendStatus: $('#sendStatus').val(),
+                    emailCc: $('#emailCc').val()?.join(';'),
+                    emailBcc: $('#emailBcc').val()?.join(';'),
+                    fromDate: $('#fromDate').val(),
+                    toDate: $('#toDate').val()
+                };
+            },
+            setFilterValues(filters) {
+                if (!filters) return;
+                $('#idSearch').val(filters.idSearch).trigger('change');
+                $('#emailSearch').val(filters.emailSearch).trigger('change');
+                $('#isSend').val(filters.isSend);
+                $('#timeType').val(filters.timeType);
+                $('#sendStatus').val(filters.sendStatus);
+                $('#emailCc').val(filters.emailCc?.split(';')).trigger('change');
+                $('#emailBcc').val(filters.emailBcc?.split(';')).trigger('change');
+                $('#fromDate').val(filters.fromDate);
+                $('#toDate').val(filters.toDate);
+            },
+            saveFilters() {
+                const filters = this.getFilterValues();
+                localStorage.setItem('mailFilters', JSON.stringify(filters));
+            },
+            loadSavedFilters() {
+                const savedFilters = localStorage.getItem('mailFilters');
+                if (savedFilters) {
+                    this.setFilterValues(JSON.parse(savedFilters));
+                }
+            },
+            resetFilters() {
+                $('select').val('').trigger('change.select2');
+                $('input').val('');
+                currentPage = 1;
+                localStorage.removeItem('mailFilters'); // Clear saved filters
+                loadData();
+            }, 
+            async loadFilterOptions() {
+                try {
+                    const options = await mailApiService.getFilterOptions();
+                    if (options) {
+                        populateFilterOptions(options);
+                    }
+                } catch (error) {
+                    console.error('Error loading filter options:', error);
+                }
+            }
+        }
+
+        function updateUrlWithFilters() {
+            const params = new URLSearchParams();
+            
+            if (currentPage > 1) {
+                params.append('page', currentPage);
+            }
+            
+            const filters = filterHandler.getFilterValues();
+
+            // Chỉ thêm các filter có giá trị hợp lệ
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value) {
+                    if (Array.isArray(value)) {
+                        // Xử lý mảng (cho emailCc và emailBcc)
+                        const validValues = value.filter(v => v && v.trim() !== '');
+                        if (validValues.length > 0) {
+                            params.append(key, validValues.join(';'));
+                        }
+                    } else if (typeof value === 'string' && value.trim() !== '') {
+                        // Xử lý chuỗi
+                        params.append(key, value.trim());
+                    } else if (typeof value === 'boolean' || typeof value === 'number') {
+                        // Xử lý boolean và number
+                        params.append(key, value.toString());
+                    }
+                }
+            });
+
+            const queryString = params.toString();
+            const newUrl = queryString 
+                ? `${window.location.pathname}?${queryString}`
+                : window.location.pathname;
+
+            window.history.pushState({}, '', newUrl);
+        }
+
+        function loadFiltersFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            
+            const filters = {
+                idSearch: params.get('idSearch'),
+                emailSearch: params.get('emailSearch'),
+                isSend: params.get('isSend'),
+                timeType: params.get('timeType'),
+                sendStatus: params.get('sendStatus'),
+                emailCc: params.get('emailCc')?.split(';'),
+                emailBcc: params.get('emailBcc')?.split(';'),
+                fromDate: params.get('fromDate'),
+                toDate: params.get('toDate')
+            };
+            
+            filterHandler.setFilterValues(filters);
+            currentPage = parseInt(params.get('page')) || 1;
+        }
+
+        // API Service
+        const mailApiService = {
+            baseUrl: 'http://localhost:5001/api',
+            
+            // Check if token is expired
+            isTokenExpired(token) {
+                try {
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const payload = JSON.parse(window.atob(base64));
+                    
+                    // exp is in seconds, Date.now() is in milliseconds
+                    return payload.exp * 1000 < Date.now();
+                } catch {
+                    return true; // If there's any error parsing, consider token as expired
+                }
+            },
+
+            // Get auth token
+            getToken() {
+                const token = localStorage.getItem('token');
+                if (!token || this.isTokenExpired(token)) {
+                    localStorage.removeItem('token'); // Clear invalid token
+                    window.location.href = '/Account/Login';
+                    return null;
+                }
+                return token;
+            },
+
+            // Get cached data
+            getCachedData(key) {
+                const cached = localStorage.getItem(key);
+                if (!cached) return null;
+
+                const { data, timestamp } = JSON.parse(cached);
+                // Cache expires after 1 hour
+                return data;
+            },
+
+            // Cache data
+            setCacheData(key, data) {
+                const cacheData = {
+                    data: data,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem(key, JSON.stringify(cacheData));
+            },
+
+            // API calls with caching
+            async getMails(params) {
+                const token = this.getToken();
+                if (!token) return null;
+
+                try {
+                    const response = await axios.get(`${this.baseUrl}/Mails?${params}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    return response.data;
+                } catch (error) {
+                    this.handleError(error);
+                    return null;
+                }
+            },
+
+            async getFilterOptions(useCache = true) {
+                const token = this.getToken();
+                if (!token) return null;
+
+                const cacheKey = 'filterOptions';
+
+                // Check cache if enabled
+                if (useCache) {
+                    const cachedData = this.getCachedData(cacheKey);
+                    if (cachedData) {
+                        return cachedData;
+                    }
+                }
+
+                try {
+                    const response = await axios.get(`${this.baseUrl}/Mails/filter-options`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+
+                    if (response.data.success) {
+                        this.setCacheData(cacheKey, response.data.data);
+                        return response.data.data;
+                    }
+                    return null;
+                } catch (error) {
+                    this.handleError(error);
+                    // Return cached data as fallback if available
+                    return useCache ? this.getCachedData(cacheKey) : null;
+                }
+            },
+
+            async deleteMultipleMails(ids) {
+                const token = this.getToken();
+                if (!token) return null;
+
+                try {
+                    const response = await axios.post(`${this.baseUrl}/Mails/deleteMultiple`, ids, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    return response.data;
+                } catch (error) {
+                    this.handleError(error);
+                    return null;
+                }
+            },
+
+            handleError(error) {
+                console.error('API Error:', error);
+                if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                }
+                throw error;
+            }
+        };
+
+        async function loadData() {
+            try {
+                const filters = filterHandler.getFilterValues();
+                const params = new URLSearchParams({
+                    page: currentPage,
+                    ...filters
+                });
+
+                updateUrlWithFilters();
+
+                const response = await mailApiService.getMails(params);
+                if (response?.success) {
+                    const paginatedData = response.data;
+                    renderHandler.renderTable(paginatedData.items);
+                    renderHandler.renderPagination({
+                        pageIndex: paginatedData.pageIndex,
+                        totalPages: paginatedData.totalPages,
+                        hasPreviousPage: paginatedData.hasPreviousPage,
+                        hasNextPage: paginatedData.hasNextPage
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+        const renderHandler = {
+            renderTable(items) {
+                const tbody = $('#mailsTableBody');
+                tbody.empty();
+
+                items.forEach(mail => {
+                    const row = `
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input mail-checkbox" value="${mail.id}" />
+                            </td>
+                            <td><a href="/Mails/Details/${mail.id}">${mail.id}</a></td>
+                            <td><span class="badge bg-secondary">${mail.email || ''}</span></td>
+                            <td>${formatHandler.formatEmailContent(mail.emailContent)}</td>
+                            <td>${mail.fileAttach || ''}</td>
+                            <td>${mail.createBy || ''}</td>
+                            <td>${formatHandler.formatDateTime(mail.createTime)}</td>
+                            <td>${mail.isSend ? 'Yes' : 'No'}</td>
+                            <td>${formatHandler.formatDateTime(mail.sendTime)}</td>
+                            <td>${mail.subject || ''}</td>
+                            <td>${mail.sentStatus || ''}</td>
+                            <td>${formatHandler.formatEmailList(mail.emailCc)}</td>
+                            <td>${formatHandler.formatEmailList(mail.emailBcc)}</td>
+                        </tr>
+                    `;
+                    tbody.append(row);
+                });
+
+                // Reset select all checkbox state
+                $('#selectAll').prop('checked', false);
+            },
+            renderPagination(data) {
+                const pagination = $('#pagination');
+                pagination.empty();
+                totalPages = data.totalPages;
+                currentPage = data.pageIndex;
+
+                if (totalPages > 1) {
+                    // Previous button
+                    pagination.append(`
+                        <li class="page-item ${data.hasPreviousPage ? '' : 'disabled'}">
+                            <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+                        </li>
+                    `);
+
+                    // Page numbers
+                    for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                        pagination.append(`
+                            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                            </li>
+                        `);
+                    }
+
+                    // Next button
+                    pagination.append(`
+                        <li class="page-item ${data.hasNextPage ? '' : 'disabled'}">
+                            <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+                        </li>
+                    `);
+                }
+            }
+        }
+
+        const formatHandler = {
+            formatEmailContent(content) {
+                if (!content) return '';
+                const words = content.split(' ');
+                if (words.length > 10) {
+                    return `
+                        <div class="email-content">
+                            <div class="content-preview">
+                                ${words.slice(0, 10).join(' ')}...
+                            </div>
+                            <div class="content-full d-none">
+                                ${content}
+                            </div>
+                        </div>
+                    `;
+                }
+                return content;
+            },
+            formatEmailList(emails) {
+                if (!emails) return '';
+                return emails.split(';')
+                    .map(email => `<span class="badge bg-secondary me-1">${email.trim()}</span>`)
+                    .join('');
+            },
+            formatDateTime(dateString) {
+                if (!dateString) return '';
+                return new Date(dateString).toLocaleString();
+            }
+        }
+
+        function changePage(page) {
+            if (page >= 1 && page <= totalPages) {
+                // Prevent default anchor behavior
+                event.preventDefault();
+                
+                // Store current scroll position
+                const currentScroll = window.scrollY;
+                
+                currentPage = page;
+                loadData().then(() => {
+                    // Restore scroll position after data loads
+                    window.scrollTo(0, currentScroll);
+                });
+                updateUrlWithFilters();
+            }
+        }
+
+        async function deleteSelected() {
+            const selectedIds = $('.mail-checkbox:checked').map(function() {
+                return parseInt($(this).val());
+            }).get();
+
+            if (selectedIds.length === 0) {
+                alert('No mails selected!');
+                return;
+            }
+
+            if (confirm(`Delete ${selectedIds.length} selected mails?`)) {
+                try {
+                    const response = await mailApiService.deleteMultipleMails(selectedIds);
+                    if (response?.success) {
+                        // Clear cache to force reload of filter options
+                        localStorage.removeItem('filterOptions');
+                        // Reload filter options and data
+                        await filterHandler.loadFilterOptions();
+                        await loadData();
+                    }
+                } catch (error) {
+                    alert('Error deleting mails');
+                }
+            }
+        }
+
+        function populateFilterOptions(options) {
+            // Populate ID dropdown
+            const idSelect = $('#idSearch');
+            idSelect.empty().append('<option value="">All</option>');
+            options.ids.forEach(id => {
+                idSelect.append(`<option value="${id}">${id}</option>`);
+            });
+
+            // Populate Email dropdown
+            const emailSelect = $('#emailSearch');
+            emailSelect.empty().append('<option value="">All</option>');
+            options.emails.forEach(email => {
+                emailSelect.append(`<option value="${email}">${email}</option>`);
+            });
+
+            // Populate CC dropdown
+            const ccSelect = $('#emailCc');
+            ccSelect.empty();
+            options.emailCcs.forEach(cc => {
+                ccSelect.append(`<option value="${cc}">${cc}</option>`);
+            });
+
+            // Populate BCC dropdown
+            const bccSelect = $('#emailBcc');
+            bccSelect.empty();
+            options.emailBccs.forEach(bcc => {
+                bccSelect.append(`<option value="${bcc}">${bcc}</option>`);
+            });
+
+            // Reinitialize Select2
+            $('.select2-dropdown').select2({
+                width: '100%',
+                placeholder: 'Select an option',
+                allowClear: true
+            });
+        }
+    </script>
+}  
