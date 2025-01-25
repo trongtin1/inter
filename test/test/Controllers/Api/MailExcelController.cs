@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using test.Models.Entity;
 using test.Models;
 using test.Services;
 using Microsoft.EntityFrameworkCore;
@@ -121,8 +122,8 @@ namespace test.Controllers.Api
         private IQueryable<Mail> BuildMailQuery(
             string userEmail,
             List<string> rolesList,
-            string? idSearch = null,
-            string? emailSearch = null,
+            string? id = null,
+            string? email = null,
             bool? isSend = null,
             string? timeType = null,
             string? sendStatus = null,
@@ -140,14 +141,14 @@ namespace test.Controllers.Api
             }
 
             // Apply filters
-            if (!string.IsNullOrEmpty(idSearch))
+            if (!string.IsNullOrEmpty(id))
             {
-                query = query.Where(m => m.Id.ToString().Contains(idSearch));
+                query = query.Where(m => m.Id.ToString().Contains(id));
             }
 
-            if (!string.IsNullOrEmpty(emailSearch))
+            if (!string.IsNullOrEmpty(email))
             {
-                query = query.Where(m => m.Email != null && m.Email.Contains(emailSearch));
+                query = query.Where(m => m.Email != null && m.Email.Contains(email));
             }
 
             if (isSend.HasValue)
@@ -195,8 +196,8 @@ namespace test.Controllers.Api
         [HttpGet("export")]
         public async Task<ActionResult> ExportToExcel(
             [FromQuery] string fileName,
-            [FromQuery] string? idSearch,
-            [FromQuery] string? emailSearch,
+            [FromQuery] string? id,
+            [FromQuery] string? email,
             [FromQuery] bool? isSend,
             [FromQuery] string? timeType,
             [FromQuery] string? sendStatus,
@@ -213,8 +214,8 @@ namespace test.Controllers.Api
                 var query = BuildMailQuery(
                     userEmail,
                     rolesList,
-                    idSearch,
-                    emailSearch,
+                    id,
+                    email,
                     isSend,
                     timeType,
                     sendStatus,

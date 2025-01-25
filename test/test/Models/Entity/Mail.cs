@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace test.Models;
+namespace test.Models.Entity;
 
 public partial class Mail
 {

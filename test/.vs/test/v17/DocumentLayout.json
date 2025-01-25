@@ -1,14 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\thuc tap\\test\\",
+  "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\test\\test\\controllers\\page\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\controllers\\page\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\test\\test\\models\\dtos\\request\\updateroledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\models\\dtos\\request\\updateroledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\controllers\\api\\statisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\controllers\\api\\statisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,27 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\test\\test\\Controllers\\Page\\AccountController.cs",
-              "RelativeDocumentMoniker": "test\\Controllers\\Page\\AccountController.cs",
-              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\test\\test\\Controllers\\Page\\AccountController.cs",
-              "RelativeToolTip": "test\\Controllers\\Page\\AccountController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
+              "Title": "StatisticsController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Controllers\\Api\\StatisticsController.cs",
+              "RelativeDocumentMoniker": "test\\Controllers\\Api\\StatisticsController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Controllers\\Api\\StatisticsController.cs",
+              "RelativeToolTip": "test\\Controllers\\Api\\StatisticsController.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAAwFYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:39:30.943Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UpdateRoleDTO.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\test\\test\\Models\\DTOs\\Request\\UpdateRoleDTO.cs",
-              "RelativeDocumentMoniker": "test\\Models\\DTOs\\Request\\UpdateRoleDTO.cs",
-              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\test\\test\\Models\\DTOs\\Request\\UpdateRoleDTO.cs",
-              "RelativeToolTip": "test\\Models\\DTOs\\Request\\UpdateRoleDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-21T10:35:56.169Z",
+              "WhenOpened": "2025-01-24T01:50:38.932Z",
               "EditorCaption": ""
             }
           ]

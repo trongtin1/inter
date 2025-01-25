@@ -1,6 +1,6 @@
 using AutoMapper;
+using test.Models.Entity;
 using test.Models;
-
 namespace test.Profiles
 {
     public class MailProfile : Profile

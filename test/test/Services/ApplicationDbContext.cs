@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using test.Models;
+using test.Models.Entity;
 
 namespace test.Services;
 

@@ -54,7 +54,7 @@
             };
 
             try {
-                const response = await axios.post('/api/User', data);
+                const response = await axios.post('/api/Users', data);
                 if (response.data.success) {
                     alert('Registration successful!');
                     window.location.href = '/Account/Login';

@@ -1,4 +1,5 @@
 using AutoMapper;
+using test.Models.Entity;
 using test.Models;
 using test.Models.DTOs.Response;
 using test.Models.DTOs.Request;

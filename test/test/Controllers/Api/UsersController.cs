@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using test.Models;
+using test.Models.Entity;
 using test.Services;
 using test.Models.DTOs.Request;
 using test.Models.DTOs.Response;
@@ -10,12 +11,12 @@ namespace test.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserController(ApplicationDbContext context, IMapper mapper)
+        public UsersController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

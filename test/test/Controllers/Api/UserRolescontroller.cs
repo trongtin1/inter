@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using test.Models;
+using test.Models.Entity;
 using test.Models.DTOs;
 using test.Services;
 using test.Models.DTOs.Request;
@@ -10,11 +11,11 @@ namespace test.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserRoleController : ControllerBase
+    public class UserRolesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public UserRoleController(ApplicationDbContext context)
+        public UserRolesController(ApplicationDbContext context)
         {
             _context = context;
         }

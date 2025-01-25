@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using test.Models.Entity;
 using test.Models;
 using test.Services;
 using Microsoft.EntityFrameworkCore;
@@ -38,8 +39,8 @@ namespace test.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<ApiResponse<PaginatedList<Mail>>>> GetMails(
             int? page, 
-            string? idSearch,
-            string? emailSearch,
+            string? id,
+            string? email,
             bool? isSend,
             string? timeType,
             string? sendStatus,
@@ -64,14 +65,14 @@ namespace test.Controllers.Api
                 }
 
                 // Then apply other filters...
-                if (!string.IsNullOrEmpty(idSearch))
+                if (!string.IsNullOrEmpty(id))
                 {
-                    query = query.Where(m => m.Id.ToString().Contains(idSearch));
+                    query = query.Where(m => m.Id.ToString().Equals(id));
                 }
 
-                if (!string.IsNullOrEmpty(emailSearch))
+                if (!string.IsNullOrEmpty(email))
                 {
-                    query = query.Where(m => m.Email != null && m.Email.Contains(emailSearch));
+                    query = query.Where(m => m.Email != null && m.Email.Equals(email));
                 }
 
                 if (isSend.HasValue)
@@ -87,13 +88,13 @@ namespace test.Controllers.Api
                 if (!string.IsNullOrEmpty(emailCc))
                 {
                     var emailCcList = emailCc.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    query = query.Where(m => m.EmailCc != null && emailCcList.Any(cc => m.EmailCc.Contains(cc)));
+                    query = query.Where(m => m.EmailCc != null && emailCcList.Any(cc => m.EmailCc.Equals(cc)));
                 }
 
                 if (!string.IsNullOrEmpty(emailBcc))
                 {
                     var emailBccList = emailBcc.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    query = query.Where(m => m.EmailBcc != null && emailBccList.Any(bcc => m.EmailBcc.Contains(bcc)));
+                    query = query.Where(m => m.EmailBcc != null && emailBccList.Any(bcc => m.EmailBcc.Equals(bcc)));
                 }
 
                 if (!string.IsNullOrEmpty(timeType) && fromDate.HasValue && toDate.HasValue)

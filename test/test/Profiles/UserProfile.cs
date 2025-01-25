@@ -1,5 +1,6 @@
 using AutoMapper;
 using test.Models;
+using test.Models.Entity;
 using test.Models.DTOs.Response;
 using test.Models.DTOs.Request;
 namespace test.Profiles

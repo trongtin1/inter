@@ -1,6 +1,6 @@
 using System;
 
-namespace test.Models
+namespace test.Models.Entity
 {
     public class User
     {
