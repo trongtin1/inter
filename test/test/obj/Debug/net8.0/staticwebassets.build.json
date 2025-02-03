@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MuUgbLmwWrz9DBw0WimIb0AEUyK377fNBytXyuNh74Y=",
+  "Hash": "XESIIWRlwce+AZYy+DaIB7x/LvbP0hyOznhtAG0SCl8=",
   "Source": "test",
   "BasePath": "_content/test",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ejj5rvqldq",
-      "Integrity": "1lbWNbBkLIDxnhNkC6QOoaK2bARmJQ3WKxKOJ1U58WI=",
+      "Fingerprint": "jnmgruv30p",
+      "Integrity": "UUZv4DT8W0Pe5qmcAl6PUaCVJ2OUwY+9OgPckcyVT3w=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -141,6 +141,174 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\403.png"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/api-service#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pfe3bajqgt",
+      "Integrity": "K5FUWQ0EgfyWdgYbbnd+PCJPCFAkRyZMqCNkFFdLtF8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\api-service.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\export-import.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/export-import#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pgsih0j9bn",
+      "Integrity": "mYFW8+SIeYR4sRH+I9lAO/JUZH6d5xopwO2LpPsPOSA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\export-import.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\filter-handler.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/filter-handler#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "alemlhl72t",
+      "Integrity": "ouNqFhJtTVT1bzIUtCZfddCrWoCPOiSEeuhHa1I7XlE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\filter-handler.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\format-handler.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/format-handler#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jacdapw825",
+      "Integrity": "e82N/klbdnRK6VqRKFWX6O9TnpGc/tKGgb/0ScQGxeA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\format-handler.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\index.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/index#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "turk1r4roo",
+      "Integrity": "BbfM22gyEfMV7an8OGRDasJNNdOPNc2pG0yVAsep83I=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\index.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/mails/Index/render-handler#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "25bpbcshdq",
+      "Integrity": "pp+IlLXcitw+35yTHre+6YVmV3tUs264G9vU2hJ2LyE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\mails\\Index\\render-handler.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/SignalR/signalr-connection#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "poecbhxj8k",
+      "Integrity": "p4swW8KJT8D5A3I7yXVw7ygF9H/Fm+E830kmyvlzQ+E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\SignalR\\signalr-connection.js"
+    },
+    {
+      "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "js/site#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
       "Identity": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
@@ -1352,7 +1520,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3959"
+          "Value": "4323"
         },
         {
           "Name": "Content-Type",
@@ -1360,11 +1528,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1lbWNbBkLIDxnhNkC6QOoaK2bARmJQ3WKxKOJ1U58WI=\""
+          "Value": "\"UUZv4DT8W0Pe5qmcAl6PUaCVJ2OUwY+9OgPckcyVT3w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 23 Jan 2025 11:40:59 GMT"
+          "Value": "Mon, 03 Feb 2025 03:15:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1374,12 +1542,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-1lbWNbBkLIDxnhNkC6QOoaK2bARmJQ3WKxKOJ1U58WI="
+          "Value": "sha256-UUZv4DT8W0Pe5qmcAl6PUaCVJ2OUwY+9OgPckcyVT3w="
         }
       ]
     },
     {
-      "Route": "css/site.ejj5rvqldq.css",
+      "Route": "css/site.jnmgruv30p.css",
       "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1389,7 +1557,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3959"
+          "Value": "4323"
         },
         {
           "Name": "Content-Type",
@@ -1397,11 +1565,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1lbWNbBkLIDxnhNkC6QOoaK2bARmJQ3WKxKOJ1U58WI=\""
+          "Value": "\"UUZv4DT8W0Pe5qmcAl6PUaCVJ2OUwY+9OgPckcyVT3w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 23 Jan 2025 11:40:59 GMT"
+          "Value": "Mon, 03 Feb 2025 03:15:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1411,7 +1579,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ejj5rvqldq"
+          "Value": "jnmgruv30p"
         },
         {
           "Name": "label",
@@ -1419,7 +1587,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-1lbWNbBkLIDxnhNkC6QOoaK2bARmJQ3WKxKOJ1U58WI="
+          "Value": "sha256-UUZv4DT8W0Pe5qmcAl6PUaCVJ2OUwY+9OgPckcyVT3w="
         }
       ]
     },
@@ -1666,6 +1834,662 @@
         {
           "Name": "integrity",
           "Value": "sha256-CuMLQ7KnsDBoi1t8Pizii+XkI5uD0S3ceh+nAW9+VXw="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/api-service.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3133"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K5FUWQ0EgfyWdgYbbnd+PCJPCFAkRyZMqCNkFFdLtF8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:26:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K5FUWQ0EgfyWdgYbbnd+PCJPCFAkRyZMqCNkFFdLtF8="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/api-service.pfe3bajqgt.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3133"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K5FUWQ0EgfyWdgYbbnd+PCJPCFAkRyZMqCNkFFdLtF8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:26:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pfe3bajqgt"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/api-service.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K5FUWQ0EgfyWdgYbbnd+PCJPCFAkRyZMqCNkFFdLtF8="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/export-import.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\export-import.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3906"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mYFW8+SIeYR4sRH+I9lAO/JUZH6d5xopwO2LpPsPOSA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:35:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-mYFW8+SIeYR4sRH+I9lAO/JUZH6d5xopwO2LpPsPOSA="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/export-import.pgsih0j9bn.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\export-import.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3906"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mYFW8+SIeYR4sRH+I9lAO/JUZH6d5xopwO2LpPsPOSA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:35:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pgsih0j9bn"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/export-import.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-mYFW8+SIeYR4sRH+I9lAO/JUZH6d5xopwO2LpPsPOSA="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/filter-handler.alemlhl72t.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\filter-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1764"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ouNqFhJtTVT1bzIUtCZfddCrWoCPOiSEeuhHa1I7XlE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:27:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "alemlhl72t"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/filter-handler.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ouNqFhJtTVT1bzIUtCZfddCrWoCPOiSEeuhHa1I7XlE="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/filter-handler.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\filter-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1764"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ouNqFhJtTVT1bzIUtCZfddCrWoCPOiSEeuhHa1I7XlE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:27:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ouNqFhJtTVT1bzIUtCZfddCrWoCPOiSEeuhHa1I7XlE="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/format-handler.jacdapw825.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\format-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1340"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e82N/klbdnRK6VqRKFWX6O9TnpGc/tKGgb/0ScQGxeA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:28:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jacdapw825"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/format-handler.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-e82N/klbdnRK6VqRKFWX6O9TnpGc/tKGgb/0ScQGxeA="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/format-handler.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\format-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1340"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"e82N/klbdnRK6VqRKFWX6O9TnpGc/tKGgb/0ScQGxeA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:28:20 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-e82N/klbdnRK6VqRKFWX6O9TnpGc/tKGgb/0ScQGxeA="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/index.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BbfM22gyEfMV7an8OGRDasJNNdOPNc2pG0yVAsep83I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:31:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-BbfM22gyEfMV7an8OGRDasJNNdOPNc2pG0yVAsep83I="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/index.turk1r4roo.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BbfM22gyEfMV7an8OGRDasJNNdOPNc2pG0yVAsep83I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:31:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "turk1r4roo"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/index.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BbfM22gyEfMV7an8OGRDasJNNdOPNc2pG0yVAsep83I="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/render-handler.25bpbcshdq.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2776"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pp+IlLXcitw+35yTHre+6YVmV3tUs264G9vU2hJ2LyE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:28:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "25bpbcshdq"
+        },
+        {
+          "Name": "label",
+          "Value": "js/mails/Index/render-handler.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-pp+IlLXcitw+35yTHre+6YVmV3tUs264G9vU2hJ2LyE="
+        }
+      ]
+    },
+    {
+      "Route": "js/mails/Index/render-handler.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2776"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"pp+IlLXcitw+35yTHre+6YVmV3tUs264G9vU2hJ2LyE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:28:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-pp+IlLXcitw+35yTHre+6YVmV3tUs264G9vU2hJ2LyE="
+        }
+      ]
+    },
+    {
+      "Route": "js/SignalR/signalr-connection.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1469"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"p4swW8KJT8D5A3I7yXVw7ygF9H/Fm+E830kmyvlzQ+E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-p4swW8KJT8D5A3I7yXVw7ygF9H/Fm+E830kmyvlzQ+E="
+        }
+      ]
+    },
+    {
+      "Route": "js/SignalR/signalr-connection.poecbhxj8k.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1469"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"p4swW8KJT8D5A3I7yXVw7ygF9H/Fm+E830kmyvlzQ+E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 06:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "poecbhxj8k"
+        },
+        {
+          "Name": "label",
+          "Value": "js/SignalR/signalr-connection.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-p4swW8KJT8D5A3I7yXVw7ygF9H/Fm+E830kmyvlzQ+E="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.5ipweew5fc.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 03:33:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 03 Feb 2025 03:33:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },

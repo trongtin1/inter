@@ -50,14 +50,14 @@
             }
           },
           {
-            "name": "idSearch",
+            "name": "id",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "emailSearch",
+            "name": "email",
             "in": "query",
             "schema": {
               "type": "string"
@@ -186,14 +186,14 @@
             }
           },
           {
-            "name": "idSearch",
+            "name": "id",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "emailSearch",
+            "name": "email",
             "in": "query",
             "schema": {
               "type": "string"
@@ -257,17 +257,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MailPaginatedListApiResponse"
+                  "$ref": "#/components/schemas/MailResApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MailPaginatedListApiResponse"
+                  "$ref": "#/components/schemas/MailResApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MailPaginatedListApiResponse"
+                  "$ref": "#/components/schemas/MailResApiResponse"
                 }
               }
             }
@@ -717,10 +717,199 @@
         }
       }
     },
-    "/api/User": {
+    "/api/Statistics/most-email-frequencies": {
       "get": {
         "tags": [
-          "User"
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailFrequencyResListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailFrequencyResListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailFrequencyResListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Statistics/email-frequencies-by-year": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthlyEmailCountResApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthlyEmailCountResApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthlyEmailCountResApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Statistics/email-monthly-stats": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEmailResApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEmailResApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEmailResApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserRoles": {
+      "get": {
+        "tags": [
+          "UserRoles"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UserRoles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users": {
+      "get": {
+        "tags": [
+          "Users"
         ],
         "responses": {
           "200": {
@@ -747,7 +936,7 @@
       },
       "post": {
         "tags": [
-          "User"
+          "Users"
         ],
         "requestBody": {
           "content": {
@@ -792,10 +981,10 @@
         }
       }
     },
-    "/api/User/{id}": {
+    "/api/Users/{id}": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "parameters": [
           {
@@ -833,7 +1022,7 @@
       },
       "put": {
         "tags": [
-          "User"
+          "Users"
         ],
         "parameters": [
           {
@@ -888,85 +1077,44 @@
           }
         }
       }
-    },
-    "/api/UserRole": {
-      "get": {
-        "tags": [
-          "UserRole"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOIEnumerableApiResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "UserRole"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRoleDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRoleDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRoleDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRoleDTOApiResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
+      "EmailFrequencyRes": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmailFrequencyResListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailFrequencyRes"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Mail": {
         "type": "object",
         "properties": {
@@ -1068,7 +1216,7 @@
         },
         "additionalProperties": false
       },
-      "MailPaginatedList": {
+      "MailRes": {
         "type": "object",
         "properties": {
           "items": {
@@ -1082,13 +1230,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalItems": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
           },
           "hasPreviousPage": {
             "type": "boolean",
@@ -1101,7 +1254,7 @@
         },
         "additionalProperties": false
       },
-      "MailPaginatedListApiResponse": {
+      "MailResApiResponse": {
         "type": "object",
         "properties": {
           "success": {
@@ -1112,7 +1265,50 @@
             "nullable": true
           },
           "data": {
-            "$ref": "#/components/schemas/MailPaginatedList"
+            "$ref": "#/components/schemas/MailRes"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MonthlyEmailCountRes": {
+        "type": "object",
+        "properties": {
+          "monthlyStats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MonthlyStatistic"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MonthlyEmailCountResApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/MonthlyEmailCountRes"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MonthlyStatistic": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1275,6 +1471,43 @@
               "$ref": "#/components/schemas/UserDTO"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserEmailRes": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "monthlyStats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MonthlyStatistic"
+            },
+            "nullable": true
+          },
+          "yearlyTotal": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserEmailResApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserEmailRes"
           }
         },
         "additionalProperties": false

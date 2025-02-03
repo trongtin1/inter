@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Text.Json;
 using OfficeOpenXml;
+using Microsoft.AspNetCore.SignalR;
+using test.Hubs;
 
 namespace test
 {
@@ -127,6 +129,12 @@ namespace test
             // Add EPPlus license configuration
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+            // Add SignalR services
+            builder.Services.AddSignalR();
+
+
+            builder.Services.AddScoped<IMailNotificationService, MailNotificationService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -155,6 +163,9 @@ namespace test
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Add endpoints
+            app.MapHub<MailHub>("/mailHub");
 
             if (app.Environment.IsDevelopment())
             {

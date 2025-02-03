@@ -268,7 +268,7 @@
         }
 
         function initializeEmailSelect() {
-            const cached = localStorage.getItem('filterOptions');
+            const cached = sessionStorage.getItem('filterOptions');
             if (cached) {
                 const data = JSON.parse(cached);
                 

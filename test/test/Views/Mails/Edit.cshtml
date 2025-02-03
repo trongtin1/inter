@@ -169,7 +169,7 @@
         async function loadMailData() {
             try {
                 const mailId = window.location.pathname.split('/').pop();
-                const token = localStorage.getItem('token');
+                const token = sessionStorage.getItem('token');
 
                 if (!token) {
                     window.location.href = '/Account/Login';
@@ -229,7 +229,7 @@
             e.preventDefault();
             
             const mailId = window.location.pathname.split('/').pop();
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             
             if (!token) {
                 window.location.href = '/Account/Login';

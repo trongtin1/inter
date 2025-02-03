@@ -226,7 +226,7 @@
                 };
 
                 try {
-                    const token = localStorage.getItem('token');
+                    const token = sessionStorage.getItem('token');
                     const response = await axios.post('http://localhost:5001/api/Mails', formData, {
                         headers: {
                             'Authorization': `Bearer ${token}`,

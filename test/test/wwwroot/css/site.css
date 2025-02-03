@@ -215,3 +215,26 @@ body {
   max-width: 300px;
   opacity: 0.8;
 }
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 250px;
+  z-index: 1000;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.toast.create {
+  border-left: 4px solid #28a745;
+}
+
+.toast.update {
+  border-left: 4px solid #ffc107;
+}
+
+.toast.delete {
+  border-left: 4px solid #dc3545;
+}

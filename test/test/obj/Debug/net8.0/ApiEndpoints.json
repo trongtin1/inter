@@ -29,12 +29,12 @@
         "IsRequired": false
       },
       {
-        "Name": "idSearch",
+        "Name": "id",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "emailSearch",
+        "Name": "email",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -116,12 +116,12 @@
         "IsRequired": false
       },
       {
-        "Name": "idSearch",
+        "Name": "id",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "emailSearch",
+        "Name": "email",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -163,7 +163,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.PaginatedList\u00601[[test.Models.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.Mails.MailRes, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -183,13 +183,13 @@
     "Parameters": [
       {
         "Name": "mail",
-        "Type": "test.Models.Mail",
+        "Type": "test.Models.Entity.Mail",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Entity.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -215,7 +215,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Entity.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -240,13 +240,13 @@
       },
       {
         "Name": "mail",
-        "Type": "test.Models.Mail",
+        "Type": "test.Models.Entity.Mail",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.Entity.Mail, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -432,9 +432,132 @@
     ]
   },
   {
-    "ContainingType": "test.Controllers.UserController",
+    "ContainingType": "test.Controllers.StatisticsController",
+    "Method": "GetEmailFrequenciesByYear",
+    "RelativePath": "api/Statistics/email-frequencies-by-year",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.Statistic.MonthlyEmailCountRes, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "test.Controllers.StatisticsController",
+    "Method": "GetEmailMonthlyStats",
+    "RelativePath": "api/Statistics/email-monthly-stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "year",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.Statistic.UserEmailRes, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "test.Controllers.StatisticsController",
+    "Method": "GetEmailFrequencies",
+    "RelativePath": "api/Statistics/most-email-frequencies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[System.Collections.Generic.List\u00601[[test.Models.DTOs.Response.Statistic.EmailFrequencyRes, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "test.Controllers.UserRolesController",
+    "Method": "GetUserRoles",
+    "RelativePath": "api/UserRoles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[test.Models.DTOs.Response.UserRoleDTO, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "test.Controllers.UserRolesController",
+    "Method": "AssignRole",
+    "RelativePath": "api/UserRoles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userRoleDto",
+        "Type": "test.Models.DTOs.Response.UserRoleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.UserRoleDTO, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "test.Controllers.UsersController",
     "Method": "GetUsers",
-    "RelativePath": "api/User",
+    "RelativePath": "api/Users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -452,9 +575,9 @@
     ]
   },
   {
-    "ContainingType": "test.Controllers.UserController",
+    "ContainingType": "test.Controllers.UsersController",
     "Method": "CreateUser",
-    "RelativePath": "api/User",
+    "RelativePath": "api/Users",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -478,9 +601,9 @@
     ]
   },
   {
-    "ContainingType": "test.Controllers.UserController",
+    "ContainingType": "test.Controllers.UsersController",
     "Method": "GetUser",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/Users/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -504,9 +627,9 @@
     ]
   },
   {
-    "ContainingType": "test.Controllers.UserController",
+    "ContainingType": "test.Controllers.UsersController",
     "Method": "UpdateUser",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/Users/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -525,52 +648,6 @@
     "ReturnTypes": [
       {
         "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.UserDTO, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "test.Controllers.UserRoleController",
-    "Method": "GetUserRoles",
-    "RelativePath": "api/UserRole",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[System.Collections.Generic.IEnumerable\u00601[[test.Models.DTOs.Response.UserRoleDTO, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "test.Controllers.UserRoleController",
-    "Method": "AssignRole",
-    "RelativePath": "api/UserRole",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userRoleDto",
-        "Type": "test.Models.DTOs.Response.UserRoleDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "test.Models.DTOs.ApiResponse\u00601[[test.Models.DTOs.Response.UserRoleDTO, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

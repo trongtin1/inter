@@ -21,6 +21,38 @@
       "PackagePath": "staticwebassets\\images\\403.png"
     },
     {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\signalr-connection.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\api-service.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\export-import.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\export-import.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\filter-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\filter-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\format-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\format-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\index.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\render-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },

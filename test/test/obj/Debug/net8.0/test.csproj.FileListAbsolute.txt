@@ -374,3 +374,8 @@ C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.pdb
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.genruntimeconfig.cache
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\ref\test.dll
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\scopedcss\Views\Statistics\Index.cshtml.rz.scp.css
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

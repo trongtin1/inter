@@ -2,8 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using test.Models.Entity;
 using test.Models;
 using test.Services;
+using test.Models.DTOs.Response.Mails;
+using test.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
+using System.Data;
 using AutoMapper;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,16 +18,18 @@ namespace test.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class MailsController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly IMailNotificationService _notificationService;
 
-        public MailsController(ApplicationDbContext context, IMapper mapper)
+        public MailsController(ApplicationDbContext context, IMapper mapper, IMailNotificationService notificationService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            _context = context;
+            _mapper = mapper;
+            _notificationService = notificationService;
         }
 
         // Add private method to get user claims
@@ -36,9 +42,121 @@ namespace test.Controllers.Api
         }
 
         // GET: api/Mails
+        // [HttpGet]
+        // public async Task<ActionResult<ApiResponse<PaginatedList<Mail>>>> GetMails(
+        //     int? page, 
+        //     string? id,
+        //     string? email,
+        //     bool? isSend,
+        //     string? timeType,
+        //     string? sendStatus,
+        //     string? emailCc,
+        //     string? emailBcc,
+        //     DateTime? fromDate,
+        //     DateTime? toDate)
+        // {
+        //     try 
+        //     {
+        //         var (userEmail, rolesList) = GetUserClaims();
+        //         int pageSize = 6;
+        //         int pageIndex = page ?? 1;
+                
+        //         // Start with base query
+        //         var query = _context.Mail.AsQueryable();
+
+        //         // Apply role-based filtering first
+        //         if (!rolesList.Contains("admin"))
+        //         {
+        //             query = query.Where(m => m.Email == userEmail);
+        //         }
+
+
+        //         // Then apply other filters...
+        //         if (!string.IsNullOrEmpty(id))
+        //         {
+        //             query = query.Where(m => m.Id.ToString().Equals(id));
+        //         }
+
+        //         if (!string.IsNullOrEmpty(email))
+        //         {
+        //             query = query.Where(m => m.Email != null && m.Email.Equals(email));
+        //         }
+
+        //         if (isSend.HasValue)
+        //         {
+        //             query = query.Where(m => m.IsSend == isSend.Value);
+        //         }
+
+        //         if (!string.IsNullOrEmpty(sendStatus))
+        //         {
+        //             query = query.Where(m => m.SentStatus != null && m.SentStatus.Contains(sendStatus));
+        //         }
+
+        //         if (!string.IsNullOrEmpty(emailCc))
+        //         {
+        //             var emailCcList = emailCc.Split(';', StringSplitOptions.RemoveEmptyEntries);
+        //             query = query.Where(m => m.EmailCc != null && emailCcList.Any(cc => m.EmailCc.Contains(";" + cc + ";")));
+        //         }
+
+        //         if (!string.IsNullOrEmpty(emailBcc))
+        //         {
+        //             var emailBccList = emailBcc.Split(';', StringSplitOptions.RemoveEmptyEntries);
+        //             query = query.Where(m => m.EmailBcc != null && emailBccList.Any(bcc => m.EmailBcc.Contains(";" + bcc + ";")));
+        //         }
+    
+        //         if (!string.IsNullOrEmpty(timeType) && fromDate.HasValue && toDate.HasValue)
+        //         {
+        //             if (fromDate.Value <= toDate.Value)
+        //             {
+        //                 if (timeType == "createTime")
+        //                 {
+        //                     query = query.Where(m => m.CreateTime >= fromDate.Value &&
+        //                                            m.CreateTime <= toDate.Value);
+        //                 }
+        //                 else if (timeType == "sendTime")
+        //                 {
+        //                     query = query.Where(m => m.SendTime >= fromDate.Value &&
+        //                                            m.SendTime <= toDate.Value);
+        //                 }
+        //             }
+        //         }
+
+        //         var totalItems = await query.CountAsync();
+        //         var items = await query
+        //             .OrderByDescending(m => m.Id)
+        //             .Skip((pageIndex - 1) * pageSize)
+        //             .Take(pageSize)
+        //             .ToListAsync();
+
+        //         var result = new
+        //         {
+        //             items = items,
+        //             pageIndex = pageIndex,
+        //             totalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
+        //             totalItems = totalItems,
+        //             hasPreviousPage = pageIndex > 1,
+        //             hasNextPage = pageIndex < (int)Math.Ceiling(totalItems / (double)pageSize)
+        //         };
+
+        //         return Ok(new ApiResponse<object>
+        //         {
+        //             Success = true,
+        //             Data = result
+        //         });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new ApiResponse<object>
+        //         {
+        //             Success = false,
+        //             Message = ex.Message
+        //         });
+        //     }
+        // }
+
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<PaginatedList<Mail>>>> GetMails(
-            int? page, 
+        public async Task<ActionResult<ApiResponse<MailRes>>> GetMails(
+            int? page,
             string? id,
             string? email,
             bool? isSend,
@@ -49,100 +167,61 @@ namespace test.Controllers.Api
             DateTime? fromDate,
             DateTime? toDate)
         {
-            try 
-            {
+            try
+            {   
+                var ls = new MailRes();
                 var (userEmail, rolesList) = GetUserClaims();
                 int pageSize = 6;
                 int pageIndex = page ?? 1;
-                
-                // Start with base query
-                var query = context.Mail.AsQueryable();
+                DataTable dt = new();
 
-                // Apply role-based filtering first
-                if (!rolesList.Contains("admin"))
+                using (var command = _context.Database.GetDbConnection().CreateCommand())
                 {
-                    query = query.Where(m => m.Email == userEmail);
-                }
+                    command.CommandText = "GetMails";
+                    command.CommandType = CommandType.StoredProcedure;
 
-                // Then apply other filters...
-                if (!string.IsNullOrEmpty(id))
-                {
-                    query = query.Where(m => m.Id.ToString().Equals(id));
-                }
+                    command.Parameters.Add(new SqlParameter("@Page", pageIndex));
+                    command.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+                    command.Parameters.Add(new SqlParameter("@Id", id));
+                    command.Parameters.Add(new SqlParameter("@Email", email));
+                    command.Parameters.Add(new SqlParameter("@IsSend", isSend));
+                    command.Parameters.Add(new SqlParameter("@TimeType", timeType));
+                    command.Parameters.Add(new SqlParameter("@SendStatus", sendStatus));
+                    command.Parameters.Add(new SqlParameter("@EmailCc", emailCc));
+                    command.Parameters.Add(new SqlParameter("@EmailBcc", emailBcc));
+                    command.Parameters.Add(new SqlParameter("@FromDate", fromDate));
+                    command.Parameters.Add(new SqlParameter("@ToDate", toDate));
 
-                if (!string.IsNullOrEmpty(email))
-                {
-                    query = query.Where(m => m.Email != null && m.Email.Equals(email));
-                }
-
-                if (isSend.HasValue)
-                {
-                    query = query.Where(m => m.IsSend == isSend.Value);
-                }
-
-                if (!string.IsNullOrEmpty(sendStatus))
-                {
-                    query = query.Where(m => m.SentStatus != null && m.SentStatus.Contains(sendStatus));
-                }
-
-                if (!string.IsNullOrEmpty(emailCc))
-                {
-                    var emailCcList = emailCc.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    query = query.Where(m => m.EmailCc != null && emailCcList.Any(cc => m.EmailCc.Equals(cc)));
-                }
-
-                if (!string.IsNullOrEmpty(emailBcc))
-                {
-                    var emailBccList = emailBcc.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    query = query.Where(m => m.EmailBcc != null && emailBccList.Any(bcc => m.EmailBcc.Equals(bcc)));
-                }
-
-                if (!string.IsNullOrEmpty(timeType) && fromDate.HasValue && toDate.HasValue)
-                {
-                    if (fromDate.Value <= toDate.Value)
+                    // tham số output để lấy TotalItems
+                    var totalItemsParam = new SqlParameter("@TotalItems", SqlDbType.Int)
                     {
-                        if (timeType == "createTime")
-                        {
-                            query = query.Where(m => m.CreateTime >= fromDate.Value &&
-                                                   m.CreateTime <= toDate.Value);
-                        }
-                        else if (timeType == "sendTime")
-                        {
-                            query = query.Where(m => m.SendTime >= fromDate.Value &&
-                                                   m.SendTime <= toDate.Value);
-                        }
-                    }
-                }
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(totalItemsParam);
+                    await _context.Database.OpenConnectionAsync();
+                    using var result = await command.ExecuteReaderAsync();
+                    dt.Load(result);
 
-                var totalItems = await query.CountAsync();
-                var items = await query
-                    .OrderByDescending(m => m.Id)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync();
+                    ls.Items = dt.ConvertDataTable<Mail>();
+                    ls.TotalItems = (int)(totalItemsParam.Value ?? 0);
+                    ls.PageIndex = pageIndex;
+                    ls.PageSize = pageSize;
 
-                var result = new
-                {
-                    items = items,
-                    pageIndex = pageIndex,
-                    totalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    totalItems = totalItems,
-                    hasPreviousPage = pageIndex > 1,
-                    hasNextPage = pageIndex < (int)Math.Ceiling(totalItems / (double)pageSize)
-                };
-
-                return Ok(new ApiResponse<object>
-                {
-                    Success = true,
-                    Data = result
-                });
+                    return Ok(new ApiResponse<MailRes>
+                    {
+                        Success = true,
+                        Message = "Successfully retrieved mails.",
+                        Data = ls
+                    });
+                }  
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ApiResponse<object>
+                return StatusCode(500, new ApiResponse<MailRes>
                 {
                     Success = false,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    Data = null
                 });
             }
         }
@@ -154,7 +233,7 @@ namespace test.Controllers.Api
             {
                 var (userEmail, rolesList) = GetUserClaims();
                 // Get the mail
-                var mail = await context.Mail.FindAsync(id);
+                var mail = await _context.Mail.FindAsync(id);
                 
                 // if (mail == null)
                 // {
@@ -196,16 +275,19 @@ namespace test.Controllers.Api
         {
             if (!string.IsNullOrEmpty(mail.EmailCc))
             {
-                mail.EmailCc = mail.EmailCc.Replace(",", ";");
+                mail.EmailCc = ";" + mail.EmailCc.Replace(",", ";").Trim(';') + ";";
             }
             
             if (!string.IsNullOrEmpty(mail.EmailBcc))
             {
-                mail.EmailBcc = mail.EmailBcc.Replace(",", ";");
+                mail.EmailBcc = ";" + mail.EmailBcc.Replace(",", ";").Trim(';') + ";";
             }
 
-            await context.Mail.AddAsync(mail);
-            await context.SaveChangesAsync();
+            await _context.Mail.AddAsync(mail);
+            await _context.SaveChangesAsync();
+
+            await _notificationService.NotifyMailCreated(mail.Id.ToString());
+
 
             return Ok(new ApiResponse<Mail> { Success = true, Data = mail });
         }
@@ -216,7 +298,7 @@ namespace test.Controllers.Api
             try
             {
                 var (userEmail, rolesList) = GetUserClaims();
-                var existingMail = await context.Mail.FindAsync(id);
+                var existingMail = await _context.Mail.FindAsync(id);
                 
                 // if (existingMail == null)
                 // {
@@ -238,11 +320,21 @@ namespace test.Controllers.Api
                     });
                 }
 
-                mail.EmailCc = mail.EmailCc?.Replace(",", ";");
-                mail.EmailBcc = mail.EmailBcc?.Replace(",", ";");
-                mapper.Map(mail, existingMail);
+                if (!string.IsNullOrEmpty(mail.EmailCc))
+                {
+                    mail.EmailCc = ";" + mail.EmailCc.Replace(",", ";").Trim(';') + ";";
+                }
                 
-                await context.SaveChangesAsync();
+                if (!string.IsNullOrEmpty(mail.EmailBcc))
+                {
+                    mail.EmailBcc = ";" + mail.EmailBcc.Replace(",", ";").Trim(';') + ";";
+                }
+
+                _mapper.Map(mail, existingMail);
+                await _context.SaveChangesAsync();
+
+                await _notificationService.NotifyMailUpdated(id.ToString());
+
 
                 return Ok(new ApiResponse<Mail>
                 {
@@ -263,14 +355,16 @@ namespace test.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse<object>>> DeleteMail(long id)
         {
-            var mail = await context.Mail.FindAsync(id);
+            var mail = await _context.Mail.FindAsync(id);
             if (mail == null)
             {
                 return NotFound(new ApiResponse<object> { Success = false, Message = "Mail not found" });
             }
 
-            context.Mail.Remove(mail);
-            await context.SaveChangesAsync();
+            _context.Mail.Remove(mail);
+            await _context.SaveChangesAsync();
+
+            await _notificationService.NotifyMailDeleted(id.ToString());
 
             return Ok(new ApiResponse<object> { Success = true });
         }
@@ -278,9 +372,9 @@ namespace test.Controllers.Api
         [HttpPost("deleteMultiple")]
         public async Task<ActionResult<ApiResponse<object>>> DeleteMultiple([FromBody] List<long> ids)
         {
-            var mails = await context.Mail.Where(m => ids.Contains(m.Id)).ToListAsync();
-            context.Mail.RemoveRange(mails);
-            await context.SaveChangesAsync();
+            var mails = await _context.Mail.Where(m => ids.Contains(m.Id)).ToListAsync();
+            _context.Mail.RemoveRange(mails);
+            await _context.SaveChangesAsync();
 
             return Ok(new ApiResponse<object> { Success = true });
         }
@@ -292,7 +386,7 @@ namespace test.Controllers.Api
             {
                 var (userEmail, rolesList) = GetUserClaims();
                 // Base query: Fetch necessary data only
-                var query = context.Mail.AsQueryable();
+                var query = _context.Mail.AsQueryable();
 
                 if (!rolesList.Contains("admin"))
                 {

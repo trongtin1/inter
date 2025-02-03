@@ -105,7 +105,7 @@
 
         async function loadMailDetails() {
             try {
-                const token = localStorage.getItem('token');
+                const token = sessionStorage.getItem('token');
                 if (!token) {
                     window.location.href = '/Account/Login';
                     return;
@@ -201,13 +201,14 @@
                 return;
             }
 
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             
             // $.ajax({
             //     url: `http://localhost:5001/api/Mails/${mailId}`,
             //     type: 'DELETE',
             //     headers: { 
             //         'Authorization': `Bearer ${token}`
+
             //     },
             //     success: function() {
             //         window.location.href = '/Mails';
