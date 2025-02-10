@@ -9,6 +9,7 @@ namespace test.Models.Entity
         public string? Username { get; set; }
         public string? Password { get; set; }
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public ICollection<UserModule> UserModules { get; set; } = new List<UserModule>();
     }
 
 }

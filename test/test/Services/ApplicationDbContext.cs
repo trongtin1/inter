@@ -21,6 +21,10 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<User> User { get; set; }
     public virtual DbSet<Role> Role { get; set; }
     public virtual DbSet<UserRole> UserRole { get; set; }
+    public virtual DbSet<Module> Module { get; set; }
+    public virtual DbSet<RoleModule> RoleModule { get; set; }
+    public virtual DbSet<UserModule> UserModule { get; set; }
+
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -67,6 +71,7 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("UID");
         });
+            // UserRole configuration
         modelBuilder.Entity<UserRole>()
             .HasKey(ur => new { ur.UserId, ur.RoleId });
 
@@ -79,9 +84,36 @@ public partial class ApplicationDbContext : DbContext
             .HasOne(ur => ur.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.RoleId);
-   
-   
-    }
+
+        // RoleModule configuration
+        modelBuilder.Entity<RoleModule>()
+            .HasKey(rm => new { rm.RoleId, rm.ModuleId });
+
+        modelBuilder.Entity<RoleModule>()
+            .HasOne(rm => rm.Role)
+            .WithMany(r => r.RoleModules)
+            .HasForeignKey(rm => rm.RoleId);
+
+        modelBuilder.Entity<RoleModule>()
+            .HasOne(rm => rm.Module)
+            .WithMany(m => m.RoleModules)
+            .HasForeignKey(rm => rm.ModuleId);
+
+        // UserModule configuration
+        modelBuilder.Entity<UserModule>()
+            .HasKey(um => new { um.UserId, um.ModuleId });
+
+        modelBuilder.Entity<UserModule>()
+            .HasOne(um => um.User)
+            .WithMany(u => u.UserModules)
+            .HasForeignKey(um => um.UserId);
+
+        modelBuilder.Entity<UserModule>()
+            .HasOne(um => um.Module)
+            .WithMany(m => m.UserModules)
+            .HasForeignKey(um => um.ModuleId);
+    
+        }
 
     // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

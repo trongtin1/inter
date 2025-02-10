@@ -8,24 +8,24 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Login</h3>
+                    <h3 class="text-center">@test.Resources.Account.Resource.Login</h3>
                 </div>
                 <div class="card-body">
                     <form id="loginForm">
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
+                            <label class="form-label">@test.Resources.Account.Resource.Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
+                            <label class="form-label">@test.Resources.Account.Resource.Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">@test.Resources.Account.Resource.Login</button>
                         </div>
                     </form>
                     <div class="text-center mt-3">
-                        <a href="/Account/Register">Don't have an account? Register now</a>
+                        <a href="/Account/Register">@test.Resources.Account.Resource.Register</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     if (returnUrl && !returnUrl.includes('/Account/Login')) {
                         window.location.href = returnUrl;
                     } else {
-                        window.location.href = '/Mails';
+                        window.location.href = '/Home';
                     }
                 }
             } catch (error) {

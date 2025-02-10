@@ -11,17 +11,20 @@ using Microsoft.EntityFrameworkCore;
 using test.Services;
 using test.Models.DTOs.Request;
 using test.Models.DTOs;
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace test.Controllers.Api
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
+
 {
     private readonly ApplicationDbContext _context;
-    private readonly IConfiguration _configuration;
+    private readonly TokenService _tokenService;
 
-    public AuthController(ApplicationDbContext context, IConfiguration configuration)
+    public AuthController(ApplicationDbContext context, TokenService tokenService)
     {
         _context = context;
-        _configuration = configuration;
+        _tokenService = tokenService;
     }
 
     // [HttpPost("register")]
@@ -57,7 +60,8 @@ public class AuthController : ControllerBase
 
         if (user != null && BCrypt.Net.BCrypt.Verify(userLogin.Password, user.Password))
         {
-            var token = GenerateJwtToken(user);
+            var token = _tokenService.GenerateJwtToken(user);
+           
             return Ok(new ApiResponse<object>
             {
                 Success = true,
@@ -73,38 +77,5 @@ public class AuthController : ControllerBase
             Data = null
         });
     }
-
-    
-    // [HttpGet("test")]
-    // public IActionResult Test()
-    // {
-    //     return Ok(new { message = "You are authorized!", user = User.Identity.Name });
-    // }
-
-    private string GenerateJwtToken(User user)
-    {   
-        var claims = new List<Claim>
-        {   
-            new Claim("id", user.Id.ToString()),
-            new Claim("email", user.Email ?? ""),
-            new Claim("username", user.Username ?? ""),
-            new Claim("roles", string.Join(",", user.UserRoles?.Select(ur => ur.Role?.Name) ?? Array.Empty<string>()))
-        };
-        
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var securityTokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddHours(1),
-            SigningCredentials = creds,
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"]
-        };
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(securityTokenDescriptor);
-        return tokenHandler.WriteToken(token);
-    }
 }
+}   

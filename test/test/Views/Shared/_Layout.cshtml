@@ -26,38 +26,27 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <!-- Menu items sẽ được thêm vào đây bởi JavaScript khi đã đăng nhập -->
+                </ul>
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if (Thread.CurrentThread.CurrentCulture.Name == "en")
+                            {
+                                <span>English</span>
+                            }
+                            else
+                            {
+                                <span>Vietnamese</span>
+                            }
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en">English</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="vi">Vietnamese</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                   
                 </ul>
                 
-                <!-- User Authentication Section -->
-                <!-- <ul class="navbar-nav">
-                    @if(User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Hello @User.Identity.Name</a>
-                        </li>
-                        <li class="nav-item">
-                            <form asp-controller="Account" asp-action="Logout" method="post">
-                                <button type="submit" class="nav-link text-dark border-0 bg-transparent">Logout</button>
-                            </form>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                    }
-                </ul> -->
                 <ul class="navbar-nav" id="authSection">
                     <!-- JavaScript sẽ tự động cập nhật nội dung ở đây -->
                 </ul>
@@ -85,9 +74,10 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="~/js/SignalR/signalr-connection.js"></script>
+    <script src="~/js/SignalR/hub-connections.js"></script>
+    <script src="~/js/shared/permission-handler.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(async function() {
             const $authSection = $("#authSection");
             const token = sessionStorage.getItem("token");
 
@@ -95,28 +85,41 @@
                 try {
                     const payload = JSON.parse(atob(token.split('.')[1]));
                   
-                    $(".navbar-nav.flex-grow-1").append(`
+                    $(".navbar-nav.flex-grow-1").html(`
                         <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Home">@test.Resources.Menu.Resource.Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Home/Privacy">@test.Resources.Menu.Resource.Privacy</a>
+                        </li>
+                        <li class="nav-item" style="display: none;">
                             <a class="nav-link text-dark" href="/Mails">Mails</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Statistics">Statistics</a>
+                        <li class="nav-item" style="display: none;">
+                            <a class="nav-link text-dark" href="/Statistics">@test.Resources.Menu.Resource.Statistics</a>
+                        </li>
+                        <li class="nav-item" style="display: none;">
+                            <a class="nav-link text-dark" href="/Admin">Admin</a>
                         </li>
                     `);
-                    
+
                     $authSection.html(`
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Hello, ${payload.username}</a>
+                            <a class="nav-link text-dark" href="#">@test.Resources.Menu.Resource.Hello, ${payload.username}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#" onclick="logout()">Logout</a>
+                            <a class="nav-link text-dark" href="#" onclick="logout()">@test.Resources.Menu.Resource.Logout</a>
                         </li>
                     `);
+
+                    // Kiểm tra và cập nhật quyền truy cập menu
+                    const modules = await permissionHandler.initializeModulePermissions();
+                    permissionHandler.updateMenuVisibility(modules);
+
                 } catch (error) {
                     console.error('Token validation failed:', error);
                     sessionStorage.removeItem("token");
                     showLoginInterface();
-
                 }
             } else {
                 showLoginInterface();
@@ -133,10 +136,10 @@
             
             $("#authSection").html(`
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/Account/Login">Login</a>
+                    <a class="nav-link text-dark" href="/Account/Login">@test.Resources.Menu.Resource.Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/Account/Register">Register</a>
+                    <a class="nav-link text-dark" href="/Account/Register">@test.Resources.Menu.Resource.Register</a>
                 </li>
             `);
         }

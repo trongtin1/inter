@@ -1,0 +1,128 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Create User Role";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Create User Role</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="createUserRoleForm" class="p-4 bg-white rounded shadow-sm">
+                <div class="form-group mb-4">
+                    <label for="userSelect" class="form-label fw-semibold">User</label>
+                    <select class="form-control" id="userSelect" required>
+                        <option value="">Select User</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label fw-semibold">Roles</label>
+                    <input type="text" class="form-control mb-2" id="roleSearch" placeholder="Search roles...">
+                    <div id="rolesCheckboxList" class="role-checkbox-container">
+                        <!-- Checkboxes will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary px-4">Create</button>
+                    <a href="/UserRoles" class="btn btn-secondary px-4 ms-2">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="~/css/UserRole/Create.css">  
+
+    <script>
+        $(document).ready(function () {
+            $('#userSelect').select2({
+                placeholder: 'Search for a user...',
+                allowClear: true
+            });
+            
+            loadUsersAndRoles();
+
+            
+            $('#roleSearch').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('.form-check').each(function() {
+                    const roleText = $(this).find('label').text().toLowerCase();
+                    $(this).toggle(roleText.includes(searchTerm));
+                });
+            });
+
+            $('#createUserRoleForm').on('submit', function (e) {
+                e.preventDefault();
+                createUserRole();
+            });
+        });
+
+        async function loadUsersAndRoles() {
+            try {
+                // Load users
+                const usersResponse = await axios.get('/api/Users');
+                const users = usersResponse.data.data;
+                const $userSelect = $('#userSelect');
+                $userSelect.empty();
+                $userSelect.append('<option value="">Select User</option>');
+                $.each(users, function(index, user) {
+                    $userSelect.append(`<option value="${user.id}">${user.username}</option>`);
+                });
+
+                // Load roles
+                const rolesResponse = await axios.get('/api/Roles');
+                const roles = rolesResponse.data.data;
+                const $rolesContainer = $('#rolesCheckboxList');
+                $rolesContainer.empty();
+
+                $.each(roles, function(index, role) {
+                    $rolesContainer.append(`
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" value="${role.id}" id="role${role.id}">
+                            <label class="form-check-label" for="role${role.id}">
+                                ${role.name}
+                            </label>
+                        </div>
+                    `);
+                });
+            } catch (error) {
+                console.error('Error loading users and roles:', error);
+                alert('Failed to load users and roles');
+            }
+        }
+
+        async function createUserRole() {
+            const userId = $('#userSelect').val();
+            const roleIds = $('#rolesCheckboxList input[type="checkbox"]:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            if (!userId || roleIds.length === 0) {
+                alert('Please select both user and at least one role');
+                return;
+            }
+
+            try {
+                await axios.post('/api/UserRoles', {
+                    userId: userId,
+                    roleIds: roleIds
+                });
+
+                alert('User roles created successfully');
+                window.location.href = '/UserRoles';
+            } catch (error) {
+                console.error('Error creating user roles:', error);
+                alert(error.response.data.data.message);
+            }
+        }
+    </script>
+
+}

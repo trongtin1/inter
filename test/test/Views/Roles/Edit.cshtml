@@ -1,0 +1,78 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit Role";
+}
+
+
+<div class="container mt-4">
+    <h2>Edit Role</h2>
+
+    <form id="editRoleForm" class="mt-4">
+        <input type="hidden" id="roleId" />
+        
+
+        <div class="form-group mb-3">
+            <label for="name">Name Role</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Role</button>
+        <a href="/Roles" class="btn btn-secondary">Back to List</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Lấy user ID từ URL
+            const roleId = window.location.pathname.split('/').pop();
+            
+            loadRole(roleId);
+
+            // Sự kiện submit form
+            $('#editRoleForm').on('submit', function (e) {
+                e.preventDefault();
+                updateRole();
+            });
+
+        });
+
+        // Hàm tải dữ liệu người dùng
+        function loadRole(id) {
+            axios.get(`/api/roles/${id}`)
+                .then(response => {
+                    const role = response.data.data;
+                    $('#roleId').val(role.id);
+                    $('#name').val(role.name);
+                })
+                .catch(error => {
+                    console.error('Error loading role:', error);
+                    alert('Failed to load role data');
+                });
+
+        }
+
+        // Hàm cập nhật người dùng
+        function updateRole() {
+            const roleId = $('#roleId').val();
+            const roleData = {
+                name: $('#name').val()
+            };
+            axios.put(`/api/roles/${roleId}`, roleData)
+                .then(() => {
+                    alert('Role updated successfully');
+
+                    window.location.href = '/Roles'; // Quay lại danh sách người dùng
+                })
+
+                .catch(error => {
+                    console.error('Error updating role:', error);
+                    alert('Failed to update role');
+                });
+
+        }
+    </script>
+}

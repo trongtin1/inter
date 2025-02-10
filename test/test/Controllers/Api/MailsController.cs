@@ -13,12 +13,14 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using test.Models.DTOs;
 using OfficeOpenXml;
-
+using test.Extensions;
+using test.Attributes;
+using test.Services.Hubs;
 namespace test.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [Authorize]
     public class MailsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -33,13 +35,13 @@ namespace test.Controllers.Api
         }
 
         // Add private method to get user claims
-        private (string userEmail, List<string> rolesList) GetUserClaims()
-        {
-            var roles = User.Claims.FirstOrDefault(c => c.Type == "roles")?.Value ?? "";
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-            var rolesList = roles.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            return (userEmail, rolesList);
-        }
+        // private (string userEmail, List<string> rolesList) GetUserClaims()
+        // {
+        //     var roles = User.Claims.FirstOrDefault(c => c.Type == "roles")?.Value ?? "";
+        //     var userEmail = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+        //     var rolesList = roles.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+        //     return (userEmail, rolesList);
+        // }
 
         // GET: api/Mails
         // [HttpGet]
@@ -155,6 +157,7 @@ namespace test.Controllers.Api
         // }
 
         [HttpGet]
+        [ModulePermission("Mails", requireRead: true)]
         public async Task<ActionResult<ApiResponse<MailRes>>> GetMails(
             int? page,
             string? id,
@@ -170,11 +173,14 @@ namespace test.Controllers.Api
             try
             {   
                 var ls = new MailRes();
-                var (userEmail, rolesList) = GetUserClaims();
+                var (claimsId, userEmail, rolesList) = this.GetUserClaims();
                 int pageSize = 6;
                 int pageIndex = page ?? 1;
                 DataTable dt = new();
-
+                if (!rolesList.Contains("admin"))
+                {
+                    email = userEmail;
+                }
                 using (var command = _context.Database.GetDbConnection().CreateCommand())
                 {
                     command.CommandText = "GetMails";
@@ -227,11 +233,12 @@ namespace test.Controllers.Api
         }
 
         [HttpGet("{id}")]
+        [ModulePermission("Mails", requireRead: true)]
         public async Task<ActionResult<ApiResponse<Mail>>> GetMail(long id)
         {
             try
             {
-                var (userEmail, rolesList) = GetUserClaims();
+                var (claimsId, userEmail, rolesList) = this.GetUserClaims();
                 // Get the mail
                 var mail = await _context.Mail.FindAsync(id);
                 
@@ -271,6 +278,7 @@ namespace test.Controllers.Api
         }
 
         [HttpPost]
+        [ModulePermission("Mails", requireCreate: true)]
         public async Task<ActionResult<ApiResponse<Mail>>> CreateMail(Mail mail)
         {
             if (!string.IsNullOrEmpty(mail.EmailCc))
@@ -286,20 +294,20 @@ namespace test.Controllers.Api
             await _context.Mail.AddAsync(mail);
             await _context.SaveChangesAsync();
 
-            await _notificationService.NotifyMailCreated(mail.Id.ToString());
-
+            
 
             return Ok(new ApiResponse<Mail> { Success = true, Data = mail });
         }
 
         [HttpPut("{id}")]
+        [ModulePermission("Mails", requireUpdate: true)]
         public async Task<ActionResult<ApiResponse<Mail>>> UpdateMail(long id, Mail mail)
         {
             try
             {
-                var (userEmail, rolesList) = GetUserClaims();
+                var (claimsId, userEmail, rolesList) = this.GetUserClaims();
                 var existingMail = await _context.Mail.FindAsync(id);
-                
+
                 // if (existingMail == null)
                 // {
                 //     return NotFound(new ApiResponse<Mail> 
@@ -353,6 +361,7 @@ namespace test.Controllers.Api
         }
 
         [HttpDelete("{id}")]
+        [ModulePermission("Mails", requireDelete: true)]
         public async Task<ActionResult<ApiResponse<object>>> DeleteMail(long id)
         {
             var mail = await _context.Mail.FindAsync(id);
@@ -370,12 +379,13 @@ namespace test.Controllers.Api
         }
 
         [HttpPost("deleteMultiple")]
+        [ModulePermission("Mails", requireDelete: true)]
         public async Task<ActionResult<ApiResponse<object>>> DeleteMultiple([FromBody] List<long> ids)
         {
             var mails = await _context.Mail.Where(m => ids.Contains(m.Id)).ToListAsync();
             _context.Mail.RemoveRange(mails);
             await _context.SaveChangesAsync();
-
+            await _notificationService.NotifyMailDeleted(ids.ToString());
             return Ok(new ApiResponse<object> { Success = true });
         }
 
@@ -384,9 +394,12 @@ namespace test.Controllers.Api
         {
             try
             {
-                var (userEmail, rolesList) = GetUserClaims();
+                var (claimsId, userEmail, rolesList) = this.GetUserClaims();
                 // Base query: Fetch necessary data only
                 var query = _context.Mail.AsQueryable();
+
+
+
 
                 if (!rolesList.Contains("admin"))
                 {

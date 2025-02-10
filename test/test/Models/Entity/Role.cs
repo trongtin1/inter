@@ -9,4 +9,5 @@ public class Role
     [Required(ErrorMessage = "The Name field is required.")]
     public string? Name { get; set; }
     public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+    public ICollection<RoleModule> RoleModules { get; set; } = new List<RoleModule>();
 }

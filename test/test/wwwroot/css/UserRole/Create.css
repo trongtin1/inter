@@ -1,0 +1,101 @@
+/* Form styling */
+
+/* Select2 container styling */
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+  height: 40px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.select2-container--default .select2-selection--single:focus,
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Selection text styling */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  line-height: 38px;
+  padding-left: 12px;
+  color: #212529;
+}
+
+/* Placeholder styling */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__placeholder {
+  color: #6c757d;
+}
+
+/* Dropdown styling */
+.select2-dropdown {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Options styling */
+.select2-container--default .select2-results__option {
+  padding: 8px 12px;
+  color: #212529;
+}
+
+.select2-container--default
+  .select2-results__option--highlighted[aria-selected] {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"] {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+/* Search field styling */
+.select2-search__field {
+  padding: 8px !important;
+  border-radius: 4px !important;
+  border: 1px solid #ced4da !important;
+  color: #212529 !important;
+}
+
+/* Arrow styling */
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 38px;
+  width: 30px;
+}
+.role-checkbox-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 10px;
+}
+
+.form-check {
+  padding-left: 2rem;
+  transition: background-color 0.2s;
+}
+
+.form-check:hover {
+  background-color: #f8f9fa;
+}
+
+#roleSearch {
+  border-radius: 0.25rem;
+}
+
+.form-check label {
+  cursor: pointer;
+  width: 100%;
+}

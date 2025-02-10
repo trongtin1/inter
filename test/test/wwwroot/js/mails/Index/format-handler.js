@@ -2,7 +2,7 @@ const formatHandler = {
   formatEmailContent(content) {
     if (!content) return "";
     const words = content.split(" ");
-    if (words.length > 10) {
+    if (words.length > 1) {
       return `
                 <div class="email-content">
                     <div class="content-preview">

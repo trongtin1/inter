@@ -21,6 +21,11 @@
         },
         "runtime": {
           "test.dll": {}
+        },
+        "resources": {
+          "vi/test.resources.dll": {
+            "locale": "vi"
+          }
         }
       },
       "AutoMapper/12.0.0": {

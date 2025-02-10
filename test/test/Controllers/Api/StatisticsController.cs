@@ -13,11 +13,14 @@ using System.Data;
 using System.Runtime.ConstrainedExecution;
 using System.Reflection;
 using test.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using test.Attributes;
+namespace test.Controllers.Api
 
-namespace test.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StatisticsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -27,9 +30,9 @@ namespace test.Controllers
             _context = context;
           
         }
-
         // GET: api/Statistics/email-frequencies
         [HttpGet("most-email-frequencies")]
+        [ModulePermission("Statistics", requireRead: true)]
         public async Task<ActionResult<ApiResponse<List<EmailFrequencyRes>>>> GetEmailFrequencies()
         {
             try
@@ -87,7 +90,9 @@ namespace test.Controllers
         
         // GET: api/Statistics/email-frequencies-by-year
         [HttpGet("email-frequencies-by-year")]
+        [ModulePermission("Statistics", requireRead: true)]
         public async Task<ActionResult<ApiResponse<MonthlyEmailCountRes>>> GetEmailFrequenciesByYear(int year)
+
         {
             try
             {
@@ -145,9 +150,10 @@ namespace test.Controllers
                 });
             }
         }
-    
         [HttpGet("email-monthly-stats")]
+        [ModulePermission("Statistics", requireRead: true)]
         public async Task<ActionResult<ApiResponse<UserEmailRes>>> GetEmailMonthlyStats(string email, [FromQuery] int? year)
+
         {
             try
             {

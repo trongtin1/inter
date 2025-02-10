@@ -64,8 +64,12 @@
 
         async function loadEmailFrequencies() {
             try {
-                const response = await axios.get('/api/Statistics/most-email-frequencies');
-                
+                const response = await axios.get('/api/Statistics/most-email-frequencies', {
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    }
+                });
+
                 if (response.data.success) {
                     const emails = response.data.data.map(item => item.email);
                     const counts = response.data.data.map(item => item.count);
@@ -129,9 +133,14 @@
         async function loadMonthlyStats(year) {
             try {
                 const response = await axios.get(`/api/Statistics/email-frequencies-by-year`, {
-                    params: { year: year }
+                    params: { year: year },
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    }
+
                 });
                 
+
                 if (response.data.success) {
                     const monthlyStats = response.data.data.monthlyStats;
                     const totalEmails = monthlyStats.reduce((sum, stat) => sum + stat.count, 0);
@@ -201,9 +210,13 @@
                     params: {
                         email: email,
                         year: year
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                     }
                 });
                 
+
                 if (response.data.success) {
                     const monthlyStats = response.data.data.monthlyStats;
                     const totalEmails = monthlyStats.reduce((sum, stat) => sum + stat.count, 0);

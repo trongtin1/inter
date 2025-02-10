@@ -2,7 +2,15 @@
   "Files": [
     {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\test.bundle.scp.css",
-      "PackagePath": "staticwebassets\\test.f4nxnejo16.bundle.scp.css"
+      "PackagePath": "staticwebassets\\test.qekdr8u2xn.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\UserRole\\Create.css",
+      "PackagePath": "staticwebassets\\css\\UserRole\\Create.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
     },
     {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\site.css",
@@ -21,8 +29,32 @@
       "PackagePath": "staticwebassets\\images\\403.png"
     },
     {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\connections.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\connections.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\hub-connections.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\hub-connections.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\mail-hub.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\mail-hub.js"
+    },
+    {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
       "PackagePath": "staticwebassets\\js\\SignalR\\signalr-connection.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\user-module-hub.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\user-module-hub.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\userModule.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\userModule.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\admin.js",
+      "PackagePath": "staticwebassets\\js\\admin.js"
     },
     {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
@@ -45,8 +77,16 @@
       "PackagePath": "staticwebassets\\js\\mails\\Index\\index.js"
     },
     {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\permission-handler.js"
+    },
+    {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
       "PackagePath": "staticwebassets\\js\\mails\\Index\\render-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\shared\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\shared\\permission-handler.js"
     },
     {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",

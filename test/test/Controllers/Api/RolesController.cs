@@ -5,10 +5,13 @@ using test.Models.Entity;
 using test.Models.DTOs.Request;
 using test.Models.DTOs.Response;
 using test.Models.DTOs;
+using test.Models.DTOs.Response.Role;
+using test.Models.DTOs.Response.User;
 using test.Services;
 using AutoMapper;
+using test.Models.DTOs.Request.Role;
 
-namespace test.Controllers
+namespace test.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,27 +26,23 @@ namespace test.Controllers
             _mapper = mapper;
         }
 
+        private async Task<bool> IsRoleNameExists(string name, int? excludeId = null)
+        {
+            return await _context.Role.AnyAsync(r => r.Name == name && (!excludeId.HasValue || r.Id != excludeId));
+        }
+
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<RoleDTO>>>> GetRoles()
+        public async Task<ActionResult<ApiResponse<IEnumerable<RoleRes>>>> GetRoles()
         {
             var roles = await _context.Role
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.User)
-                .Select(r => new RoleDTO
+                .Select(r => new RoleRes
                 {
                     Id = r.Id,
-                    Name = r.Name,
-                    Users = r.UserRoles.Select(ur => new UserDTO
-                    {
-                        Id = ur.User.Id,
-                        Username = ur.User.Username,
-                        Email = ur.User.Email,
-                        Roles = ur.User.UserRoles.Select(ur => ur.Role.Name).ToList()
-                    }).ToList()
+                    Name = r.Name
                 })  
                 .ToListAsync();
 
-            return Ok(new ApiResponse<IEnumerable<RoleDTO>>
+            return Ok(new ApiResponse<IEnumerable<RoleRes>>
             {
                 Success = true,
                 Message = "Roles retrieved successfully",
@@ -52,35 +51,27 @@ namespace test.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponse<RoleDTO>>> GetRole(int id)
+        public async Task<ActionResult<ApiResponse<RoleRes>>> GetRole(int id)
         {
             var role = await _context.Role
-                .Include(r => r.UserRoles)
-                    .ThenInclude(ur => ur.User)
                 .Where(r => r.Id == id)
-                .Select(r => new RoleDTO
+                .Select(r => new RoleRes
                 {
                     Id = r.Id,
-                    Name = r.Name,
-                    Users = r.UserRoles.Select(ur => new UserDTO
-                    {
-                        Id = ur.User.Id,
-                        Username = ur.User.Username,
-                        Email = ur.User.Email
-                    }).ToList()
+                    Name = r.Name
                 })
                 .FirstOrDefaultAsync();
 
             if (role == null)
             {
-                return NotFound(new ApiResponse<RoleDTO>
+                return NotFound(new ApiResponse<RoleRes>
                 {
                     Success = false,
                     Message = "Role not found"
                 });
             }
 
-            return Ok(new ApiResponse<RoleDTO>
+            return Ok(new ApiResponse<RoleRes>
             {
                 Success = true,
                 Message = "Role retrieved successfully",
@@ -89,52 +80,53 @@ namespace test.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<RoleDTO>>> CreateRole([FromBody] RoleDTO roleDto)
-        {
-            if (await _context.Role.AnyAsync(r => r.Name == roleDto.Name))
+        public async Task<ActionResult<ApiResponse<RoleReq>>> CreateRole([FromBody] RoleReq RoleReq)
+        {   
+            
+            if (await IsRoleNameExists(RoleReq.Name))
             {
-                return BadRequest(new ApiResponse<RoleDTO>
+                return BadRequest(new ApiResponse<RoleReq>
                 {
                     Success = false,
                     Message = "Role name already exists"
                 });
             }
-
-            var role = new Role { Name = roleDto.Name };
+            var role = _mapper.Map<Role>(RoleReq);
             _context.Role.Add(role);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction(
-                nameof(GetRole), 
-                new { id = role.Id },
-                new ApiResponse<RoleDTO>
-                {
-                    Success = true,
-                    Message = "Role created successfully",
-                    Data = new RoleDTO
-                    {
-                        Id = role.Id,
-                        Name = role.Name,
-                        Users = new List<UserDTO>()
-                    }
-                });
+            return Ok(new ApiResponse<RoleReq> 
+            { 
+                Success = true, 
+                Message = "Role created successfully", 
+                Data = RoleReq
+            });
         }
+        
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponse<RoleDTO>>> UpdateRole(int id, [FromBody] UpdateRoleDTO updateRoleDto)
+        public async Task<ActionResult<ApiResponse<RoleReq>>> UpdateRole(int id, [FromBody] RoleReq updateRoleDto)
         {
-            if (string.IsNullOrWhiteSpace(updateRoleDto.Name))
+            // if (string.IsNullOrWhiteSpace(updateRoleDto.Name))
+            // {
+
+            //     return BadRequest(new ApiResponse<RoleDTO> 
+            //     { 
+            //         Success = false, 
+            //         Message = "Role name cannot be empty" 
+            //     });
+            // }
+            if (await IsRoleNameExists(updateRoleDto.Name, id))
             {
-                return BadRequest(new ApiResponse<RoleDTO> 
-                { 
-                    Success = false, 
-                    Message = "Role name cannot be empty" 
+                return BadRequest(new ApiResponse<RoleReq>
+                {
+                    Success = false,
+                    Message = "Role name already exists"
                 });
             }
-
             var role = await _context.Role.FindAsync(id);
+            
             if (role == null)
             {
-                return NotFound(new ApiResponse<RoleDTO> 
+                return NotFound(new ApiResponse<RoleReq> 
                 { 
                     Success = false, 
                     Message = "Role not found" 
@@ -142,16 +134,16 @@ namespace test.Controllers
             }
 
             _mapper.Map(updateRoleDto, role);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();           
 
-            var roleDto = _mapper.Map<RoleDTO>(role);
-
-            return Ok(new ApiResponse<RoleDTO> 
+            return Ok(new ApiResponse<RoleReq> 
             { 
                 Success = true, 
                 Message = "Role updated successfully", 
-                Data = roleDto
+                Data = updateRoleDto
             });
+
         }
     }
+
 }

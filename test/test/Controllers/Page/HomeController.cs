@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using test.Models;
-
+using System.Globalization;
 namespace test.Controllers.Page
 {
     public class HomeController : Controller
@@ -27,6 +27,22 @@ namespace test.Controllers.Page
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ChangeLanguage(string culture)
+        {
+            if (!string.IsNullOrEmpty(culture))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            }
+            Response.Cookies.Append("Language",culture);
+            return Redirect(Request.GetTypedHeaders().Referer.ToString());
         }
     }
 }

@@ -44,6 +44,8 @@ namespace test.Controllers.Page
             return View();
         }
 
+
+
         // [HttpGet]
         // public async Task<IActionResult> Details(long id){
         //     var mail = await context.Mail.FindAsync(id);

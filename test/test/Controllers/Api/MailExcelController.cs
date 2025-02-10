@@ -8,6 +8,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using test.Models.DTOs;
+using test.Extensions;
 namespace test.Controllers.Api
 {
     [Route("api/mail-excel")]
@@ -20,15 +21,6 @@ namespace test.Controllers.Api
         public MailExcelController(ApplicationDbContext context)
         {
             this.context = context;
-        }
-
-        // Add private method to get user claims
-        private (string userEmail, List<string> rolesList) GetUserClaims()
-        {
-            var roles = User.Claims.FirstOrDefault(c => c.Type == "roles")?.Value ?? "";
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-            var rolesList = roles.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            return (userEmail, rolesList);
         }
 
         private Stream CreateExcelFile(List<Mail> mails, Stream stream = null)
@@ -208,8 +200,7 @@ namespace test.Controllers.Api
         {
             try
             {
-                var (userEmail, rolesList) = GetUserClaims();
-                
+                var (claimsId,userEmail, rolesList) = this.GetUserClaims();
                 // Use the shared query builder
                 var query = BuildMailQuery(
                     userEmail,

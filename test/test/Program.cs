@@ -13,7 +13,8 @@ using System.Text.Json;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.SignalR;
 using test.Hubs;
-
+using test.Attributes;
+using test.Services.Hubs;
 namespace test
 {
     public class Program
@@ -79,6 +80,7 @@ namespace test
                 options.ClaimsIdentity.EmailClaimType = "email";
                 options.ClaimsIdentity.UserNameClaimType = "username";
                 options.ClaimsIdentity.RoleClaimType = "roles";
+                
             });
 
             //builder.Services.AddAuthorization(options =>
@@ -86,7 +88,7 @@ namespace test
             //    options.AddPolicy("RequireAdminRole", policy =>
             //        policy.RequireClaim("roles", "admin"));
             //});
-
+            // Swagger
             builder.Services.AddSwaggerGen( options => 
             {   
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -132,10 +134,28 @@ namespace test
             // Add SignalR services
             builder.Services.AddSignalR();
 
-
             builder.Services.AddScoped<IMailNotificationService, MailNotificationService>();
-
+            builder.Services.AddScoped<IUserModuleNotificationService, UserModuleNotificationService>();
+            builder.Services.AddScoped<TokenService>();
+            
+            
+            // builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            // builder.Services.AddRazorPages()
+            //                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            //                 .AddDataAnnotationsLocalization();
+           
             var app = builder.Build();
+            
+            // var supportedCultures = new[] { "en", "vi" };
+            // var localizationOptions = new RequestLocalizationOptions()
+            //     .SetDefaultCulture(supportedCultures[0])
+            //     .AddSupportedCultures(supportedCultures)
+            //     .AddSupportedUICultures(supportedCultures);
+
+            // Add this: Configure culture cookie
+            // localizationOptions.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
+
+            // app.UseRequestLocalization(localizationOptions);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -150,6 +170,23 @@ namespace test
 
             app.UseRouting();
 
+            app.Use(async(context, next) =>
+            {
+                string cookies = string.Empty;
+                if (context.Request.Cookies.TryGetValue("Language", out cookies))
+                {
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cookies);
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(cookies);
+                }
+                else
+                {
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en");
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+                }
+                await next.Invoke();
+            });
+    
+            
             app.UseAuthentication();
             app.UseAuthorization();
             
@@ -157,7 +194,7 @@ namespace test
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "swagger";
             });
 
             app.MapControllerRoute(
@@ -166,6 +203,7 @@ namespace test
 
             // Add endpoints
             app.MapHub<MailHub>("/mailHub");
+            app.MapHub<UserModuleHub>("/userModuleHub");
 
             if (app.Environment.IsDevelopment())
             {

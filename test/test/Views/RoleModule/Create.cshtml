@@ -1,0 +1,137 @@
+ @{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Create Role Module";
+}
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">Create Role Module</h2>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="createUserRoleForm" class="p-4 bg-white rounded shadow-sm">
+                <div class="form-group mb-4">
+                    <label for="roleSelect" class="form-label fw-semibold">Role</label>
+                    <select class="form-control" id="roleSelect" required>
+                        <option value="">Select Role</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="moduleSelect" class="form-label fw-semibold">Module</label>
+                    <select class="form-control" id="moduleSelect" required>
+                        <option value="">Select Module</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="canCreate">Can Create</label>
+                    <input type="checkbox" class="form-check-input" id="canCreate">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="canRead">Can Read</label>
+                    <input type="checkbox" class="form-check-input" id="canRead">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="canUpdate">Can Update</label>
+                    <input type="checkbox" class="form-check-input" id="canUpdate">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="canDelete">Can Delete</label>
+                    <input type="checkbox" class="form-check-input" id="canDelete">
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary px-4">Create</button>
+                    <a href="/RoleModule" class="btn btn-secondary px-4 ms-2">Back to List</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="~/css/UserRole/Create.css">  
+
+    <script>
+        $(document).ready(function () {
+            $('#moduleSelect').select2({
+                placeholder: 'Search for a module...',
+                allowClear: true
+            });
+
+            $('#roleSelect').select2({
+                placeholder: 'Search for a role...',
+                allowClear: true
+            });
+            loadModulesAndRoles();
+            $('#createUserRoleForm').on('submit', async function (e) {
+                e.preventDefault();
+                await createRoleModule();
+            });
+        });
+
+        // Load users and roles for the create form
+        async function loadModulesAndRoles() {
+            try {
+                // Load users
+                const modulesResponse = await axios.get('/api/Modules');
+                const modules = modulesResponse.data.data;
+                const moduleSelect = $('#moduleSelect');
+                moduleSelect.empty();
+                moduleSelect.append('<option value="">Select Module</option>');
+
+                modules.forEach(module => {
+                    moduleSelect.append(`<option value="${module.id}">${module.name}</option>`);
+                });
+
+                // Load roles
+                const rolesResponse = await axios.get('/api/Roles');
+                const roles = rolesResponse.data.data;
+                const roleSelect = $('#roleSelect');
+                roleSelect.empty();
+                roleSelect.append('<option value="">Select Role</option>');
+
+                roles.forEach(role => {
+                    roleSelect.append(`<option value="${role.id}">${role.name}</option>`);
+                });
+            } catch (error) {
+                console.error('Error loading modules and roles:', error);
+                alert('Failed to load modules and roles');
+            }
+
+        }
+
+        // Create user role
+        async function createRoleModule() {
+            const data = {
+                moduleId: $('#moduleSelect').val(),
+                roleId: $('#roleSelect').val(),
+                canCreate: $('#canCreate').is(':checked'),
+                canRead: $('#canRead').is(':checked'),
+                canUpdate: $('#canUpdate').is(':checked'),
+                canDelete: $('#canDelete').is(':checked')
+            }
+
+            if (!data.moduleId || !data.roleId) {
+                alert('Please select both module and role');
+                return;
+            }
+            try {
+                await axios.post('/api/RoleModules', data);
+                
+                window.location.href = '/RoleModule';
+            } catch (error) {
+                console.error('Error creating role module:', error);
+                alert('Failed to create role module');
+            }
+        }
+
+    </script>
+}

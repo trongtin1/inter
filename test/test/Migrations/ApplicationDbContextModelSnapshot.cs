@@ -22,7 +22,7 @@ namespace test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("test.Models.Mail", b =>
+            modelBuilder.Entity("test.Models.Entity.Mail", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +107,29 @@ namespace test.Migrations
                     b.ToTable("Mail");
                 });
 
-            modelBuilder.Entity("test.Models.Role", b =>
+            modelBuilder.Entity("test.Models.Entity.Module", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Module");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,7 +146,34 @@ namespace test.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("test.Models.User", b =>
+            modelBuilder.Entity("test.Models.Entity.RoleModule", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CanCreate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanUpdate")
+                        .HasColumnType("bit");
+
+                    b.HasKey("RoleId", "ModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("RoleModule");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,7 +195,34 @@ namespace test.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("test.Models.UserRole", b =>
+            modelBuilder.Entity("test.Models.Entity.UserModule", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CanCreate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanUpdate")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "ModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("UserModule");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -161,15 +237,53 @@ namespace test.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("test.Models.UserRole", b =>
+            modelBuilder.Entity("test.Models.Entity.RoleModule", b =>
                 {
-                    b.HasOne("test.Models.Role", "Role")
+                    b.HasOne("test.Models.Entity.Module", "Module")
+                        .WithMany("RoleModules")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("test.Models.Entity.Role", "Role")
+                        .WithMany("RoleModules")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.UserModule", b =>
+                {
+                    b.HasOne("test.Models.Entity.Module", "Module")
+                        .WithMany("UserModules")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("test.Models.Entity.User", "User")
+                        .WithMany("UserModules")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.UserRole", b =>
+                {
+                    b.HasOne("test.Models.Entity.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("test.Models.User", "User")
+                    b.HasOne("test.Models.Entity.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -180,13 +294,24 @@ namespace test.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("test.Models.Role", b =>
+            modelBuilder.Entity("test.Models.Entity.Module", b =>
                 {
+                    b.Navigation("RoleModules");
+
+                    b.Navigation("UserModules");
+                });
+
+            modelBuilder.Entity("test.Models.Entity.Role", b =>
+                {
+                    b.Navigation("RoleModules");
+
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("test.Models.User", b =>
+            modelBuilder.Entity("test.Models.Entity.User", b =>
                 {
+                    b.Navigation("UserModules");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
