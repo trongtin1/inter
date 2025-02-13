@@ -70,7 +70,7 @@ class PermissionHandler {
       delete: deleteText,
       export: exportText,
       import: importText,
-      newMail,
+      newMail: createText,
     } = window.mailResources;
 
     if (permissions.canDelete) {
@@ -111,7 +111,7 @@ class PermissionHandler {
         this.createLink(
           "/Mails/Create",
           "fas fa-plus me-1",
-          newMail,
+          createText,
           "btn-success"
         )
       );

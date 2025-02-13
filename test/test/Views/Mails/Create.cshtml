@@ -1,5 +1,3 @@
-@using System.Web
-@model test.Models.Entity.Mail
 @{
     ViewData["Title"] = "Create Email";
 }
@@ -8,40 +6,40 @@
        
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Create Email</h5>
-            <a href="@Url.Action("Index", "Mails")" class="btn btn-light btn-sm">
+            <a href="/Mails" class="btn btn-light btn-sm">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
 
         <div class="card-body p-4">
             <form id="createMailForm">
-                <input type="hidden" asp-for="Id" />
+                <input type="hidden" id="Id" name="Id" />
                 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label asp-for="Subject" class="form-label fw-bold">Subject</label>
-                            <input asp-for="Subject" class="form-control" />
-                            <span asp-validation-for="Subject" class="text-danger"></span>
+                            <label for="Subject" class="form-label fw-bold">Subject</label>
+                            <input type="text" id="Subject" name="Subject" class="form-control" />
+                            <span class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Email" class="form-label fw-bold">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label for="Email" class="form-label fw-bold">Email</label>
+                            <select id="Email" name="Email" class="form-control email-select" data-placeholder="Search for an email..."></select>
+                            <span class="text-danger"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="EmailCc" class="form-label fw-bold">CC</label>
-                                    <input asp-for="EmailCc" class="form-control" data-role="tagsinput" placeholder="Add email and press enter" />
+                                    <label for="EmailCc" class="form-label fw-bold">CC</label>
+                                    <select id="EmailCc" name="EmailCc" class="form-control email-select" multiple="multiple" data-placeholder="Search for CC emails..."></select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="EmailBcc" class="form-label fw-bold">BCC</label>
-                                    <input asp-for="EmailBcc" class="form-control" data-role="tagsinput" placeholder="Add email and press enter" />
+                                    <label for="EmailBcc" class="form-label fw-bold">BCC</label>
+                                    <select id="EmailBcc" name="EmailBcc" class="form-control email-select" multiple="multiple" data-placeholder="Search for BCC emails..."></select>
                                 </div>
                             </div>
                         </div>
@@ -49,14 +47,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="Location" class="form-label fw-bold">Location</label>
-                                    <input asp-for="Location" class="form-control" />
+                                    <label for="Location" class="form-label fw-bold">Location</label>
+                                    <input type="text" id="Location" name="Location" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="MailType" class="form-label fw-bold">Mail Type</label>
-                                    <select asp-for="MailType" class="form-select">
+                                    <label for="MailType" class="form-label fw-bold">Mail Type</label>
+                                    <select id="MailType" name="MailType" class="form-select">
                                         <option value="1">Type 1</option>
                                         <option value="2">Type 2</option>
                                         <option value="3">Type 3</option>
@@ -68,31 +66,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="Organizer" class="form-label fw-bold">Organizer</label>
-                                    <input asp-for="Organizer" class="form-control" />
+                                    <label for="Organizer" class="form-label fw-bold">Organizer</label>
+                                    <input type="text" id="Organizer" name="Organizer" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="OrganizerMail" class="form-label fw-bold">Organizer Mail</label>
-                                    <input asp-for="OrganizerMail" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="FromDate" class="form-label fw-bold">From Date</label>
-                                    <input asp-for="FromDate" type="datetime-local" class="form-control" />
-                                    <span asp-validation-for="FromDate" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="ToDate" class="form-label fw-bold">To Date</label>
-                                    <input asp-for="ToDate" type="datetime-local" class="form-control" />
-                                    <span asp-validation-for="ToDate" class="text-danger"></span>
+                                    <label for="OrganizerMail" class="form-label fw-bold">Organizer Mail</label>
+                                    <input type="text" id="OrganizerMail" name="OrganizerMail" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -100,16 +81,33 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="SendTime" class="form-label fw-bold">Send Time</label>
-                                    <input asp-for="SendTime" type="datetime-local" class="form-control" />
-                                    <span asp-validation-for="SendTime" class="text-danger"></span>
+                                    <label for="FromDate" class="form-label fw-bold">From Date</label>
+                                    <input type="datetime-local" id="FromDate" name="FromDate" class="form-control" />
+                                    <span class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="CreateTime" class="form-label fw-bold">Create Time</label>
-                                    <input asp-for="CreateTime" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" readonly />
-                                    <span asp-validation-for="CreateTime" class="text-danger"></span>
+                                    <label for="ToDate" class="form-label fw-bold">To Date</label>
+                                    <input type="datetime-local" id="ToDate" name="ToDate" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="SendTime" class="form-label fw-bold">Send Time</label>
+                                    <input type="datetime-local" id="SendTime" name="SendTime" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="CreateTime" class="form-label fw-bold">Create Time</label>
+                                    <input type="datetime-local" id="CreateTime" name="CreateTime" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" readonly />
+                                    <span class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +128,7 @@
                                 </div>
                             </div>
                             
-                            <textarea asp-for="EmailContent" id="editor" class="form-control mb-3" style="min-height: 400px;"></textarea>
+                            <textarea id="editor" name="EmailContent" class="form-control mb-3" style="min-height: 400px;"></textarea>
                             <div class="border rounded">
                                 <div id="previewContent" class="p-3 bg-light" style="max-height: 500px; overflow-y: auto;">
                                 </div>
@@ -143,7 +141,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
-                    <a href="@Url.Action("Index", "Mails")" class="btn btn-secondary">
+                    <a href="/Mails" class="btn btn-secondary">
                         Cancel
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -156,18 +154,71 @@
 </div>
 
 @section Scripts {
-
-
     <script>
         $(document).ready(function() {
-            // Initialize tags input
-            $('input[data-role="tagsinput"]').tagsinput({
-                trimValue: true,
-                confirmKeys: [13, 44], // Enter and comma keys
-                delimiter: ';',
-            });
+            // Load email options once when page loads
+            async function initializeEmailSelects() {
+                try {
+                    const response = await axios.get('http://localhost:5001/api/PersonalProfile/filter-options');
+                    if (response.data.success) {
+                        const emailData = response.data.data.map(item => ({
+                            id: item.email,
+                            text: `${item.fullName} (${item.email})`
+                        }));
 
-            // Initialize Summernote
+                        // Initialize main email select
+                        $('#Email').select2({
+                            width: '100%',
+                            placeholder: 'Search for an email...',
+                            allowClear: true,
+                            data: emailData,
+                            matcher: function(params, data) {
+                                // Return all options if no search term
+                                if (!params.term) {
+                                    return data;
+                                }
+                                
+                                // Search in both name and email
+                                const searchTerm = params.term.toLowerCase();
+                                const text = data.text.toLowerCase();
+                                
+                                if (text.includes(searchTerm)) {
+                                    return data;
+                                }
+                                return null;
+                            }
+                        });
+
+                        // Initialize CC and BCC selects
+                        $('#EmailCc, #EmailBcc').select2({
+                            width: '100%',
+                            placeholder: 'Search for emails...',
+                            allowClear: true,
+                            multiple: true,
+                            data: emailData,
+                            matcher: function(params, data) {
+                                if (!params.term) {
+                                    return data;
+                                }
+                                
+                                const searchTerm = params.term.toLowerCase();
+                                const text = data.text.toLowerCase();
+                                
+                                if (text.includes(searchTerm)) {
+                                    return data;
+                                }
+                                return null;
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error loading email options:', error);
+                }
+            }
+
+            // Initialize email selects
+            initializeEmailSelects();
+
             $('#editor').summernote({
                 height: 400,
                 maxHeight: 800,
@@ -187,10 +238,8 @@
                 }
             });
 
-            // Initial preview update
             updatePreview($('#editor').summernote('code'));
 
-            // Toggle preview/raw view
             $('.btn-group button').click(function() {
                 $('.btn-group button').removeClass('active');
                 $(this).addClass('active');
@@ -205,15 +254,14 @@
                 }
             });
 
-            // Handle form submission
             $('form').on('submit', async function(e) {
                 e.preventDefault();
                 
                 const formData = {
                     subject: $('#Subject').val(),
                     email: $('#Email').val(),
-                    emailCc: $('#EmailCc').val(),
-                    emailBcc: $('#EmailBcc').val(),
+                    emailCc: $('#EmailCc').val()?.join(';') || '',
+                    emailBcc: $('#EmailBcc').val()?.join(';') || '',
                     location: $('#Location').val(),
                     mailType: parseInt($('#MailType').val()),
                     organizer: $('#Organizer').val(),
@@ -252,5 +300,9 @@
             $('#rawContent pre code').text(content);
         }
     </script>
+}
+
+@section Styles {
+    <link href="~/css/select2-custom.css" rel="stylesheet" />
 }
 

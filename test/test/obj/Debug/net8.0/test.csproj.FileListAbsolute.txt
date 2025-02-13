@@ -395,3 +395,7 @@ C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.M
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Mail.Details.Resource.vi.resources
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Mail.Edit.Resource.resources
 C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Mail.Edit.Resource.vi.resources
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Notification.Index.Resource.resources
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Notification.Index.Resource.vi.resources
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Notification.Details.Resource.resources
+C:\Users\DELL\Desktop\thuc tap\inter\test\test\obj\Debug\net8.0\test.Resources.Notification.Details.Resource.vi.resources

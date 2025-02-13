@@ -80,12 +80,11 @@ namespace test.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<RoleReq>>> CreateRole([FromBody] RoleReq RoleReq)
+        public async Task<ActionResult<ApiResponse<RoleRes>>> CreateRole([FromBody] RoleReq RoleReq)
         {   
-            
             if (await IsRoleNameExists(RoleReq.Name))
             {
-                return BadRequest(new ApiResponse<RoleReq>
+                return BadRequest(new ApiResponse<RoleRes>
                 {
                     Success = false,
                     Message = "Role name already exists"
@@ -94,16 +93,24 @@ namespace test.Controllers.Api
             var role = _mapper.Map<Role>(RoleReq);
             _context.Role.Add(role);
             await _context.SaveChangesAsync();
-            return Ok(new ApiResponse<RoleReq> 
+
+            // Map back to response DTO including the ID
+            var roleRes = new RoleRes
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+
+            return Ok(new ApiResponse<RoleRes> 
             { 
                 Success = true, 
                 Message = "Role created successfully", 
-                Data = RoleReq
+                Data = roleRes
             });
         }
         
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponse<RoleReq>>> UpdateRole(int id, [FromBody] RoleReq updateRoleDto)
+        public async Task<ActionResult<ApiResponse<RoleRes>>> UpdateRole(int id, [FromBody] RoleReq updateRoleDto)
         {
             // if (string.IsNullOrWhiteSpace(updateRoleDto.Name))
             // {
@@ -116,7 +123,7 @@ namespace test.Controllers.Api
             // }
             if (await IsRoleNameExists(updateRoleDto.Name, id))
             {
-                return BadRequest(new ApiResponse<RoleReq>
+                return BadRequest(new ApiResponse<RoleRes>
                 {
                     Success = false,
                     Message = "Role name already exists"
@@ -126,7 +133,7 @@ namespace test.Controllers.Api
             
             if (role == null)
             {
-                return NotFound(new ApiResponse<RoleReq> 
+                return NotFound(new ApiResponse<RoleRes> 
                 { 
                     Success = false, 
                     Message = "Role not found" 
@@ -135,14 +142,37 @@ namespace test.Controllers.Api
 
             _mapper.Map(updateRoleDto, role);
             await _context.SaveChangesAsync();           
-
-            return Ok(new ApiResponse<RoleReq> 
+            var roleRes = new RoleRes
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+            return Ok(new ApiResponse<RoleRes> 
             { 
                 Success = true, 
                 Message = "Role updated successfully", 
-                Data = updateRoleDto
+                Data = roleRes
             });
 
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponse<RoleRes>>> DeleteRole(int id)
+        {
+            var role = await _context.Role
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+
+            _context.Role.Remove(role);
+            await _context.SaveChangesAsync();
+
+            return Ok(new ApiResponse<RoleRes>
+            {
+                Success = true,
+                Message = "Role deleted successfully"
+            });
         }
     }
 

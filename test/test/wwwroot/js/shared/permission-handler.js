@@ -27,22 +27,24 @@ const permissionHandler = {
   updateMenuVisibility(modules) {
     if (!modules) return;
 
-    // Kiểm tra quyền cho từng module
+    const navBar = $(".navbar-nav.flex-grow-1");
+    let dynamicMenuItems = "";
+
+    // Thêm các menu dựa trên quyền
     modules.forEach((module) => {
-      switch (module.moduleName) {
-        case "Mails":
-          $('.nav-item a[href="/Mails"]').closest("li").toggle(module.canRead);
-          break;
-        case "Statistics":
-          $('.nav-item a[href="/Statistics"]')
-            .closest("li")
-            .toggle(module.canRead);
-          break;
-        case "Admin":
-          $('.nav-item a[href="/Admin"]').closest("li").toggle(module.canRead);
-          break;
-        // Thêm các module khác tại đây
+      if (module.canRead) {
+        const translatedName =
+          window.menuResources[module.moduleName.toLowerCase()] ||
+          module.moduleName;
+        dynamicMenuItems += `
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/${module.moduleName}">${translatedName}</a>
+          </li>
+        `;
       }
     });
+
+    // Thêm menu động vào sau các menu tĩnh có sẵn
+    navBar.append(dynamicMenuItems);
   },
 };

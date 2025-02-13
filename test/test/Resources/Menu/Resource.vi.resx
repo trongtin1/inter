@@ -138,4 +138,10 @@
   <data name="Logout" xml:space="preserve">
     <value>Đăng xuất</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="Mails" xml:space="preserve">
+    <value>Mails</value>
+  </data>
 </root>

@@ -97,6 +97,24 @@ namespace test.Resources.Menu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mails.
+        /// </summary>
+        public static string Mails {
+            get {
+                return ResourceManager.GetString("Mails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        public static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privacy.
         /// </summary>
         public static string Privacy {

@@ -12,6 +12,7 @@ const filterHandler = {
       toDate: $("#toDate").val(),
     };
   },
+
   setFilterValues(filters) {
     if (!filters) return;
     $("#id").val(filters.id).trigger("change");
@@ -24,33 +25,25 @@ const filterHandler = {
     $("#fromDate").val(filters.fromDate);
     $("#toDate").val(filters.toDate);
   },
-  saveFilters() {
-    const filters = this.getFilterValues();
-    sessionStorage.setItem("mailFilters", JSON.stringify(filters));
-  },
-
-  loadSavedFilters() {
-    const savedFilters = sessionStorage.getItem("mailFilters");
-    if (savedFilters) {
-      this.setFilterValues(JSON.parse(savedFilters));
-    }
-  },
 
   resetFilters() {
     $("select").val("").trigger("change.select2");
     $("input").val("");
     currentPage = 1;
-    sessionStorage.removeItem("mailFilters"); // Clear saved filters
     loadData();
   },
+
   async loadFilterOptions() {
     try {
-      const options = await mailApiService.getFilterOptions();
-      if (options) {
-        populateFilterOptions(options);
+      const response = await mailApiService.getFilterOptions();
+      if (response?.success) {
+        populateFilterOptions(response.data);
+      } else {
+        console.error("Failed to load filter options:", response?.message);
       }
     } catch (error) {
       console.error("Error loading filter options:", error);
+      alert("Unable to load filter options. Please try refreshing the page.");
     }
   },
 };

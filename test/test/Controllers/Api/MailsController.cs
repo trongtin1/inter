@@ -292,9 +292,7 @@ namespace test.Controllers.Api
             }
 
             await _context.Mail.AddAsync(mail);
-            await _context.SaveChangesAsync();
-
-            
+            await _context.SaveChangesAsync();   
 
             return Ok(new ApiResponse<Mail> { Success = true, Data = mail });
         }
@@ -397,9 +395,6 @@ namespace test.Controllers.Api
                 var (claimsId, userEmail, rolesList) = this.GetUserClaims();
                 // Base query: Fetch necessary data only
                 var query = _context.Mail.AsQueryable();
-
-
-
 
                 if (!rolesList.Contains("admin"))
                 {

@@ -85,10 +85,10 @@ namespace test.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<UserReq>>> CreateUser([FromBody] UserReq model)
+        public async Task<ActionResult<ApiResponse<UserRes>>> CreateUser([FromBody] UserReq model)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new ApiResponse<UserReq>
+                return BadRequest(new ApiResponse<UserRes>
                 {
                     Success = false,
                     Message = "Invalid input data",
@@ -97,13 +97,14 @@ namespace test.Controllers.Api
 
             if (await IsUsernameExists(model.Username))
             {
-                return BadRequest(new ApiResponse<UserReq>
+                return BadRequest(new ApiResponse<UserRes>
                 {
                     Success = false,
                     Message = "Username already exists",
                     Data = null
                 });
             }
+
             var user = new User
             {
                 Email = model.Email,
@@ -113,11 +114,20 @@ namespace test.Controllers.Api
             
             _context.User.Add(user);
             await _context.SaveChangesAsync();
-            return Ok(new ApiResponse<UserReq>
+
+            // Create response with user ID
+            var userResponse = new UserRes
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            };
+
+            return Ok(new ApiResponse<UserRes>
             {
                 Success = true,
                 Message = "User registered successfully",
-                Data = model
+                Data = userResponse
             });
         }
 
@@ -156,22 +166,29 @@ namespace test.Controllers.Api
 
 
         // DELETE: api/Role/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteUser(int id)
-        // {
-        //     var user = await _context.User
-        //         .Include(r => r.UserRoles)
-        //         .FirstOrDefaultAsync(r => r.Id == id);
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponse<UserRes>>> DeleteUser(int id)
+        {
+            var user = await _context.User
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (user == null)
+            {
+                return NotFound(new ApiResponse<UserRes>
+                {
+                    Success = false,
+                    Message = "User not found"
+                });
+            }
 
-        //     _context.User.Remove(user);
-        //     await _context.SaveChangesAsync();
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
 
-        //     return NoContent();
-        // }
+            return Ok(new ApiResponse<UserRes>
+            {
+                Success = true,
+                Message = "User deleted successfully"
+            });
+        }
 
         private bool UserExists(int id)
         {

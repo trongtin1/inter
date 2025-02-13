@@ -61,34 +61,18 @@ const mailApiService = {
     }
   },
 
-  async getFilterOptions(useCache = true) {
+  async getFilterOptions() {
     const token = this.getToken();
     if (!token) return null;
-
-    const cacheKey = "filterOptions";
-
-    // Check cache if enabled
-    if (useCache) {
-      const cachedData = this.getCachedData(cacheKey);
-      if (cachedData) {
-        return cachedData;
-      }
-    }
 
     try {
       const response = await axios.get(`${this.baseUrl}/Mails/filter-options`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (response.data.success) {
-        this.setCacheData(cacheKey, response.data.data);
-        return response.data.data;
-      }
-      return null;
+      return response.data;
     } catch (error) {
       this.handleError(error);
-      // Return cached data as fallback if available
-      return useCache ? this.getCachedData(cacheKey) : null;
+      return null;
     }
   },
 

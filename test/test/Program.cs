@@ -25,11 +25,24 @@ namespace test
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            // Add DbContext
+            builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
-                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-                options.UseSqlServer(connectionString);
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                var defaultConnection = configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(defaultConnection);
             });
+
+            // Đăng ký một factory method để tạo DbContext với connection string tùy chọn
+            builder.Services.AddScoped<Func<string, ApplicationDbContext>>(provider => (connectionStringName) =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString(connectionStringName);
+                optionsBuilder.UseSqlServer(connectionString);
+                return new ApplicationDbContext(optionsBuilder.Options, connectionStringName);
+            });
+
             // JWT
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -133,7 +146,6 @@ namespace test
 
             // Add SignalR services
             builder.Services.AddSignalR();
-
             builder.Services.AddScoped<IMailNotificationService, MailNotificationService>();
             builder.Services.AddScoped<IUserModuleNotificationService, UserModuleNotificationService>();
             builder.Services.AddScoped<TokenService>();

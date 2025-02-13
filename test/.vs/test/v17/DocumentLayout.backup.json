@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\views\\userroles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\views\\userroles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -25,17 +20,8 @@
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Views\\UserRoles\\Create.cshtml",
-              "RelativeDocumentMoniker": "test\\Views\\UserRoles\\Create.cshtml",
-              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Views\\UserRoles\\Create.cshtml",
-              "RelativeToolTip": "test\\Views\\UserRoles\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-06T06:11:40.986Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
             }
           ]
         }

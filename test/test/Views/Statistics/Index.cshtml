@@ -280,31 +280,40 @@
             }
         }
 
-        function initializeEmailSelect() {
-            const cached = sessionStorage.getItem('filterOptions');
-            if (cached) {
-                const data = JSON.parse(cached);
-                
-                // Create a unique set of emails from all sources
-                const uniqueEmails = new Set([
-                    ...data.data.emails,
-                    
-                ]);
-
-                // Convert emails to Select2 format
-                const emailOptions = Array.from(uniqueEmails).map(email => ({
-                    id: email,
-                    text: email
-                }));
-
-                // Initialize Select2
-                $('#emailSelect').select2({
-                    data: emailOptions,
-                    width: '180px',
-                    placeholder: 'Search for an email...',
-                    allowClear: true,
-                    dropdownParent: $('#emailSelectContainer')
+        async function initializeEmailSelect() {
+            try {
+                const response = await axios.get('/api/Mails/filter-options', {
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    }
                 });
+
+                if (response.data.success) {
+                    const data = response.data.data;
+                    
+                    // Create a unique set of emails from all sources
+                    const uniqueEmails = new Set([
+                        ...data.emails,
+                    ]);
+
+                    // Convert emails to Select2 format
+                    const emailOptions = Array.from(uniqueEmails).map(email => ({
+                        id: email,
+                        text: email
+                    }));
+
+                    // Initialize Select2
+                    $('#emailSelect').select2({
+                        data: emailOptions,
+                        width: '180px',
+                        placeholder: 'Search for an email...',
+                        allowClear: true,
+                        dropdownParent: $('#emailSelectContainer')
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading filter options:', error.response?.data?.message || error.message);
+                alert('Unable to load email options. Please try refreshing the page.');
             }
         }
 

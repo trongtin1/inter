@@ -4,9 +4,7 @@ let totalPages = 1;
 $(document).ready(function () {
   initializeSelect2();
   loadFiltersFromUrl();
-  sessionStorage.removeItem("filterOptions");
   filterHandler.loadFilterOptions().then(() => {
-    filterHandler.loadSavedFilters();
     loadData();
   });
   setupEventListeners();
@@ -28,17 +26,14 @@ function initializeSelect2() {
 }
 
 function setupEventListeners() {
-  // Dropdown filters (select elements)
   $(".select2-dropdown, #isSend, #timeType").on("change", function () {
     handleFilterChange();
   });
 
-  // Input filters (text and datetime inputs)
   $("#sendStatus, #fromDate, #toDate").on("input", function () {
     handleFilterChange();
   });
 
-  // Handle select all checkbox
   $("#selectAll")
     .off("change")
     .on("change", function () {
@@ -46,7 +41,6 @@ function setupEventListeners() {
       $(".mail-checkbox").prop("checked", isChecked);
     });
 
-  // Handle individual checkboxes
   $(document)
     .off("change", ".mail-checkbox")
     .on("change", ".mail-checkbox", function () {
@@ -55,10 +49,9 @@ function setupEventListeners() {
 }
 
 function handleFilterChange() {
-  currentPage = 1; // Đặt lại về trang đầu tiên
-  loadData(); // Gọi API ngay lập tức
-  updateUrlWithFilters(); // Cập nhật URL với bộ lọc mới
-  filterHandler.saveFilters(); // Lưu bộ lọc vào sessionStorage
+  currentPage = 1;
+  loadData();
+  updateUrlWithFilters();
 }
 
 function updateSelectAllState() {
@@ -78,23 +71,9 @@ function updateUrlWithFilters() {
   }
 
   const filters = filterHandler.getFilterValues();
-
-  // Chỉ thêm các filter có giá trị hợp lệ
   Object.entries(filters).forEach(([key, value]) => {
     if (value) {
-      if (Array.isArray(value)) {
-        // Xử lý mảng (cho emailCc và emailBcc)
-        const validValues = value.filter((v) => v && v.trim() !== "");
-        if (validValues.length > 0) {
-          params.append(key, validValues.join(";"));
-        }
-      } else if (typeof value === "string" && value.trim() !== "") {
-        // Xử lý chuỗi
-        params.append(key, value.trim());
-      } else if (typeof value === "boolean" || typeof value === "number") {
-        // Xử lý boolean và number
-        params.append(key, value.toString());
-      }
+      params.append(key, value);
     }
   });
 
@@ -153,15 +132,10 @@ async function loadData() {
 
 function changePage(page) {
   if (page >= 1 && page <= totalPages) {
-    // Prevent default anchor behavior
     event.preventDefault();
-
-    // Store current scroll position
     const currentScroll = window.scrollY;
-
     currentPage = page;
     loadData().then(() => {
-      // Restore scroll position after data loads
       window.scrollTo(0, currentScroll);
     });
     updateUrlWithFilters();
@@ -184,9 +158,6 @@ async function deleteSelected() {
     try {
       const response = await mailApiService.deleteMultipleMails(selectedIds);
       if (response?.success) {
-        // Clear cache to force reload of filter options
-        sessionStorage.removeItem("filterOptions");
-        // Reload filter options and data
         await filterHandler.loadFilterOptions();
         await loadData();
       }
@@ -197,35 +168,30 @@ async function deleteSelected() {
 }
 
 function populateFilterOptions(options) {
-  // Populate ID dropdown
   const idSelect = $("#id");
   idSelect.empty().append('<option value="">All</option>');
   options.ids.forEach((id) => {
     idSelect.append(`<option value="${id}">${id}</option>`);
   });
 
-  // Populate Email dropdown
   const emailSelect = $("#email");
   emailSelect.empty().append('<option value="">All</option>');
   options.emails.forEach((email) => {
     emailSelect.append(`<option value="${email}">${email}</option>`);
   });
 
-  // Populate CC dropdown
   const ccSelect = $("#emailCc");
   ccSelect.empty();
   options.emailCcs.forEach((cc) => {
     ccSelect.append(`<option value="${cc}">${cc}</option>`);
   });
 
-  // Populate BCC dropdown
   const bccSelect = $("#emailBcc");
   bccSelect.empty();
   options.emailBccs.forEach((bcc) => {
     bccSelect.append(`<option value="${bcc}">${bcc}</option>`);
   });
 
-  // Reinitialize Select2
   $(".select2-dropdown").select2({
     width: "100%",
     placeholder: "Select an option",

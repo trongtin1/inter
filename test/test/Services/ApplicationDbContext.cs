@@ -1,23 +1,23 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using test.Models.Entity;
+using Microsoft.Extensions.Configuration;
 
 namespace test.Services;
 
 public partial class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext()
-    {
-    }
+    private readonly string _connectionString;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, string connectionString = "DefaultConnection")
         : base(options)
     {
+        _connectionString = connectionString;
     }
 
     public virtual DbSet<Mail> Mail { get; set; }
+    public virtual DbSet<Notification> Notification { get; set; }
     public virtual DbSet<User> User { get; set; }
     public virtual DbSet<Role> Role { get; set; }
     public virtual DbSet<UserRole> UserRole { get; set; }
@@ -25,19 +25,22 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<RoleModule> RoleModule { get; set; }
     public virtual DbSet<UserModule> UserModule { get; set; }
 
-
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            
+            var connectionString = configuration.GetConnectionString(_connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<Mail>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_MailService");
@@ -71,7 +74,26 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("UID");
         });
-            // UserRole configuration
+        //User configuration
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.UserRoles)
+            .WithOne(ur => ur.User)
+            .HasForeignKey(ur => ur.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        //Role configuration
+        modelBuilder.Entity<Role>()
+            .HasMany(r => r.UserRoles)
+            .WithOne(ur => ur.Role)
+            .HasForeignKey(ur => ur.RoleId)
+            .OnDelete(DeleteBehavior.Cascade);
+        //Module configuration
+        modelBuilder.Entity<Module>()
+            .HasMany(m => m.UserModules)
+            .WithOne(um => um.Module)
+            .HasForeignKey(um => um.ModuleId)
+            .OnDelete(DeleteBehavior.Cascade);
+        // UserRole configuration
         modelBuilder.Entity<UserRole>()
             .HasKey(ur => new { ur.UserId, ur.RoleId });
 

@@ -16,7 +16,10 @@
 </style>
 
 <div class="container mt-4">
-    <h2>Edit Role Module</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Edit Role Module</h2>
+        <a href="/RoleModule/Create" class="btn btn-success">Create New</a>
+    </div>
     <div id="roleModuleForm">
         <h3 id="roleName"></h3>
         
@@ -163,7 +166,7 @@
                 await axios.put('/api/RoleModules/', modulePermissions);
 
                 alert('Permissions updated successfully');
-                window.location.href = '/RoleModule';
+                window.location.href = '/Roles';
             } catch (error) {
                 console.error('Error saving permissions:', error);
                 alert('Failed to save permissions: ' + (error.response?.data?.message || error.message));

@@ -1,0 +1,292 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Details";
+}
+
+<style>
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding: 1rem;
+    }
+
+    .modal-title {
+        color: #212529;
+        font-weight: 600;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding: 1rem;
+    }
+
+    .form-check {
+        margin-bottom: 0.5rem;
+        padding-left: 1.75rem;
+    }
+
+    .form-check-input {
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        cursor: pointer;
+        color: #495057;
+    }
+
+    #editUserName {
+        font-weight: 600;
+        color:black;
+    }
+</style>
+<div class="container mt-4">
+    <!-- Modal Edit Roles -->
+    <div class="modal fade" id="editRolesModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit User Roles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6><span id="editUserName"></span></h6>
+                    <div id="rolesList" class="mt-3">
+                        <!-- Roles will be listed here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteSelectedRoles()">Delete Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 id="userName">User Details</h3>
+                <div>
+                    <button class="btn btn-primary" id="editUser">Edit User</button>
+                    <button class="btn btn-info" id="editRoles">Edit Roles</button>
+                    <button class="btn btn-warning" id="editModules">Edit Modules</button>
+                    <a href="/Users" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5 class="card-title">Basic Information</h5>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Username:</th>
+                                <td id="userUsername"></td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td id="userEmail"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="card-title">Assigned Roles</h5>
+                    <div class="table-responsive">
+                        <table class="table" id="userRolesTable">
+                            <thead>
+                                <tr>
+                                    <th>Role Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- User roles will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="card-title">Module Permissions</h5>
+                    <div class="table-responsive">
+                        <table class="table" id="userModulesTable">
+                            <thead>
+                                <tr>
+                                    <th>Module Name</th>
+                                    <th>Permissions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- User modules will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const userId = window.location.pathname.split('/').pop();
+        let editRolesModal = null;
+
+        $(document).ready(function() {
+            loadUserDetails();
+            editRolesModal = new bootstrap.Modal(document.getElementById('editRolesModal'));
+
+            // Add click handlers for buttons
+            $('#editRoles').on('click', function() {
+                editUserRoles();
+            });
+
+            $('#editModules').on('click', function() {
+                window.location.href = `/UserModule/Edit/${userId}`;
+            });
+        });
+
+        async function editUserRoles() {
+            try {
+                const response = await axios.get(`/api/UserRoles/${userId}`);
+                const userData = response.data.data;
+
+                $('#editUserName').text(userData.username);
+                
+                // Populate roles list with checkboxes
+                const rolesList = $('#rolesList');
+                rolesList.empty();
+                
+                userData.roles.forEach(role => {
+                    rolesList.append(`
+                        <div class="form-check">
+                            <input class="form-check-input role-checkbox" 
+                                type="checkbox" 
+                                value="${role.id}" 
+                                id="role${role.id}">
+                            <label class="form-check-label" for="role${role.id}">
+                                ${role.name}
+                            </label>
+                        </div>
+                    `);
+                });
+
+                editRolesModal.show();
+            } catch (error) {
+                console.error('Error fetching user roles:', error);
+                alert('Failed to load user roles');
+            }
+        }
+
+        async function deleteSelectedRoles() {
+            const selectedRoles = [];
+            $('.role-checkbox:checked').each(function() {
+                selectedRoles.push(parseInt($(this).val()));
+            });
+
+            if (selectedRoles.length === 0) {
+                alert('Please select roles to delete');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete the selected roles?')) {
+                return;
+            }
+
+            try {
+                const response = await axios.delete('/api/UserRoles/delete', {
+                    data: {
+                        userId: userId,
+                        roleIds: selectedRoles
+                    }
+                });
+
+                if (response.data.success) {
+                    editRolesModal.hide();
+                    loadUserDetails(); // Refresh the data
+                    alert('Roles deleted successfully');
+                }
+            } catch (error) {
+                console.error('Error deleting roles:', error);
+                alert('Failed to delete roles');
+            }
+        }
+
+        async function loadUserDetails() {
+            try {
+                const [userResponse, userRolesResponse, userModulesResponse] = await Promise.all([
+                    axios.get(`/api/Users/${userId}`),
+                    axios.get(`/api/UserRoles/${userId}`),
+                    axios.get(`/api/UserModules/${userId}`)
+                ]);
+
+                const user = userResponse.data.data;
+                const userRoles = userRolesResponse.data.data;
+                const userModules = userModulesResponse.data.data;
+
+                // Update user basic information
+                $('#userName').text(`User Details: ${user.username}`);
+                $('#userUsername').text(user.username);
+                $('#userEmail').text(user.email);
+
+                // Update roles table
+                const rolesBody = $('#userRolesTable tbody');
+                rolesBody.empty();
+                userRoles.roles.forEach(role => {
+                    rolesBody.append(`
+                        <tr>
+                            <td>${role.name}</td>
+                        </tr>
+                    `);
+                });
+
+                // Update modules table
+                const modulesBody = $('#userModulesTable tbody');
+                modulesBody.empty();
+                userModules.modules.forEach(module => {
+                    const permissions = [];
+                    if (module.canCreate) permissions.push('Create');
+                    if (module.canRead) permissions.push('Read');
+                    if (module.canUpdate) permissions.push('Update');
+                    if (module.canDelete) permissions.push('Delete');
+
+                    modulesBody.append(`
+                        <tr>
+                            <td>${module.moduleName}</td>
+                            <td>${permissions.join(', ') || '-'}</td>
+                        </tr>
+                    `);
+                });
+
+                // Edit user button handler
+                $('#editUser').on('click', function() {
+                    window.location.href = `/Users/Edit/${userId}`;
+                });
+
+            } catch (error) {
+                console.error('Error loading user details:', error);
+                alert('Failed to load user details');
+            }
+        }
+    </script>
+} 
