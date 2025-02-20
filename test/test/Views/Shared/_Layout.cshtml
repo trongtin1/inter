@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - test</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/test.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    
+</head>
+<body>
+   <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">test</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <!-- Menu items sẽ được thêm vào đây bởi JavaScript khi đã đăng nhập -->
+                </ul>
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if (Thread.CurrentThread.CurrentCulture.Name == "en")
+                            {
+                                <span>English</span>
+                            }
+                            else
+                            {
+                                <span>Vietnamese</span>
+                            }
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en">English</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="vi">Vietnamese</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav" id="authSection">
+                    <!-- JavaScript sẽ tự động cập nhật nội dung ở đây -->
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - test - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="~/js/SignalR/hub-connections.js"></script>
+    <script src="~/js/shared/permission-handler.js"></script>
+    <script>
+        // Define menu resources for JavaScript
+        window.menuResources = {
+            notifications: '@test.Resources.Menu.Resource.Notifications',
+            
+            mails: '@test.Resources.Menu.Resource.Mails',
+            statistics: '@test.Resources.Menu.Resource.Statistics',
+            admin: 'Admin'
+        };
+
+        $(document).ready(async function() {
+            const $authSection = $("#authSection");
+            const token = localStorage.getItem("token");
+
+            if (token) {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                  
+                    $(".navbar-nav.flex-grow-1").html(`
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Home">@test.Resources.Menu.Resource.Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Home/Privacy">@test.Resources.Menu.Resource.Privacy</a>
+                        </li>
+                    `);
+
+                    $authSection.html(`
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">@test.Resources.Menu.Resource.Hello, ${payload.username}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#" onclick="logout()">@test.Resources.Menu.Resource.Logout</a>
+                        </li>
+                    `);
+
+                    // Kiểm tra và cập nhật quyền truy cập menu
+                    const modules = await permissionHandler.initializeModulePermissions();
+                    permissionHandler.updateMenuVisibility(modules);
+
+                } catch (error) {
+                    console.error('Token validation failed:', error);
+                    localStorage.removeItem("token");
+                    showLoginInterface();
+                }
+            } else {
+                showLoginInterface();
+            }
+        });
+
+        function showLoginInterface() {
+            const currentUrl = window.location.href;
+            if (!currentUrl.includes('/Account/Login')) {
+                sessionStorage.setItem("returnUrl", currentUrl);
+            }
+
+            $(".navbar-nav.flex-grow-1 li:contains('Mails')").remove();
+            
+            $("#authSection").html(`
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/Account/Login">@test.Resources.Menu.Resource.Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/Account/Register">@test.Resources.Menu.Resource.Register</a>
+                </li>
+            `);
+        }
+
+        function logout() {
+            // const currentUrl = window.location.href;
+            // const token = sessionStorage.getItem("token");
+            // if (token && userOnlineConnection) {
+            //     const payload = JSON.parse(atob(token.split('.')[1]));
+            //     const email = payload.email;
+                
+            //     // Call SignalR hub method to remove user access using existing userOnlineConnection
+            //     userOnlineConnection.invoke("RemoveUserAccess", email)
+            //         .catch(err => console.error('Error removing user access:', err));
+            // }
+            
+            sessionStorage.clear(); 
+            localStorage.clear();
+            axios.post('/api/Auth/logout').then(() => {
+                window.location.href = '/Account/Login'; 
+            });
+        }
+    </script>
+
+    @RenderSection("Styles", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

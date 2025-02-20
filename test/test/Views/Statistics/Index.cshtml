@@ -1,0 +1,243 @@
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<link rel="stylesheet" href="~/css/statistics.css" />
+
+<div class="container mt-4">
+    <div class="accordion" id="statisticsAccordion">
+        <!-- Mails Statistics Section -->
+        <div class="accordion-item" >
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#mailsCollapse" aria-expanded="true" aria-controls="mailsCollapse">
+                    Email Statistics
+                </button>
+            </h2>
+            <div id="mailsCollapse" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="row">
+                        <!-- Email Frequencies Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Most Frequent Email Addresses</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="emailFrequencyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Email Counts Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Monthly Email Statistics</h5>
+                                    <input type="number" class="form-control" id="yearInputMonthly" style="width: 120px" 
+                                           value="@DateTime.Now.Year" min="2000" max="2100">
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="monthlyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly User Email Counts Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Monthly User Email Statistics</h5>
+                                    <div id="emailSelectContainer" style="min-width: 200px;">
+                                        <select id="emailSelect" class="form-control"></select>
+                                    </div>
+                                    <input type="number" class="form-control" id="yearInputUser" style="width: 120px" 
+                                           value="@DateTime.Now.Year" min="2000" max="2100">
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="monthlyUserChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Statistics Section -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#notificationsCollapse" aria-expanded="false" aria-controls="notificationsCollapse">
+                    Notifications Statistics
+                </button>
+            </h2>
+             <div id="notificationsCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="row">
+                        <!-- Notification Frequencies Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Most Frequent Notification</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="notiFrequencyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Notification Counts Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Monthly Notification Statistics</h5>
+                                    <input type="number" class="form-control" id="yearInputMonthlyNoti" style="width: 120px" 
+                                           value="@DateTime.Now.Year" min="2000" max="2100">
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="monthlyNotiChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly User Notification Counts Section -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Monthly User Notification Statistics</h5>
+                                    <div id="notiSelectContainer" style="min-width: 200px;">
+                                        <select id="notiSelect" class="form-control"></select>
+                                    </div>
+                                    <input type="number" class="form-control" id="yearInputUserNoti" style="width: 120px" 
+                                           value="@DateTime.Now.Year" min="2000" max="2100">
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="monthlyUserNotiChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification Type Distribution -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Notification Type Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="notiTypeDistributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Notification Stats -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">User Notification Overview</h5>
+                                    <div id="userStatsSelectContainer" style="min-width: 200px;">
+                                        <select id="userStatsSelect" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="userNotiStatsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">User Notification Type Overview</h5>
+                                    <div id="notiTypeSelectContainer" style="min-width: 200px;">
+                                        <select id="notiTypeSelect" class="form-control"></select>
+                                    </div>
+                                    <div id="typeSelectContainer" style="min-width: 150px;">
+                                            <select id="typeSelect" class="form-control select2">
+                                                <option value="CongVan">CongVan</option>
+                                                <option value="Lich">Lich</option>
+                                                <option value="QuyTrinh">QuyTrinh</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="userNotiTypeStatsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Online Statistics Section -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#userOnlineCollapse" aria-expanded="false" aria-controls="userOnlineCollapse">
+                    User Online Statistics
+                </button>
+            </h2>
+            <div id="userOnlineCollapse" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="row">
+                        <!-- Real-time User Count -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100" style="height: 200px !important;">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Current Online Users</h5>
+                                </div>
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <div class="text-center">
+                                        <h2 id="currentUserCount" style="font-size: 3rem;">0</h2>
+                                        <p class="text-muted mb-0">Users Online</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">User Online Statistics</h5>
+                                    <div class="d-flex gap-1">
+                                        <div id="nameSearchContainer" style="width: 200px;">
+                                            <select id="nameSearch" class="form-control select2">
+                                                <option value="">All Users</option>
+                                            </select>
+                                        </div>
+                                        <div id="statusFilterContainer" style="width: 120px;">
+                                            <select id="statusFilter" class="form-control select2">
+                                                <option value="all">All Status</option>
+                                                <option value="online">Online</option>
+                                                <option value="offline">Offline</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Connected Time</th>
+                                        <th>Total Connected Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userAccessTableBody">
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/Statistics/emailStatistics.js"></script>
+    <script src="~/js/Statistics/notificationStatistics.js"></script>
+    <script src="~/js/Statistics/userOnlineStatistics.js"></script>
+}

@@ -1,0 +1,84 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit Module";
+}
+
+<div class="container mt-4">
+    <h2>Edit Module</h2>
+
+    <form id="editModuleForm" class="mt-4">
+        <input type="hidden" id="moduleId" />
+
+        <div class="form-group mb-3">
+            <label for="name">Name Module</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="path">Path</label>
+            <input type="text" class="form-control" id="path" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="isActive">Is Active</label>
+            <input type="checkbox" class="form-check-input" id="isActive">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Module</button>
+        <a href="/Modules" class="btn btn-secondary">Back to List</a>
+    </form>
+
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Lấy user ID từ URL
+            const moduleId = window.location.pathname.split('/').pop();
+            loadModule(moduleId);
+            // Sự kiện submit form
+            $('#editModuleForm').on('submit', function (e) {
+                e.preventDefault();
+                updateModule();
+            });
+        });
+
+        // Hàm tải dữ liệu người dùng
+        function loadModule(id) {
+            axios.get(`/api/modules/${id}`)
+                .then(response => {
+                    const module = response.data.data;
+
+                    $('#moduleId').val(module.id);
+                    $('#name').val(module.name);
+                    $('#path').val(module.path);
+                    $('#isActive').prop('checked', module.isActive);
+                })
+                .catch(error => {
+                    console.error('Error loading module:', error);
+                    alert('Failed to load module data');
+                });
+
+        }
+
+        // Hàm cập nhật người dùng
+        function updateModule() {
+            const moduleId = $('#moduleId').val();
+            const moduleData = {
+                name: $('#name').val(),
+                path: $('#path').val(),
+                isActive: $('#isActive').is(':checked')
+            };
+            axios.put(`/api/modules/${moduleId}`, moduleData)
+                .then(() => {
+                    alert('Module updated successfully');
+                    window.location.href = '/Modules'; // Quay lại danh sách người dùng
+
+                })
+                .catch(error => {
+                    console.error('Error updating module:', error);
+                    alert('Failed to update module');
+                });
+        }
+    </script>
+}

@@ -1,0 +1,149 @@
+@{
+    ViewData["Title"] = "Notification";
+}
+
+<div class="container-fluid px-4">
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+                <i class="fas fa-filter me-2"></i>@test.Resources.Notification.Index.Resource.SearchFilters
+            </h6>
+            <button class="btn btn-sm btn-secondary" onclick="filterHandler.resetFilters()">
+                <i class="fas fa-undo me-1"></i>@test.Resources.Notification.Index.Resource.Reset
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <label class="form-label">ID</label>
+                    <select class="form-control select2-dropdown" id="id">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Email</label>
+                    <select class="form-control select2-dropdown" id="email">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">From</label>
+                    <select class="form-control select2-dropdown" id="from">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@test.Resources.Notification.Index.Resource.Type</label>
+                    <select class="form-control select2-dropdown" id="type">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@test.Resources.Notification.Index.Resource.IsRead</label>
+                    <select class="form-control" id="isRead">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="true">@test.Resources.Notification.Index.Resource.Read</option>
+                        <option value="false">@test.Resources.Notification.Index.Resource.Unread</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@test.Resources.Notification.Index.Resource.IsSeen</label>
+                    <select class="form-control" id="isSeen">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="true">@test.Resources.Notification.Index.Resource.Seen</option>
+                        <option value="false">@test.Resources.Notification.Index.Resource.Unseen</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@test.Resources.Notification.Index.Resource.TimeType</label>
+                    <select class="form-control" id="timeType">
+                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="createdTime">@test.Resources.Notification.Index.Resource.CreateTime</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">@test.Resources.Notification.Index.Resource.TimeRange</label>
+                    <div class="date-range-group">
+                        <input type="datetime-local" id="fromDate" class="form-control">
+                        <span>to</span>
+                        <input type="datetime-local" id="toDate" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card shadow">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="fas fa-table me-2"></i>@test.Resources.Notification.Index.Resource.NotificationList
+            </h5>
+            <div class="d-flex gap-2">
+                <!-- <button class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash me-1"></i>@test.Resources.Notification.Index.Resource.Delete
+                </button>
+                <a href="/Notifications/Create" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-1"></i>Create
+                </a> -->
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" class="form-check-input" /></th>
+                            <th>ID</th>
+                            <th>CreatedTime</th>
+                            <th>Type</th>
+                            <th>Content</th>
+                            <th>IsRead</th>
+                            <th>Email</th>
+                            <th>LastModified</th>
+                            <th>From</th>
+                            <th>Url</th>
+                            <th>IsSeen</th>
+                            <th>ContentEn</th>
+                            <th>UrlMobile</th>
+                            <th>ReqBody</th>
+                            <th>DetailId</th>
+                            <th>SeenTime</th>
+                            <th>HostName</th>
+                            <th>FunctionName</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mailsTableBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <!-- Pagination will be populated here -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.notificationResources = {
+            delete: '@test.Resources.Notification.Index.Resource.Delete',
+            newNotification: '@test.Resources.Notification.Index.Resource.NewNotification'
+        };
+    </script>
+    <script src="~/js/notifications/Index/api-service.js"></script>
+    <script src="~/js/notifications/Index/filter-handler.js"></script>
+    <script src="~/js/notifications/Index/render-handler.js"></script>
+    <script src="~/js/notifications/Index/format-handler.js"></script>
+    <script src="~/js/notifications/Index/permission-handler.js"></script>
+    <script src="~/js/notifications/Index/index.js"></script>
+}  
+@section Styles {
+    <link href="~/css/select2-custom.css" rel="stylesheet" />
+}

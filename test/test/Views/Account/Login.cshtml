@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">@test.Resources.Account.Resource.Login</h3>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">@test.Resources.Account.Resource.Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">@test.Resources.Account.Resource.Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">@test.Resources.Account.Resource.Login</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="/Account/Register">@test.Resources.Account.Resource.Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const data = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await axios.post('/api/Auth/login', data);
+                if (response.data.success) {
+                    localStorage.setItem('token', response.data.data.token);
+                    
+                    // Check and handle returnUrl
+                    const returnUrl = sessionStorage.getItem('returnUrl');
+                    sessionStorage.removeItem('returnUrl'); // Clear it after use
+                    
+                    if (returnUrl && !returnUrl.includes('/Account/Login')) {
+                        window.location.href = returnUrl;
+                    } else {
+                        window.location.href = '/Home';
+                    }
+                }
+            } catch (error) {
+                alert('Login failed! Please check your credentials.');
+            }
+        });
+        
+    </script>
+} 

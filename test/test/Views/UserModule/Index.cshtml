@@ -1,0 +1,107 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Module";
+}
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>User Module</h2>
+        <a href="/UserModule/Create" class="btn btn-success">Create New User Module</a>
+    </div>
+
+
+    <table class="table" id="userModuleTable">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Assigned Modules</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <!-- Data will be added here -->
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadUserModules();
+        });
+
+
+        async function loadUserModules() {
+            try {
+                const response = await axios.get('/api/UserModules');
+                const users = response.data.data;
+                const tbody = $('#userModuleTable tbody');
+
+
+                tbody.empty();
+                users.forEach(user => {
+                    const modulesList = user.modules.map(module => {
+                        const permissions = [];
+                        if (module.canCreate) permissions.push('Create');
+                        if (module.canRead) permissions.push('Read');
+                        if (module.canUpdate) permissions.push('Update');
+                        if (module.canDelete) permissions.push('Delete');
+
+                        
+                        return `${module.moduleName} (${permissions.join(', ')})`;
+                    }).join('<br>');
+
+                    tbody.append(`
+                        <tr>
+                            <td>${user.userName}</td>
+                            <td>${modulesList}</td>
+                            <td>
+
+                                <button class="btn btn-primary btn-sm edit-user-module" 
+                                    data-userid="${user.userId}">Edit</button>
+                                
+
+                            </td>
+                        </tr>
+                    `);
+                });
+
+                // Update click handlers
+                $('.edit-user-module').on('click', function () {
+                    const userId = $(this).data('userid');
+                    window.location.href = `/UserModule/Edit/${userId}`;
+                });
+
+
+                // $('.delete-user-module').on('click', function () {
+                //     const userId = $(this).data('userid');
+                //     if (confirm('Are you sure you want to delete this user module configuration?')) {
+                //         deleteUserModule(userId);
+                //     }
+                // });
+
+
+            } catch (error) {
+                console.error('Error loading user modules:', error);
+                alert('Failed to load user modules');
+            }
+
+        }
+
+        // async function deleteRoleModule(roleId) {
+        //     try {
+        //         await axios.delete(`/api/RoleModules/role/${roleId}`);
+        //         loadRoleModules(); // Reload the table
+        //         alert('Role module configuration deleted successfully');
+        //     } catch (error) {
+        //         console.error('Error deleting role module:', error);
+        //         alert('Failed to delete role module configuration');
+        //     }
+        // }
+    </script>
+}

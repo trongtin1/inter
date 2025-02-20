@@ -1,0 +1,372 @@
+@{
+    ViewData["Title"] = "Edit Email";
+}
+<div class="container-fluid py-4">
+    <div class="card">
+        <!-- Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Edit Email</h5>
+            <a href="@Url.Action("Index", "Mails")" class="btn btn-light btn-sm">
+                <i class="fas fa-arrow-left"></i> @test.Resources.Mail.Edit.Resource.Back
+            </a>
+        </div>
+        <div class="card-body p-4">
+            <form id="editForm" onsubmit="handleSubmit(event)">
+                <input type="hidden" id="mailId" />
+                
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Subject</label>
+                            <input id="subject" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <select id="email" class="form-control email-select" data-placeholder="Search for an email..."></select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emailCc" class="form-label fw-bold">CC</label>
+                                    <select id="emailCc" class="form-control email-select" multiple="multiple" data-placeholder="Search for CC emails..."></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emailBcc" class="form-label fw-bold">BCC</label>
+                                    <select id="emailBcc" class="form-control email-select" multiple="multiple" data-placeholder="Search for BCC emails..."></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="location" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Location</label>
+                                    <input id="location" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="mailType" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.MailType</label>
+                                    <select id="mailType" class="form-select">
+                                        <option value="1">@test.Resources.Mail.Edit.Resource.Type1</option>
+                                        <option value="2">@test.Resources.Mail.Edit.Resource.Type2</option>
+                                        <option value="3">@test.Resources.Mail.Edit.Resource.Type3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="organizer" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Organizer</label>
+                            <input id="organizer" class="form-control" />
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="organizerMail" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.OrganizerMail</label>
+                            <input id="organizerMail" class="form-control" />
+                        </div>  
+                        
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.EmailContent</label>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary btn-sm active" data-view="rendered">
+                                        @test.Resources.Mail.Edit.Resource.Preview
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-view="raw">
+
+                                        HTML
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <textarea id="editor" class="form-control mb-3"></textarea>
+
+                            <div class="border rounded">
+                                <div id="previewContent" class="p-3 bg-light">
+                                </div>
+                                <div id="rawContent" class="p-3 bg-light d-none">
+                                    <pre class="mb-0"><code></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                    <a href="@Url.Action("Index", "Mails")" class="btn btn-secondary">
+                        @test.Resources.Mail.Edit.Resource.Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        @test.Resources.Mail.Edit.Resource.SaveChanges
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let searchTimeout;
+
+            // Initialize select2 for main email
+            $("#email").select2({
+                width: "100%",
+                placeholder: "Select an option",
+                allowClear: true,
+                matcher: function(params, data) {
+                    if (!params.term) {
+                        return data;
+                    }
+                    const searchTerm = params.term.toLowerCase();
+                    const text = data.text.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        return data;
+                    }
+                    return null;
+                }
+            });
+
+            // Initialize select2 for CC and BCC
+            $("#emailCc, #emailBcc").select2({
+                width: "100%",
+                placeholder: "Select options",
+                allowClear: true,
+                multiple: true,
+                matcher: function(params, data) {
+                    if (!params.term) {
+                        return data;
+                    }
+                    const searchTerm = params.term.toLowerCase();
+                    const text = data.text.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        return data;
+                    }
+                    return null;
+                }
+            });
+
+            // Initialize Summernote
+            $('#editor').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview']]
+                ],
+                callbacks: {
+                    onChange: function(contents) {
+                        updatePreview(contents);
+                    }
+                }
+            });
+
+            // Toggle preview/raw view
+            $('.btn-group button').click(function() {
+                $('.btn-group button').removeClass('active');
+                $(this).addClass('active');
+                
+                const view = $(this).data('view');
+                if (view === 'rendered') {
+                    $('#previewContent').removeClass('d-none');
+                    $('#rawContent').addClass('d-none');
+                } else {
+                    $('#previewContent').addClass('d-none');
+                    $('#rawContent').removeClass('d-none');
+                }
+            });
+
+            // Load mail data after email options are loaded
+            loadEmailOptions().then(() => {
+                loadMailData();
+            });
+        });
+
+        async function loadEmailOptions() {
+            try {
+                const response = await axios.get('http://localhost:5001/api/PersonalProfile/filter-options');
+                if (response.data.success) {
+                    const options = response.data.data.map(item => ({
+                        value: item.email,
+                        text: item.fullName ? `${item.fullName} (${item.email})` : item.email
+                    }));
+
+                    // Populate main email select
+                    const emailSelect = $("#email");
+                    emailSelect.empty().append('<option value="">Select an email</option>');
+                    options.forEach(option => {
+                        emailSelect.append(`<option value="${option.value}">${option.text}</option>`);
+                    });
+
+                    // Populate CC and BCC selects
+                    const ccSelect = $("#emailCc");
+                    const bccSelect = $("#emailBcc");
+                    ccSelect.empty();
+                    bccSelect.empty();
+                    options.forEach(option => {
+                        ccSelect.append(`<option value="${option.value}">${option.text}</option>`);
+                        bccSelect.append(`<option value="${option.value}">${option.text}</option>`);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading email options:', error);
+            }
+        }
+
+        async function loadMailData() {
+            try {
+                const mailId = window.location.pathname.split('/').pop();
+                const token = localStorage.getItem('token');
+
+                if (!token) {
+                    window.location.href = '/Account/Login';
+                    return;
+                }
+
+                const response = await axios.get(`http://localhost:5001/api/Mails/${mailId}`, {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.success) {
+                    const mail = response.data.data;
+                    populateForm(mail);
+                }
+            } catch (error) {
+                console.error('Error loading mail:', error);
+                if (error.response?.status === 403) {
+                    window.location.href = '/Account/AccessDenied';
+                } else if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                }
+            }
+        }
+
+        function populateForm(mail) {
+            $('#mailId').val(mail.id);
+            $('#subject').val(mail.subject);
+            
+            // Set main email
+            if (mail.email) {
+                const emailSelect = $('#email');
+                const existingOption = emailSelect.find(`option[value="${mail.email}"]`);
+                if (existingOption.length) {
+                    emailSelect.val(mail.email).trigger('change');
+                }
+            }
+
+            // Set CC emails
+            if (mail.emailCc) {
+                const ccEmails = mail.emailCc.split(';').filter(email => email.trim());
+                $('#emailCc').val(ccEmails).trigger('change');
+            }
+
+            // Set BCC emails
+            if (mail.emailBcc) {
+                const bccEmails = mail.emailBcc.split(';').filter(email => email.trim());
+                $('#emailBcc').val(bccEmails).trigger('change');
+            }
+
+            // Populate other fields
+            $('#location').val(mail.location);
+            $('#mailType').val(mail.mailType);
+            $('#organizer').val(mail.organizer);
+            $('#organizerMail').val(mail.organizerMail);
+            $('#editor').summernote('code', mail.emailContent);
+            
+            updatePreview(mail.emailContent);
+        }
+
+        $('form').on('submit', async function(e) {
+            e.preventDefault();
+            
+            const mailId = window.location.pathname.split('/').pop();
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                window.location.href = '/Account/Login';
+                return;
+            }
+
+            // Get email value and ensure it's a string
+            const emailValue = $('#email').val();
+            if (!emailValue) {
+                alert('Email is required');
+                return;
+            }
+
+            const formData = {
+                id: parseInt(mailId),
+                subject: $('#subject').val() || '',
+                email: emailValue.toString(), // Ensure email is converted to string
+                emailCc: ($('#emailCc').val() || []).join(';'),
+                emailBcc: ($('#emailBcc').val() || []).join(';'),
+                location: $('#location').val() || '',
+                mailType: parseInt($('#mailType').val()) || 0,
+                organizer: $('#organizer').val() || '',
+                organizerMail: $('#organizerMail').val() || '',
+                emailContent: $('#editor').summernote('code') || '',
+                createTime: new Date().toISOString(),
+                sendStatus: 0,
+                isSend: false
+            };
+
+            try {
+                console.log('Sending data:', formData); // Debug log
+                
+                const response = await axios.put(`http://localhost:5001/api/Mails/${mailId}`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.data.success) {
+                    alert('Mail updated successfully!');
+                    window.location.href = '/Mails';
+                } else {
+                    alert('Error updating mail: ' + response.data.message);
+                }
+            } catch (error) {
+                console.error('Error updating mail:', error);
+                
+                if (error.response?.status === 403) {
+                    window.location.href = '/Account/AccessDenied';
+                } else if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                } else {
+                    alert('Error updating mail. Please check the console for details.');
+                }
+            }
+        });
+
+        function updatePreview(content) {
+            $('#previewContent').html(content);
+            $('#rawContent pre code').text(content);
+        }
+    </script>
+}
+
+@section Styles {
+    <link href="~/css/select2-custom.css" rel="stylesheet" />
+}
+

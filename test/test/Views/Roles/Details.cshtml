@@ -1,0 +1,90 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Role Details";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 id="roleName">Role Details</h3>
+                <div>
+                    <button class="btn btn-primary" id="editPermissions">Edit Permissions</button>
+                    <a href="/Roles" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title mb-4">Module Permissions</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="moduleTable">
+                    <thead>
+                        <tr>
+                            <th>Module Name</th>
+                            <th>Create</th>
+                            <th>Read</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Module permissions will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Lấy roleId từ URL
+        const roleId = window.location.pathname.split('/').pop();
+
+        $(document).ready(function() {
+            loadRoleDetails();
+        });
+
+        async function loadRoleDetails() {
+            try {
+                const [roleResponse, moduleResponse] = await Promise.all([
+                    axios.get(`/api/Roles/${roleId}`),
+                    axios.get(`/api/RoleModules/${roleId}`)
+                ]);
+
+                const role = roleResponse.data.data;
+                const moduleData = moduleResponse.data.data;
+
+                // Update role name in header
+                $('#roleName').text(`Role Details: ${role.name}`);
+
+                // Update modules table
+                const tbody = $('#moduleTable tbody');
+                tbody.empty();
+
+                moduleData.modules.forEach(module => {
+                    tbody.append(`
+                        <tr>
+                            <td>${module.moduleName}</td>
+                            <td><i class="bi ${module.canCreate ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'}"></i></td>
+                            <td><i class="bi ${module.canRead ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'}"></i></td>
+                            <td><i class="bi ${module.canUpdate ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'}"></i></td>
+                            <td><i class="bi ${module.canDelete ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'}"></i></td>
+                        </tr>
+                    `);
+                });
+
+                // Edit permissions button handler
+                $('#editPermissions').on('click', function() {
+                    window.location.href = `/RoleModule/Edit/${roleId}`;
+                });
+
+            } catch (error) {
+                console.error('Error loading role details:', error);
+                alert('Failed to load role details');
+                window.location.href = '/Roles';
+            }
+        }
+    </script>
+} 

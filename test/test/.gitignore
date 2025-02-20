@@ -1,0 +1,3 @@
+# Thêm các dòng sau vào file .gitignore
+appsettings.json
+appsettings.*.json 

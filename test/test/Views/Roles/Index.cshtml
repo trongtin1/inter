@@ -1,0 +1,89 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Roles Management";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Roles Management</h2>
+        <a href="/Roles/Create" class="btn btn-success">Create New Role</a>
+    </div>
+
+    <table class="table" id="rolesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Role Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be added here -->
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadRoles();
+        });
+
+        async function loadRoles() {
+            try {
+                const response = await axios.get('/api/Roles');
+                const roles = response.data.data;
+                const tbody = $('#rolesTable tbody');
+
+                tbody.empty();
+                roles.forEach(role => {
+                    tbody.append(`
+                        <tr>
+                            <td>${role.id}</td>
+                            <td>${role.name}</td>
+                            <td>
+                                <a href="/Roles/Details/${role.id}" class="btn btn-info btn-sm">Details</a>
+                                <button class="btn btn-primary btn-sm edit-role" data-id="${role.id}">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-role" data-id="${role.id}">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+
+                // Event handlers
+                $('.edit-role').on('click', function () {
+                    const roleId = $(this).data('id');
+                    editRole(roleId);
+                });
+
+                $('.delete-role').on('click', function () {
+                    const roleId = $(this).data('id');
+                    deleteRole(roleId);
+                });
+
+            } catch (error) {
+                console.error('Error loading roles:', error);
+                alert('Failed to load roles');
+            }
+        }
+
+        function editRole(id) {
+            window.location.href = `/Roles/Edit/${id}`;
+        }
+
+        async function deleteRole(id) {
+            if (confirm('Are you sure you want to delete this role? This will also delete all associated module permissions.')) {
+                try {
+                    await axios.delete(`/api/Roles/${id}`);
+                    alert('Role deleted successfully');
+                    loadRoles();
+                } catch (error) {
+                    console.error('Error deleting role:', error);
+                    alert('Failed to delete role');
+                }
+            }
+        }
+    </script>
+}

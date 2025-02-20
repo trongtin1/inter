@@ -1,0 +1,89 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container mt-4">
+    <h2>Edit User</h2>
+
+    <form id="editUserForm" class="mt-4">
+        <input type="hidden" id="userId" />
+        
+        <div class="form-group mb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password">
+            <small class="text-muted">Only fill this if you want to change the password</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" >Update User</button>
+        <a href="/Users" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Lấy user ID từ URL
+            const userId = window.location.pathname.split('/').pop();
+            
+            loadUser(userId);
+
+            // Sự kiện submit form
+            $('#editUserForm').on('submit', function (e) {
+                e.preventDefault();
+                updateUser();
+            });
+        });
+
+        // Hàm tải dữ liệu người dùng
+        function loadUser(id) {
+            axios.get(`/api/users/${id}`)
+                .then(response => {
+                    const user = response.data.data;
+                    $('#userId').val(user.id);
+                    $('#username').val(user.username);
+                    $('#email').val(user.email);
+                })
+                .catch(error => {
+                    console.error('Error loading user:', error);
+                    alert('Failed to load user data');
+                });
+        }
+
+        // Hàm cập nhật người dùng
+        function updateUser() {
+            const userId = $('#userId').val();
+            const userData = {
+                username: $('#username').val(),
+                email: $('#email').val()
+            };
+
+            const password = $('#password').val();
+            if (password) {
+                userData.password = password;
+            }
+
+            axios.put(`/api/users/${userId}`, userData)
+                .then(() => {
+                    alert('User updated successfully');
+                    window.location.href = '/Users'; // Quay lại danh sách người dùng
+                })
+                .catch(error => {
+                    console.error('Error updating user:', error);
+                    alert('Failed to update user');
+                });
+        }
+    </script>
+}

@@ -1,0 +1,240 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background: linear-gradient(to right, #4e73df 0%, #224abe 100%);
+  color: white;
+  padding: 1rem;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #f8f9fc;
+  border-bottom: 2px solid #e3e6f0;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table tbody td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.form-control {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #d1d3e2;
+  border-radius: 0.35rem;
+}
+
+.form-control:focus {
+  border-color: #bac8f3;
+  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.input-group-text {
+  background-color: #f8f9fc;
+  border: 1px solid #d1d3e2;
+}
+
+.btn {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.btn-success {
+  background: linear-gradient(to right, #1cc88a 0%, #13855c 100%);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(to right, #13855c 0%, #0f6848 100%);
+}
+
+.select2-container .select2-selection--single {
+  height: 38px;
+  border: 1px solid #d1d3e2;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  line-height: 36px;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  height: 36px;
+}
+
+.pagination {
+  margin: 1rem 0;
+}
+
+.page-link {
+  color: #4e73df;
+  padding: 0.5rem 0.75rem;
+}
+
+.page-item.active .page-link {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.filter-section {
+  background-color: #f8f9fc;
+  padding: 1.5rem;
+  border-radius: 0.35rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #5a5c69;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+}
+
+.btn-group-sm > .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+.filter-collapse {
+  transition: all 0.3s ease-in-out;
+}
+.content-preview {
+  max-height: 100px; /* Đặt chiều cao cố định cho thẻ div */
+  overflow: hidden; /* Ẩn phần nội dung vượt ra ngoài */
+  text-overflow: ellipsis; /* Thêm dấu ba chấm khi văn bản quá dài */
+}
+.bootstrap-tagsinput {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bootstrap-tagsinput .tag {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  color: #212529 !important;
+  font-size: 0.875rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  color: #b02a37;
+}
+
+.bootstrap-tagsinput .tag:hover {
+  background-color: #e9ecef;
+}
+
+.bootstrap-tagsinput input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 4px 0;
+  border: none;
+  outline: none;
+}
+.email-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.access-denied-container {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.access-denied-container img {
+  max-width: 300px;
+  opacity: 0.8;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 250px;
+  z-index: 1000;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.toast.create {
+  border-left: 4px solid #28a745;
+}
+
+.toast.update {
+  border-left: 4px solid #ffc107;
+}
+
+.toast.delete {
+  border-left: 4px solid #dc3545;
+}

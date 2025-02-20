@@ -1,0 +1,409 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\test.bundle.scp.css",
+      "PackagePath": "staticwebassets\\test.qekdr8u2xn.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\UserRole\\Create.css",
+      "PackagePath": "staticwebassets\\css\\UserRole\\Create.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\select2-custom.css",
+      "PackagePath": "staticwebassets\\css\\select2-custom.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\statistics.css",
+      "PackagePath": "staticwebassets\\css\\statistics.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\images\\403.png",
+      "PackagePath": "staticwebassets\\images\\403.png"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\hub-connections.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\hub-connections.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\signalr-connection.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\signalr-connection.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\SignalR\\userModule.js",
+      "PackagePath": "staticwebassets\\js\\SignalR\\userModule.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\Statistics\\emailStatistics.js",
+      "PackagePath": "staticwebassets\\js\\Statistics\\emailStatistics.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\Statistics\\notificationStatistics.js",
+      "PackagePath": "staticwebassets\\js\\Statistics\\notificationStatistics.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\Statistics\\userOnlineStatistics.js",
+      "PackagePath": "staticwebassets\\js\\Statistics\\userOnlineStatistics.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\admin.js",
+      "PackagePath": "staticwebassets\\js\\admin.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Details\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Details\\permission-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\api-service.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\api-service.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\export-import.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\export-import.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\filter-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\filter-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\format-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\format-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\index.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\permission-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\mails\\Index\\render-handler.js",
+      "PackagePath": "staticwebassets\\js\\mails\\Index\\render-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Details\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Details\\permission-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\api-service.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\api-service.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\filter-handler.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\filter-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\format-handler.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\format-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\index.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\index.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\permission-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\notifications\\Index\\render-handler.js",
+      "PackagePath": "staticwebassets\\js\\notifications\\Index\\render-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\roles\\create.js",
+      "PackagePath": "staticwebassets\\js\\roles\\create.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\roles\\moduleService.js",
+      "PackagePath": "staticwebassets\\js\\roles\\moduleService.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\roles\\roleService.js",
+      "PackagePath": "staticwebassets\\js\\roles\\roleService.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\shared\\permission-handler.js",
+      "PackagePath": "staticwebassets\\js\\shared\\permission-handler.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\users\\create.js",
+      "PackagePath": "staticwebassets\\js\\users\\create.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\users\\moduleService.js",
+      "PackagePath": "staticwebassets\\js\\users\\moduleService.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\users\\roleService.js",
+      "PackagePath": "staticwebassets\\js\\users\\roleService.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\js\\users\\userService.js",
+      "PackagePath": "staticwebassets\\js\\users\\userService.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.test.props",
+      "PackagePath": "build\\test.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.test.props",
+      "PackagePath": "buildMultiTargeting\\test.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.test.props",
+      "PackagePath": "buildTransitive\\test.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.test.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.test.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

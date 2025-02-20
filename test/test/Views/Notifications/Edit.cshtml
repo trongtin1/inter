@@ -1,0 +1,308 @@
+@{
+    ViewData["Title"] = "Edit Notification";
+}
+<div class="container-fluid py-4">
+    <div class="card">
+        <!-- Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Edit Notification</h5>
+            <a href="@Url.Action("Index", "Notifications")" class="btn btn-light btn-sm">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+        <div class="card-body p-4">
+            <form id="editForm" onsubmit="handleSubmit(event)">
+                <input type="hidden" id="Id" name="Id" />
+                
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <select id="email" class="form-control email-select" data-placeholder="Search for an email..."></select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="from" class="form-label fw-bold">From</label>
+                            <select id="from" class="form-control from-select" data-placeholder="Search for a name..."></select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="url" class="form-label fw-bold">URL</label>
+                            <input type="text" id="url" name="url" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label fw-bold">Type</label>
+                            <select id="type" name="type" class="form-select" required>
+                                <option value="">Select Type</option>
+                                <option value="QuyTrinh">Quy Trinh</option>
+                                <option value="Lich">Lich</option>
+                                <option value="CongVan">Cong Van</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" id="isRead" name="isRead" class="form-check-input" />
+                                <label class="form-check-label" for="isRead">Is Read</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" id="isSeen" name="isSeen" class="form-check-input" />
+                                <label class="form-check-label" for="isSeen">Is Seen</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label fw-bold">Content</label>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-primary btn-sm active" data-view="rendered">
+                                        Preview
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-view="raw">
+                                        HTML
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <textarea id="content" class="form-control mb-3"></textarea>
+
+                            <div class="border rounded">
+                                <div id="previewContent" class="p-3 bg-light">
+                                </div>
+                                <div id="rawContent" class="p-3 bg-light d-none">
+                                    <pre class="mb-0"><code></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                    <a href="@Url.Action("Index", "Notifications")" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize select2 for both email and from
+            $("#email, #from").select2({
+                width: "100%",
+                placeholder: "Select an option",
+                allowClear: true,
+                matcher: function(params, data) {
+                    if (!params.term) {
+                        return data;
+                    }
+                    const searchTerm = params.term.toLowerCase();
+                    const text = data.text.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        return data;
+                    }
+                    return null;
+                }
+            });
+
+            // Load notification data after options are loaded
+            loadEmailOptions().then(() => {
+                loadNotificationData();
+            });
+
+            // Initialize Summernote
+            $('#content').summernote({
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview']]
+                ],
+                callbacks: {
+                    onChange: function(contents) {
+                        updatePreview(contents);
+                    }
+                }
+            });
+
+            // Toggle preview/raw view
+            $('.btn-group button').click(function() {
+                $('.btn-group button').removeClass('active');
+                $(this).addClass('active');
+                
+                const view = $(this).data('view');
+                if (view === 'rendered') {
+                    $('#previewContent').removeClass('d-none');
+                    $('#rawContent').addClass('d-none');
+                } else {
+                    $('#previewContent').addClass('d-none');
+                    $('#rawContent').removeClass('d-none');
+                }
+            });
+        });
+
+        async function loadEmailOptions() {
+            try {
+                const response = await axios.get('http://localhost:5001/api/PersonalProfile/filter-options');
+                if (response.data.success) {
+                    const emailSelect = $("#email");
+                    const fromSelect = $("#from");
+                    
+                    emailSelect.empty().append('<option value="">All</option>');
+                    fromSelect.empty().append('<option value="">All</option>');
+                    
+                    response.data.data.forEach(item => {
+                        if (item.fullName) {
+                            const displayText = `${item.fullName} (${item.email})`;
+                            emailSelect.append(`<option value="${item.email}">${displayText}</option>`);
+                            fromSelect.append(`<option value="${item.fullName}">${displayText}</option>`);
+                        } else {
+                            emailSelect.append(`<option value="${item.email}">${item.email}</option>`);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading options:', error);
+            }
+        }
+
+        async function loadNotificationData() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = '/Account/Login';
+                    return;
+                }
+
+                const notificationId = window.location.pathname.split('/').pop();
+                const response = await axios.get(`http://localhost:5001/api/Notifications/${notificationId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                if (response.data.success) {
+                    const notification = response.data.data;
+                    populateForm(notification);
+                }
+            } catch (error) {
+                console.error('Error loading notification:', error);
+                if (error.response?.status === 403) {
+                    window.location.href = '/Account/AccessDenied';
+                } else if (error.response?.status === 401) {
+                    window.location.href = '/Account/Login';
+                }
+            }
+        }
+
+        function getTypeText(typeId) {
+            const typeMap = {
+                1: 'QuyTrinh',
+                2: 'Lich',
+                3: 'CongVan'
+            };
+            return typeMap[typeId] || '';
+        }
+
+        function populateForm(notification) {
+            $('#Id').val(notification.id);
+            
+            if (notification.email) {
+                $('#email').val(notification.email).trigger('change');
+            }
+            if (notification.from) {
+                $('#from').val(notification.from).trigger('change');
+            }
+            
+            $('#url').val(notification.url);
+            $('#type').val(notification.type);
+            const typeText = getTypeText(notification.type);
+            if (typeText) {
+                $('#type option[value="' + notification.type + '"]').text(typeText);
+            }
+            
+            $('#content').summernote('code', notification.content);
+            $('#isRead').prop('checked', notification.isRead);
+            $('#isSeen').prop('checked', notification.isSeen);
+            
+            updatePreview(notification.content);
+        }
+
+        function updatePreview(content) {
+            $('#previewContent').html(content);
+            $('#rawContent pre code').text(content);
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/Account/Login';
+                return;
+            }
+
+            const notificationId = $('#Id').val();
+            
+            const formData = {
+                id: parseInt(notificationId),
+                email: $('#email').val(),
+                from: $('#from').val(),
+                url: $('#url').val(),
+                type: $('#type').val(),
+                content: $('#content').summernote('code'),
+                isRead: $('#isRead').is(':checked'),
+                isSeen: $('#isSeen').is(':checked')
+            };
+
+            try {
+                const response = await axios.put(
+                    `http://localhost:5001/api/Notifications/${notificationId}`,
+                    formData,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                if (response.data.success) {
+                    alert('Notification updated successfully!');
+                    window.location.href = '/Notifications';
+                } else {
+                    alert('Error updating notification: ' + response.data.message);
+                }
+            } catch (error) {
+                console.error('Error updating notification:', error);
+                if (error.response?.data?.errors) {
+                    const errors = error.response.data.errors;
+                    Object.keys(errors).forEach(key => {
+                        const errorMessage = errors[key].join('\n');
+                        alert(`${key}: ${errorMessage}`);
+                    });
+                } else {
+                    alert('Error updating notification. Please try again.');
+                }
+            }
+        }
+    </script>
+}
+
+@section Styles {
+    <link href="~/css/select2-custom.css" rel="stylesheet" />
+}
+

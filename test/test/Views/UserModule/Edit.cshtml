@@ -1,0 +1,239 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit User Module";
+}
+
+<style>
+    .permission-checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Edit Role Module</h2>
+        <a href="/UserModule/Create" class="btn btn-success">Create New</a>
+    </div>
+    <div id="roleModuleForm">
+        <h3 id="userName"></h3>
+
+        <!-- Thêm ô tìm kiếm -->
+        <div class="mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm module...">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Module Name</th>
+                        <th>Create</th>
+                        <th>Read</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="modulePermissions">
+                    <!-- Module permissions will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-3">
+            <button class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
+            <a href="/UserModule" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let userId;
+        let allModules = []; // Thêm biến để lưu trữ tất cả modules
+
+        $(document).ready(function() {
+            // Get userId from URL
+            const pathSegments = window.location.pathname.split('/');
+            userId = pathSegments[pathSegments.length - 1];
+            loadUserModuleData();
+            
+            // Thêm sự kiện tìm kiếm
+            $('#searchInput').on('input', function() {
+                filterModules($(this).val());
+            });
+        });
+
+        async function loadUserModuleData() {
+            try {
+                const response = await axios.get(`/api/UserModules/${userId}`);
+                const userModule = response.data.data;
+
+                $('#userName').text(`User: ${userModule.userName}`);
+                
+                // Load user's role modules first
+                const userRolesResponse = await axios.get(`/api/UserRoles/${userId}`);
+                const roleModulesMap = new Map();
+
+                // Get modules for each role and merge their permissions
+                for (const role of userRolesResponse.data.data.roles) {
+                    const roleModulesResponse = await axios.get(`/api/RoleModules/${role.id}`);
+                    roleModulesResponse.data.data.modules.forEach(module => {
+                        if (!roleModulesMap.has(module.moduleId)) {
+                            roleModulesMap.set(module.moduleId, {
+                                canCreate: module.canCreate,
+                                canRead: module.canRead,
+                                canUpdate: module.canUpdate,
+                                canDelete: module.canDelete
+                            });
+                        } else {
+                            // If module exists in multiple roles, merge permissions (OR operation)
+                            const existing = roleModulesMap.get(module.moduleId);
+                            existing.canCreate = existing.canCreate || module.canCreate;
+                            existing.canRead = existing.canRead || module.canRead;
+                            existing.canUpdate = existing.canUpdate || module.canUpdate;
+                            existing.canDelete = existing.canDelete || module.canDelete;
+                        }
+                    });
+                }
+
+                allModules = userModule.modules; // Lưu trữ tất cả modules
+                renderModules(allModules, roleModulesMap);
+            } catch (error) {
+                console.error('Error loading user module data:', error);
+                alert('Failed to load user module data');
+            }
+        }
+
+        // Thêm hàm render modules
+        function renderModules(modules, roleModulesMap) {
+            const tbody = $('#modulePermissions');
+            tbody.empty();
+
+            modules.forEach(module => {
+                const rolePermissions = roleModulesMap.get(module.moduleId) || {
+                    canCreate: false,
+                    canRead: false,
+                    canUpdate: false,
+                    canDelete: false
+                };
+
+                tbody.append(`
+                    <tr>
+                        <td>${module.moduleName}</td>
+                        <td>
+                            <input type="checkbox" class="permission-checkbox" 
+                                data-moduleid="${module.moduleId}" 
+                                data-permission="create" 
+                                ${module.canCreate ? 'checked' : ''}
+                                ${!rolePermissions.canCreate ? 'disabled' : ''}>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="permission-checkbox" 
+                                data-moduleid="${module.moduleId}" 
+                                data-permission="read" 
+                                ${module.canRead ? 'checked' : ''}
+                                ${!rolePermissions.canRead ? 'disabled' : ''}>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="permission-checkbox" 
+                                data-moduleid="${module.moduleId}" 
+                                data-permission="update" 
+                                ${module.canUpdate ? 'checked' : ''}
+                                ${!rolePermissions.canUpdate ? 'disabled' : ''}>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="permission-checkbox" 
+                                data-moduleid="${module.moduleId}" 
+                                data-permission="delete" 
+                                ${module.canDelete ? 'checked' : ''}
+                                ${!rolePermissions.canDelete ? 'disabled' : ''}>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        // Thêm hàm lọc modules
+        function filterModules(searchText) {
+            searchText = searchText.toLowerCase();
+            const filteredModules = allModules.filter(module => 
+                module.moduleName.toLowerCase().includes(searchText)
+            );
+            
+            // Tải lại roleModulesMap
+            const roleModulesMap = new Map();
+            $('.permission-checkbox').each(function() {
+                const moduleId = $(this).data('moduleid');
+                const permission = $(this).data('permission');
+                const isDisabled = $(this).prop('disabled');
+                
+                if (!roleModulesMap.has(moduleId)) {
+                    roleModulesMap.set(moduleId, {
+                        canCreate: true,
+                        canRead: true,
+                        canUpdate: true,
+                        canDelete: true
+                    });
+                }
+                
+                const permissions = roleModulesMap.get(moduleId);
+                switch(permission) {
+                    case 'create': permissions.canCreate = !isDisabled; break;
+                    case 'read': permissions.canRead = !isDisabled; break;
+                    case 'update': permissions.canUpdate = !isDisabled; break;
+                    case 'delete': permissions.canDelete = !isDisabled; break;
+                }
+            });
+            
+            renderModules(filteredModules, roleModulesMap);
+        }
+
+        async function saveChanges() {
+            try {
+                const modulePermissions = new Map();
+
+                $('.permission-checkbox').each(function() {
+                    const moduleId = $(this).data('moduleid');
+                    const permission = $(this).data('permission');
+                    
+                    if (!modulePermissions.has(moduleId)) {
+                        modulePermissions.set(moduleId, {
+                            userId: parseInt(userId),
+                            moduleId: parseInt(moduleId),
+                            canCreate: false,
+                            canRead: false,
+                            canUpdate: false,
+                            canDelete: false
+                        });
+                    }
+
+                    const permissions = modulePermissions.get(moduleId);
+                    switch(permission) {
+                        case 'create': permissions.canCreate = $(this).prop('checked'); break;
+                        case 'read': permissions.canRead = $(this).prop('checked'); break;
+                        case 'update': permissions.canUpdate = $(this).prop('checked'); break;
+                        case 'delete': permissions.canDelete = $(this).prop('checked'); break;
+                    }
+                });
+
+                // Save each module's permissions
+                for (const permission of modulePermissions.values()) {
+                    await axios.post('/api/UserModules', permission);
+                }
+
+                alert('Permissions updated successfully');
+                window.location.href = '/Users/Details/' + userId;
+            } catch (error) {
+                console.error('Error saving permissions:', error);
+                alert('Failed to save permissions');
+            }
+        }
+    </script>
+}
