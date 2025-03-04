@@ -116,7 +116,7 @@
         async function loadUsers() {
             try {
                 // Load users
-                const usersResponse = await axios.get('/api/Users');
+                const usersResponse = await axios.get('/api/Users/all');
                 const users = usersResponse.data.data;
                 const userSelect = $('#userSelect');
                 userSelect.empty();

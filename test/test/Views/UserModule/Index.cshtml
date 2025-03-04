@@ -3,14 +3,11 @@
     ViewData["Title"] = "User Module";
 }
 
-
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>User Module</h2>
         <a href="/UserModule/Create" class="btn btn-success">Create New User Module</a>
     </div>
-
-
     <table class="table" id="userModuleTable">
         <thead>
             <tr>
@@ -18,7 +15,6 @@
                 <th>Assigned Modules</th>
                 <th>Actions</th>
             </tr>
-
         </thead>
         <tbody>
             <!-- Data will be added here -->
@@ -41,8 +37,6 @@
                 const response = await axios.get('/api/UserModules');
                 const users = response.data.data;
                 const tbody = $('#userModuleTable tbody');
-
-
                 tbody.empty();
                 users.forEach(user => {
                     const modulesList = user.modules.map(module => {
@@ -52,7 +46,6 @@
                         if (module.canUpdate) permissions.push('Update');
                         if (module.canDelete) permissions.push('Delete');
 
-                        
                         return `${module.moduleName} (${permissions.join(', ')})`;
                     }).join('<br>');
 
@@ -61,11 +54,8 @@
                             <td>${user.userName}</td>
                             <td>${modulesList}</td>
                             <td>
-
                                 <button class="btn btn-primary btn-sm edit-user-module" 
                                     data-userid="${user.userId}">Edit</button>
-                                
-
                             </td>
                         </tr>
                     `);

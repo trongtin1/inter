@@ -1,7 +1,48 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\modulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\modulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\mailstatisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\mailstatisticscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\attributes\\modulepermissionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\attributes\\modulepermissionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\controllers\\api\\mailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\controllers\\api\\mailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\hubs\\useronlinehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\hubs\\useronlinehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\hubs\\usermodulehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\hubs\\usermodulehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|c:\\users\\dell\\desktop\\thuc tap\\inter\\test\\test\\project.api\\hubs\\mailhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF8226F5-8314-46DF-AB91-8D0B1B5FAAD0}|test\\test.csproj|solutionrelative:test\\project.api\\hubs\\mailhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +63,136 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\UsersController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\UsersController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\UsersController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\UsersController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAowEQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:41:29.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ModulesController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\ModulesController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\ModulesController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\ModulesController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\ModulesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:41:28.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MailStatisticsController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\MailStatisticsController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\MailStatisticsController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\MailStatisticsController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\MailStatisticsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:41:26.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NotificationsController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\NotificationsController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\NotificationsController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\NotificationsController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\NotificationsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:41:23.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RolesController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\RolesController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\RolesController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\RolesController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\RolesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:41:12.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MailsController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\MailsController.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Controllers\\Api\\MailsController.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Controllers\\Api\\MailsController.cs",
+              "RelativeToolTip": "test\\Project.API\\Controllers\\Api\\MailsController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAArwB8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:39:26.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ModulePermissionAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Attributes\\ModulePermissionAttribute.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Attributes\\ModulePermissionAttribute.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Attributes\\ModulePermissionAttribute.cs",
+              "RelativeToolTip": "test\\Project.API\\Attributes\\ModulePermissionAttribute.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAjwBgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:39:13.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserOnlineHub.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\UserOnlineHub.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Hubs\\UserOnlineHub.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\UserOnlineHub.cs",
+              "RelativeToolTip": "test\\Project.API\\Hubs\\UserOnlineHub.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwBkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:38:46.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserModuleHub.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\UserModuleHub.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Hubs\\UserModuleHub.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\UserModuleHub.cs",
+              "RelativeToolTip": "test\\Project.API\\Hubs\\UserModuleHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:38:44.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MailHub.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\MailHub.cs",
+              "RelativeDocumentMoniker": "test\\Project.API\\Hubs\\MailHub.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\Project.API\\Hubs\\MailHub.cs",
+              "RelativeToolTip": "test\\Project.API\\Hubs\\MailHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T01:38:42.268Z",
+              "EditorCaption": ""
             }
           ]
         }

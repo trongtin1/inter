@@ -158,7 +158,6 @@ async function createUserWithRolesAndModules() {
         CanDelete: permission.canDelete,
       });
     }
-
     alert("User created successfully with roles and permissions");
     window.location.href = "/Users";
   } catch (error) {

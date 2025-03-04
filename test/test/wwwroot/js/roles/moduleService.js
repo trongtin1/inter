@@ -1,6 +1,6 @@
 const moduleService = {
   async getModules() {
-    const response = await axios.get("/api/Modules");
+    const response = await axios.get("/api/Modules/getList");
     return response.data.data;
   },
 

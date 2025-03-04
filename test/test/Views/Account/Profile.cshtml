@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form id="profileForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">NewPassword</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <small class="text-muted">Leave blank if you don't want to change password</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let userId;
+            
+            const token = localStorage.getItem('token');
+            if (token) {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                console.log('Token payload:', payload);
+                
+                userId = payload.id;
+                const username = payload.username;
+                const email = payload.email;
+
+                $('#username').val(username);
+                $('#email').val(email);
+            }
+
+            $('#profileForm').on('submit', async function(e) {
+                e.preventDefault();
+                
+                const data = {
+                    username: $('#username').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val()
+                };
+
+                try {
+                    await axios.put(`/api/users/${userId}`, data);
+                    alert('Profile updated');
+                    window.location.href = '/Home';
+                } catch (error) {
+                    const errorMessage = error.response?.data || 'Update failed';
+                    alert(errorMessage);
+                }
+            });
+        });
+    </script>
+} 

@@ -1,0 +1,8 @@
+Hi [Recipient's Name],
+
+You are invited to a meeting on [date and time] to discuss [topic]. The meeting will be held at [location/virtual link].
+
+Please confirm your availability.
+
+Best,
+[Your Name]

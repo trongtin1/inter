@@ -68,7 +68,7 @@
         async function loadUsersAndRoles() {
             try {
                 // Load users
-                const usersResponse = await axios.get('/api/Users');
+                const usersResponse = await axios.get('/api/Users/all');
                 const users = usersResponse.data.data;
                 const $userSelect = $('#userSelect');
                 $userSelect.empty();
@@ -78,7 +78,7 @@
                 });
 
                 // Load roles
-                const rolesResponse = await axios.get('/api/Roles');
+                const rolesResponse = await axios.get('/api/Roles/all');
                 const roles = rolesResponse.data.data;
                 const $rolesContainer = $('#rolesCheckboxList');
                 $rolesContainer.empty();

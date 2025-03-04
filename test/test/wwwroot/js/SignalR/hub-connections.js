@@ -1,4 +1,3 @@
-// create connections only if token exists
 const token = localStorage.getItem("token");
 const payload = JSON.parse(atob(token.split(".")[1]));
 const userId = payload.id;
@@ -47,6 +46,8 @@ if (token) {
       case "create":
       case "update":
       case "delete":
+        sessionStorage.removeItem("userModules");
+        checkPermissions();
         window.location.reload();
         break;
     }
@@ -69,7 +70,6 @@ if (token) {
     }
   });
 
-  // handle when connections are lost
   mailConnection.onclose(async () => {
     await startConnections();
   });

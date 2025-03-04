@@ -7,10 +7,10 @@
     <div class="card shadow mb-4">
         <div class="card-header bg-light d-flex justify-content-between align-items-center">
             <h6 class="mb-0">
-                <i class="fas fa-filter me-2"></i>@test.Resources.Mail.Index.Resource.SearchFilters
+                <i class="fas fa-filter me-2"></i>@test.Project.API.Resources.Mail.Index.Resource.SearchFilters
             </h6>
             <button class="btn btn-sm btn-secondary" onclick="filterHandler.resetFilters()">
-                <i class="fas fa-undo me-1"></i>@test.Resources.Mail.Index.Resource.Reset
+                <i class="fas fa-undo me-1"></i>@test.Project.API.Resources.Mail.Index.Resource.Reset
             </button>
         </div>
         <div class="card-body">
@@ -41,7 +41,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Mail.Index.Resource.IsSend</label>
+                    <label class="form-label">@test.Project.API.Resources.Mail.Index.Resource.IsSend</label>
                     <select class="form-control" id="isSend">
                         <option value="">All</option>
                         <option value="true">Sent</option>
@@ -50,11 +50,11 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Mail.Index.Resource.SendStatus</label>
+                    <label class="form-label">@test.Project.API.Resources.Mail.Index.Resource.SendStatus</label>
                     <input type="text" class="form-control" id="sendStatus" placeholder="Search status...">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Mail.Index.Resource.TimeType</label>
+                    <label class="form-label">@test.Project.API.Resources.Mail.Index.Resource.TimeType</label>
                     <select class="form-control" id="timeType">
                         <option value="">All</option>
                         <option value="createTime">Create Time</option>
@@ -63,10 +63,10 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Mail.Index.Resource.TimeRange</label>
+                    <label class="form-label">@test.Project.API.Resources.Mail.Index.Resource.TimeRange</label>
                     <div class="date-range-group">
                         <input type="datetime-local" id="fromDate" class="form-control">
-                        <span>@test.Resources.Mail.Index.Resource.to</span>
+                        <span>@test.Project.API.Resources.Mail.Index.Resource.to</span>
                         <input type="datetime-local" id="toDate" class="form-control">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
     <div class="card shadow">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
-                <i class="fas fa-table me-2"></i>@test.Resources.Mail.Index.Resource.MailList
+                <i class="fas fa-table me-2"></i>@test.Project.API.Resources.Mail.Index.Resource.MailList
             </h5>
             <div class="d-flex gap-2">
                 <!-- Buttons will be rendered here by permission-handler -->
@@ -93,14 +93,14 @@
                             <th><input type="checkbox" id="selectAll" class="form-check-input" /></th>
                             <th>ID</th>
                             <th>Email</th>
-                            <th>@test.Resources.Mail.Index.Resource.EmailContent</th>
-                            <th>@test.Resources.Mail.Index.Resource.FileAttach</th>
-                            <th>@test.Resources.Mail.Index.Resource.CreateBy</th>
-                            <th>@test.Resources.Mail.Index.Resource.CreateTime</th>
-                            <th>@test.Resources.Mail.Index.Resource.IsSend</th>
-                            <th>@test.Resources.Mail.Index.Resource.SendTime</th>
-                            <th>@test.Resources.Mail.Index.Resource.Subject</th>
-                            <th>@test.Resources.Mail.Index.Resource.SendStatus</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.EmailContent</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.FileAttach</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.CreateBy</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.CreateTime</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.IsSend</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.SendTime</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.Subject</th>
+                            <th>@test.Project.API.Resources.Mail.Index.Resource.SendStatus</th>
                             <th>Email CC</th>
                             <th>Email BCC</th>
                         </tr>
@@ -123,10 +123,10 @@
     <script>
         // Define resources for JavaScript
         window.mailResources = {
-            delete: '@test.Resources.Mail.Index.Resource.Delete',
-            export: '@test.Resources.Mail.Index.Resource.Export',
-            import: '@test.Resources.Mail.Index.Resource.Import',
-            newMail: '@test.Resources.Mail.Index.Resource.NewMail'
+            delete: '@test.Project.API.Resources.Mail.Index.Resource.Delete',
+            export: '@test.Project.API.Resources.Mail.Index.Resource.Export',
+            import: '@test.Project.API.Resources.Mail.Index.Resource.Import',
+            newMail: '@test.Project.API.Resources.Mail.Index.Resource.NewMail'
         };
     </script>
     <script src="~/js/mails/Index/api-service.js"></script>

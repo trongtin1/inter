@@ -1,0 +1,229 @@
+<section class="container-fluid bg-body-tertiary d-block">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4" style="min-width: 500px;">
+            <div class="card bg-white mb-5 mt-5 border-0" style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);">
+                <div class="card-body p-5 text-center">
+                    <h4>Verify</h4>
+                    <p>Your code was sent to you via email</p>
+                    
+                    <form id="verifyOTPForm">
+                        <input type="hidden" id="email" value="@Context.Request.Query["email"]" />
+                        <div class="otp-field mb-4">
+                            <input type="number" class="otp-input" maxlength="1" />
+                            <input type="number" class="otp-input" maxlength="1" />
+                            <input type="number" class="otp-input" maxlength="1" />
+                            <input type="number" class="otp-input" maxlength="1" />
+                            <input type="number" class="otp-input" maxlength="1" />
+                            <input type="number" class="otp-input" maxlength="1" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mb-3" id="verifyBtn">
+                            <span class="normal-text">Verify</span>
+                            <span class="loading-text d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Verifying...
+                            </span>
+                        </button>
+
+                        <p class="resend text-muted mb-0">
+                            Didn't receive code? 
+                            <a href="#" id="resendLink">
+                                <span class="normal-text">Request again</span>
+                                <span class="loading-text d-none">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Sending...
+                                </span>
+                            </a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .otp-field {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .otp-field input {
+        height: 50px;
+        width: 50px;
+        border-radius: 8px;
+        outline: none;
+        font-size: 1.25rem;
+        text-align: center;
+        border: 2px solid #ddd;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+    .otp-field input:focus {
+        border-color: #007bff;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    .otp-field input:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+    /* Ẩn nút tăng giảm của input number */
+    .otp-field input::-webkit-inner-spin-button,
+    .otp-field input::-webkit-outer-spin-button {
+        display: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 6px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .resend {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .resend a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .resend a:hover {
+        color: #0056b3;
+    }
+
+</style>
+
+@section Scripts {
+    <script>
+        const $inputs = $('.otp-input');
+        
+        // Add paste event listener to first input only
+        $inputs.first().on('paste', function(e) {
+            e.preventDefault();
+            const pastedData = (e.originalEvent.clipboardData || window.clipboardData).getData('text').trim();
+            
+            // Check if pasted content is 6 digits
+            if (/^\d{6}$/.test(pastedData)) {
+                // Distribute digits to inputs
+                [...pastedData].forEach((digit, index) => {
+                    $inputs.eq(index).val(digit).trigger('input');
+                });
+                // Focus on last input
+                $inputs.last().focus();
+            }
+        });
+
+        // Existing input handling
+        $inputs.each(function(index) {
+            $(this).on('input', function() {
+                if ($(this).val().length === 1 && index < $inputs.length - 1) {
+                    $inputs.eq(index + 1).focus();
+                }
+            });
+
+            $(this).on('keydown', function(e) {
+                if (e.key === 'Backspace' && !$(this).val() && index > 0) {
+                    $inputs.eq(index - 1).focus();
+                }
+            });
+        });
+
+        // Handle form submission
+        $('#verifyOTPForm').on('submit', async function(e) {
+            e.preventDefault();
+            
+            const $verifyBtn = $('#verifyBtn');
+            const $normalText = $verifyBtn.find('.normal-text');
+            const $loadingText = $verifyBtn.find('.loading-text');
+            
+            // Disable button and show loading
+            $verifyBtn.prop('disabled', true);
+            $normalText.addClass('d-none');
+            $loadingText.removeClass('d-none');
+            
+            try {
+                const email = $('#email').val();
+                const otp = $inputs.map(function() {
+                    return $(this).val();
+                }).get().join('');
+                
+                const response = await axios.post('/api/Auth/verify-otp', {
+                    email: email,
+                    otp: otp
+                });
+                
+                if (response.data.success) {
+                    window.location.href = '/Account/ResetPassword?email=' + encodeURIComponent(email);
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                if (error.response?.data?.message) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('An error occurred. Please try again.');
+                }
+            } finally {
+                // Re-enable button and hide loading
+                $verifyBtn.prop('disabled', false);
+                $normalText.removeClass('d-none');
+                $loadingText.addClass('d-none');
+            }
+        });
+
+        // Handle resend link
+        $('#resendLink').on('click', async function(e) {
+            e.preventDefault();
+            
+            const $resendLink = $(this);
+            const $normalText = $resendLink.find('.normal-text');
+            const $loadingText = $resendLink.find('.loading-text');
+            
+            // Disable link and show loading
+            $resendLink.css('pointer-events', 'none');
+            $normalText.addClass('d-none');
+            $loadingText.removeClass('d-none');
+            
+            try {
+                const response = await axios.post('/api/Auth/forgot-password', {
+                    email: $('#email').val()
+                });
+                
+                if (response.data.success) {
+                    alert('OTP sent successfully');
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                if (error.response?.data?.message) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('An error occurred. Please try again.');
+                }
+            } finally {
+                // Re-enable link and hide loading
+                $resendLink.css('pointer-events', 'auto');
+                $normalText.removeClass('d-none');
+                $loadingText.addClass('d-none');
+            }
+        });
+    </script>
+} 

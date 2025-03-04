@@ -7,10 +7,10 @@
     <div class="card shadow mb-4">
         <div class="card-header bg-light d-flex justify-content-between align-items-center">
             <h6 class="mb-0">
-                <i class="fas fa-filter me-2"></i>@test.Resources.Notification.Index.Resource.SearchFilters
+                <i class="fas fa-filter me-2"></i>@test.Project.API.Resources.Notification.Index.Resource.SearchFilters
             </h6>
             <button class="btn btn-sm btn-secondary" onclick="filterHandler.resetFilters()">
-                <i class="fas fa-undo me-1"></i>@test.Resources.Notification.Index.Resource.Reset
+                <i class="fas fa-undo me-1"></i>@test.Project.API.Resources.Notification.Index.Resource.Reset
             </button>
         </div>
         <div class="card-body">
@@ -19,52 +19,52 @@
                 <div class="col-md-3">
                     <label class="form-label">ID</label>
                     <select class="form-control select2-dropdown" id="id">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Email</label>
                     <select class="form-control select2-dropdown" id="email">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">From</label>
                     <select class="form-control select2-dropdown" id="from">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Notification.Index.Resource.Type</label>
+                    <label class="form-label">@test.Project.API.Resources.Notification.Index.Resource.Type</label>
                     <select class="form-control select2-dropdown" id="type">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Notification.Index.Resource.IsRead</label>
+                    <label class="form-label">@test.Project.API.Resources.Notification.Index.Resource.IsRead</label>
                     <select class="form-control" id="isRead">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
-                        <option value="true">@test.Resources.Notification.Index.Resource.Read</option>
-                        <option value="false">@test.Resources.Notification.Index.Resource.Unread</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
+                        <option value="true">@test.Project.API.Resources.Notification.Index.Resource.Read</option>
+                        <option value="false">@test.Project.API.Resources.Notification.Index.Resource.Unread</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Notification.Index.Resource.IsSeen</label>
+                    <label class="form-label">@test.Project.API.Resources.Notification.Index.Resource.IsSeen</label>
                     <select class="form-control" id="isSeen">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
-                        <option value="true">@test.Resources.Notification.Index.Resource.Seen</option>
-                        <option value="false">@test.Resources.Notification.Index.Resource.Unseen</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
+                        <option value="true">@test.Project.API.Resources.Notification.Index.Resource.Seen</option>
+                        <option value="false">@test.Project.API.Resources.Notification.Index.Resource.Unseen</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Notification.Index.Resource.TimeType</label>
+                    <label class="form-label">@test.Project.API.Resources.Notification.Index.Resource.TimeType</label>
                     <select class="form-control" id="timeType">
-                        <option value="">@test.Resources.Notification.Index.Resource.All</option>
-                        <option value="createdTime">@test.Resources.Notification.Index.Resource.CreateTime</option>
+                        <option value="">@test.Project.API.Resources.Notification.Index.Resource.All</option>
+                        <option value="createdTime">@test.Project.API.Resources.Notification.Index.Resource.CreateTime</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">@test.Resources.Notification.Index.Resource.TimeRange</label>
+                    <label class="form-label">@test.Project.API.Resources.Notification.Index.Resource.TimeRange</label>
                     <div class="date-range-group">
                         <input type="datetime-local" id="fromDate" class="form-control">
                         <span>to</span>
@@ -79,11 +79,11 @@
     <div class="card shadow">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
-                <i class="fas fa-table me-2"></i>@test.Resources.Notification.Index.Resource.NotificationList
+                <i class="fas fa-table me-2"></i>@test.Project.API.Resources.Notification.Index.Resource.NotificationList
             </h5>
             <div class="d-flex gap-2">
                 <!-- <button class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash me-1"></i>@test.Resources.Notification.Index.Resource.Delete
+                    <i class="fas fa-trash me-1"></i>@test.Project.API.Resources.Notification.Index.Resource.Delete
                 </button>
                 <a href="/Notifications/Create" class="btn btn-success btn-sm">
                     <i class="fas fa-plus me-1"></i>Create
@@ -133,8 +133,8 @@
 @section Scripts {
     <script>
         window.notificationResources = {
-            delete: '@test.Resources.Notification.Index.Resource.Delete',
-            newNotification: '@test.Resources.Notification.Index.Resource.NewNotification'
+            delete: '@test.Project.API.Resources.Notification.Index.Resource.Delete',
+            newNotification: '@test.Project.API.Resources.Notification.Index.Resource.NewNotification'
         };
     </script>
     <script src="~/js/notifications/Index/api-service.js"></script>

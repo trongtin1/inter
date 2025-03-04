@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\NewFolder\**" />
-    <Content Remove="Resources\NewFolder\**" />
-    <EmbeddedResource Remove="Resources\NewFolder\**" />
-    <None Remove="Resources\NewFolder\**" />
+    <Compile Remove="Repository\**" />
+    <Compile Remove="Project.API\Resources\NewFolder\**" />
+    <Compile Remove="Services\SMTP\**" />
+    <Content Remove="Repository\**" />
+    <Content Remove="Project.API\Resources\NewFolder\**" />
+    <Content Remove="Services\SMTP\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="Project.API\Resources\NewFolder\**" />
+    <EmbeddedResource Remove="Services\SMTP\**" />
+    <None Remove="Repository\**" />
+    <None Remove="Project.API\Resources\NewFolder\**" />
+    <None Remove="Services\SMTP\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,117 +38,109 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Account\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Account\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Home\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Home\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Mail\Details\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Mail\Details\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Mail\Edit\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Mail\Edit\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Mail\Index\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Mail\Index\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Menu\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Menu\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Notification\Details\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Notification\Details\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Notification\Index\Resource.Designer.cs">
+    <Compile Update="Project.API\Resources\Notification\Index\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\Resource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Account\Resource.resx">
+    <EmbeddedResource Update="Project.API\Resources\Account\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Account\Resource.vi.resx">
+    <EmbeddedResource Update="Project.API\Resources\Account\Resource.vi.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Home\Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Home\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Details\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Details\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Edit\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Edit\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Index\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Mail\Index\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Menu\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Menu\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Notification\Details\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Notification\Details\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Notification\Index\Resource.resx">
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Notification\Index\Resource.vi.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.resx">
+    <EmbeddedResource Update="Project.API\Resources\Home\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.vi.resx">
+    <EmbeddedResource Update="Project.API\Resources\Home\Resource.vi.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Details\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Details\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Edit\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Edit\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Index\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Mail\Index\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Menu\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Menu\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Notification\Details\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Notification\Details\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Notification\Index\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Project.API\Resources\Notification\Index\Resource.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Project.Infrastructure\Data\" />
   </ItemGroup>
 
 </Project>

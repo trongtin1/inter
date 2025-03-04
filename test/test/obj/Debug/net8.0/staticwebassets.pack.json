@@ -5,6 +5,62 @@
       "PackagePath": "staticwebassets\\test.qekdr8u2xn.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Absent\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Absent\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Absent\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Absent\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Important\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Important\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Important\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Important\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Meeting\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Meeting\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Meeting\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Meeting\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Recruitment\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Recruitment\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Recruitment\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Recruitment\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Reminder\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Reminder\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Reminder\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Reminder\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Thankyou\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Thankyou\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Thankyou\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Thankyou\\Template 2.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Welcome\\Template 1.txt",
+      "PackagePath": "staticwebassets\\Template\\Welcome\\Template 1.txt"
+    },
+    {
+      "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\Template\\Welcome\\Template 2.txt",
+      "PackagePath": "staticwebassets\\Template\\Welcome\\Template 2.txt"
+    },
+    {
       "Id": "C:\\Users\\DELL\\Desktop\\thuc tap\\inter\\test\\test\\wwwroot\\css\\UserRole\\Create.css",
       "PackagePath": "staticwebassets\\css\\UserRole\\Create.css"
     },

@@ -80,10 +80,9 @@
     <script>
         // Define menu resources for JavaScript
         window.menuResources = {
-            notifications: '@test.Resources.Menu.Resource.Notifications',
-            
-            mails: '@test.Resources.Menu.Resource.Mails',
-            statistics: '@test.Resources.Menu.Resource.Statistics',
+            notifications: '@test.Project.API.Resources.Menu.Resource.Notifications',
+            mails: '@test.Project.API.Resources.Menu.Resource.Mails',
+            statistics: '@test.Project.API.Resources.Menu.Resource.Statistics',
             admin: 'Admin'
         };
 
@@ -97,19 +96,22 @@
                   
                     $(".navbar-nav.flex-grow-1").html(`
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Home">@test.Resources.Menu.Resource.Home</a>
+                            <a class="nav-link text-dark" href="/Home">@test.Project.API.Resources.Menu.Resource.Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Home/Privacy">@test.Resources.Menu.Resource.Privacy</a>
+                            <a class="nav-link text-dark" href="/Home/Privacy">@test.Project.API.Resources.Menu.Resource.Privacy</a>
                         </li>
                     `);
 
                     $authSection.html(`
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">@test.Resources.Menu.Resource.Hello, ${payload.username}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#" onclick="logout()">@test.Resources.Menu.Resource.Logout</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @test.Project.API.Resources.Menu.Resource.Hello, ${payload.username}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/Account/Profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="logout()">@test.Project.API.Resources.Menu.Resource.Logout</a></li>
+                            </ul>
                         </li>
                     `);
 
@@ -137,10 +139,10 @@
             
             $("#authSection").html(`
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/Account/Login">@test.Resources.Menu.Resource.Login</a>
+                    <a class="nav-link text-dark" href="/Account/Login">@test.Project.API.Resources.Menu.Resource.Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/Account/Register">@test.Resources.Menu.Resource.Register</a>
+                    <a class="nav-link text-dark" href="/Account/Register">@test.Project.API.Resources.Menu.Resource.Register</a>
                 </li>
             `);
         }

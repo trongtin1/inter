@@ -3,30 +3,45 @@ async function exportFile() {
     const defaultFileName = `Mails_Export_${new Date()
       .toISOString()
       .slice(0, 10)}.xlsx`;
-
-    // Get current filters from filterHandler
     const filters = filterHandler.getFilterValues();
 
-    // Build query parameters
-    const params = new URLSearchParams({
-      fileName: defaultFileName,
-      ...filters,
+    // Build query parameters with proper date formatting
+    const params = new URLSearchParams();
+    params.append("fileName", defaultFileName);
+
+    // Add other filter parameters
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== "") {
+        // Format dates properly if they exist
+        if (value instanceof Date) {
+          params.append(key, value.toISOString());
+        } else {
+          params.append(key, value);
+        }
+      }
     });
 
-    const response = await axios.get(
-      `${mailApiService.baseUrl}/mail-excel/export?${params}`,
-      {
-        headers: {
-          Authorization: `Bearer ${mailApiService.getToken()}`,
-        },
-        responseType: "blob",
-      }
-    );
+    // Add error handling for the API call
+    let response;
+    try {
+      response = await axios.get(
+        `${mailApiService.baseUrl}/mail-excel/export?${params}`,
+        {
+          headers: {
+            Authorization: `Bearer ${mailApiService.getToken()}`,
+          },
+          responseType: "blob",
+        }
+      );
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Failed to connect to the server"
+      );
+    }
 
-    // Check if the response has the success header
-    const isSuccess = response.headers["x-success"] === "true";
-    if (!isSuccess) {
-      throw new Error(response.headers["x-message"] || "Export failed");
+    // Validate response
+    if (!response.data || response.data.size === 0) {
+      throw new Error("Received empty response from server");
     }
 
     const blob = new Blob([response.data], {
@@ -67,12 +82,10 @@ async function exportFile() {
     }
   } catch (error) {
     console.error("Export error:", error);
-    if (error.name !== "AbortError") {
-      alert(
-        "Error exporting file: " +
-          (error.response?.data?.message || error.message)
-      );
-    }
+    alert(
+      "Error exporting file: " +
+        (error.response?.data?.message || error.message)
+    );
   }
 }
 

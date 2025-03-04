@@ -110,11 +110,29 @@
                                     <span class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
-                        
+                        </div> 
                     </div>
 
                     <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="TemplateType" class="form-label fw-bold">Template Type</label>
+                            <select id="TemplateType" name="TemplateType" class="form-control">
+                                <option value="">Select an email type</option>
+                                <option value="welcome">Welcome</option>
+                                <option value="absent">Absent</option>
+                                <option value="important">Important</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="reminder">Reminder</option>
+                                <option value="thankyou">Thank you</option>
+                                <option value="recruitment">Recruitment</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Template" class="form-label fw-bold">Template</label>
+                            <select id="Template" name="Template" class="form-control" data-placeholder="Select an email template...">
+                                <option value="">Select a template</option>
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <label class="form-label fw-bold">Email Content</label>
@@ -127,7 +145,6 @@
                                     </button>
                                 </div>
                             </div>
-                            
                             <textarea id="editor" name="EmailContent" class="form-control mb-3" style="min-height: 400px;"></textarea>
                             <div class="border rounded">
                                 <div id="previewContent" class="p-3 bg-light" style="max-height: 500px; overflow-y: auto;">
@@ -251,6 +268,47 @@
                 } else {
                     $('#previewContent').addClass('d-none');
                     $('#rawContent').removeClass('d-none');
+                }
+            });
+
+            // Sự kiện thay đổi cho dropdown template
+            $('#Template').change(async function() {
+                const templateName = $(this).val();
+                const templateType = $('#TemplateType').val(); // Get the selected template type
+                if (templateName) {
+                    try {
+                        const response = await axios.get(`/api/templates/${templateType}/${templateName}`);
+                        if (response.data.success) {
+                            // Set the content in the editor
+                            $('#editor').summernote('code', response.data.data);
+                        } else {
+                            console.error('Template not found:', response.data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading template content:', error);
+                    }
+                } else {
+                    $('#editor').summernote('code', '');
+                }
+            });
+
+            // Load templates based on selected email type
+            $('#TemplateType').change(async function() {
+                const templateType = $(this).val();
+                $('#Template').empty().append('<option value="">Select a template</option>');
+                if (templateType) {
+                    try {
+                        const response = await axios.get(`/api/templates/${templateType}`);
+                        if (response.data.success) {
+                            response.data.data.forEach(template => {
+                                $('#Template').append(`<option value="${template}">${template}</option>`);
+                            });
+                        } else {
+                            console.error('No templates found for this type:', response.data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading templates:', error);
+                    }
                 }
             });
 

@@ -1,6 +1,6 @@
 const roleService = {
   async getRoles() {
-    const response = await axios.get("/api/Roles");
+    const response = await axios.get("/api/Roles/getList");
     return response.data.data;
   },
 

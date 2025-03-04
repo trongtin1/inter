@@ -7,7 +7,7 @@
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Edit Email</h5>
             <a href="@Url.Action("Index", "Mails")" class="btn btn-light btn-sm">
-                <i class="fas fa-arrow-left"></i> @test.Resources.Mail.Edit.Resource.Back
+                <i class="fas fa-arrow-left"></i> @test.Project.API.Resources.Mail.Edit.Resource.Back
             </a>
         </div>
         <div class="card-body p-4">
@@ -18,7 +18,7 @@
                     <!-- Left Column -->
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="subject" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Subject</label>
+                            <label for="subject" class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.Subject</label>
                             <input id="subject" class="form-control" />
                         </div>
 
@@ -45,53 +45,72 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="location" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Location</label>
+                                    <label for="location" class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.Location</label>
                                     <input id="location" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="mailType" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.MailType</label>
+                                    <label for="mailType" class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.MailType</label>
                                     <select id="mailType" class="form-select">
-                                        <option value="1">@test.Resources.Mail.Edit.Resource.Type1</option>
-                                        <option value="2">@test.Resources.Mail.Edit.Resource.Type2</option>
-                                        <option value="3">@test.Resources.Mail.Edit.Resource.Type3</option>
+                                        <option value="1">@test.Project.API.Resources.Mail.Edit.Resource.Type1</option>
+                                        <option value="2">@test.Project.API.Resources.Mail.Edit.Resource.Type2</option>
+                                        <option value="3">@test.Project.API.Resources.Mail.Edit.Resource.Type3</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="organizer" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.Organizer</label>
+                            <label for="organizer" class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.Organizer</label>
                             <input id="organizer" class="form-control" />
                         </div>
 
 
                         <div class="mb-3">
-                            <label for="organizerMail" class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.OrganizerMail</label>
+                            <label for="organizerMail" class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.OrganizerMail</label>
                             <input id="organizerMail" class="form-control" />
                         </div>  
-                        
                     </div>
-
+                    
                     <!-- Right Column -->
                     <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="TemplateType" class="form-label fw-bold">Template Type</label>
+                                    <select id="TemplateType" name="TemplateType" class="form-control">
+                                        <option value="">Select an email type</option>
+                                        <option value="welcome">Welcome</option>
+                                        <option value="absent">Absent</option>
+                                        <option value="important">Important</option>
+                                        <option value="meeting">Meeting</option>
+                                        <option value="reminder">Reminder</option>
+                                        <option value="thankyou">Thank you</option>
+                                        <option value="recruitment">Recruitment</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Template" class="form-label fw-bold">Template</label>
+                                    <select id="Template" name="Template" class="form-control" data-placeholder="Select an email template...">
+                                        <option value="">Select a template</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <label class="form-label fw-bold">@test.Resources.Mail.Edit.Resource.EmailContent</label>
+                                <label class="form-label fw-bold">@test.Project.API.Resources.Mail.Edit.Resource.EmailContent</label>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-outline-primary btn-sm active" data-view="rendered">
-                                        @test.Resources.Mail.Edit.Resource.Preview
+                                        @test.Project.API.Resources.Mail.Edit.Resource.Preview
                                     </button>
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-view="raw">
-
                                         HTML
                                     </button>
                                 </div>
                             </div>
-                            
                             <textarea id="editor" class="form-control mb-3"></textarea>
-
                             <div class="border rounded">
                                 <div id="previewContent" class="p-3 bg-light">
                                 </div>
@@ -106,10 +125,10 @@
                 <!-- Footer -->
                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
                     <a href="@Url.Action("Index", "Mails")" class="btn btn-secondary">
-                        @test.Resources.Mail.Edit.Resource.Cancel
+                        @test.Project.API.Resources.Mail.Edit.Resource.Cancel
                     </a>
                     <button type="submit" class="btn btn-primary">
-                        @test.Resources.Mail.Edit.Resource.SaveChanges
+                        @test.Project.API.Resources.Mail.Edit.Resource.SaveChanges
                     </button>
 
                 </div>
@@ -197,6 +216,47 @@
             // Load mail data after email options are loaded
             loadEmailOptions().then(() => {
                 loadMailData();
+            });
+
+            // Load templates based on selected email type
+            $('#TemplateType').change(async function() {
+                const templateType = $(this).val();
+                $('#Template').empty().append('<option value="">Select a template</option>');
+                if (templateType) {
+                    try {
+                        const response = await axios.get(`/api/templates/${templateType}`);
+                        if (response.data.success) {
+                            response.data.data.forEach(template => {
+                                $('#Template').append(`<option value="${template}">${template}</option>`);
+                            });
+                        } else {
+                            console.error('No templates found for this type:', response.data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading templates:', error);
+                    }
+                }
+            });
+
+            // Sự kiện thay đổi cho dropdown template
+            $('#Template').change(async function() {
+                const templateName = $(this).val();
+                const templateType = $('#TemplateType').val(); // Get the selected template type
+                if (templateName) {
+                    try {
+                        const response = await axios.get(`/api/templates/${templateType}/${templateName}`);
+                        if (response.data.success) {
+                            // Set the content in the editor
+                            $('#editor').summernote('code', response.data.data);
+                        } else {
+                            console.error('Template not found:', response.data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading template content:', error);
+                    }
+                } else {
+                    $('#editor').summernote('code', '');
+                }
             });
         });
 
